@@ -20,8 +20,8 @@
     "build": "NODE_ENV=production webpack --config webpack.config.js",
     "build:dev": "NODE_ENV=development webpack --config webpack.config.js",
     "build:watch": "NODE_ENV=development node ./node_modules/webpack/bin/webpack.js --config webpack.config.js --watch",
-    "predeploy": "npm run dev ",
-    "deploy": "gh-pages -d dev"
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
