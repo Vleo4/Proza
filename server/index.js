@@ -10,7 +10,7 @@ if (process.env.NODE_ENV === 'development') {
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, '../dist')));
+app.use(express.static(path.join(__dirname, '../build')));
 
 app.get('/', (req, res) => res.sendFile('index.html'));
 let port = process.env.PORT || 3000;

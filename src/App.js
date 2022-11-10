@@ -1,10 +1,9 @@
 import './App';
-import './scss/divide'
+import './components/pages/Home'
+
 function App() {
   return (
     <div className="App">
-        <div className="divLeft" ></div>
-        <div className="divRight"></div>
     </div>
   );
 }
