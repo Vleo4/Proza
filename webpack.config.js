@@ -37,8 +37,18 @@ module.exports = {
                 test: /\.s(a|c)ss$/,
                 exclude: /node_modules/,
                 use: [ MiniCssExtractPlugin.loader,'css-loader','sass-loader'],
+            },
+            {
+                test: /\.(svg|png|jpg|jpeg|gif)$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'file-loader',
+                    options: {
+                        name: '[path][name].[ext]',
+                        outputPath: 'path of output image directory'
+                    }
+                }
             }
-
         ],
     },
     resolve: {
