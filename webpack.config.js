@@ -7,7 +7,7 @@ const TerserPlugin = require("terser-webpack-plugin");
 const production = process.env.NODE_ENV === 'production';
 
 module.exports = {
-    entry: { App: path.resolve(__dirname, "./src/index.js") ,
+    entry: { App: path.resolve(__dirname, "./index.js") ,
         },
     output: {
         path: path.resolve(__dirname, "./build"),
@@ -59,7 +59,7 @@ module.exports = {
         new webpack.HotModuleReplacementPlugin(),
         new HtmlWebpackPlugin({
             title: "Webpack & React",
-            template: "./src/index.html",
+            template: "./index.html",
         }),
         new MiniCssExtractPlugin({
             filename:'[name].css'

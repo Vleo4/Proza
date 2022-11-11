@@ -1,0 +1,120 @@
+$bg-1:#FFF;
+$bg-2:#F1B4BB;
+$text:#000000;
+$button-bg: #C0777F;
+
+
+.button {
+    width: 150px;
+    height: 40px;
+    background-color: $button-bg;
+    text-align: center;
+    border: none;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21.78px;
+    color: $text;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.home-page {
+
+    .divLeft {
+        width: 40%;
+        height: 100%;
+        background-color: $bg-1;
+
+        .logo-image {
+            display: block;
+            justify-content: center;
+            position: absolute;
+            top: 50%;
+            left: 20%;
+            width: 600px;
+            height: 600px;
+            transform: translate(-50%, -50%);
+        }
+    }
+
+    .divRight {
+        position: fixed;
+        right: 0;
+        top: 0;
+        height: 100%;
+        background-color: $bg-2;
+
+        .top-bar {
+            display: flex;
+            gap: 10px;
+            margin-top: 38px;
+            margin-left: 35px;
+            
+            .but-1 {
+                background-color: transparent;
+                min-width: 150px;
+                height: 40px;
+                text-align: center;
+                border: none;
+                font-weight: 400;
+                font-size: 18px;
+                line-height: 21.78px;
+                color: $text;
+                cursor: pointer;
+                border-radius: 10px;
+            }
+
+            .but-2 {
+                :hover {box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+                }
+            }
+
+        }
+
+        .home-content {
+            margin: 10%;
+            //max-width: 600px;
+            justify-content: center;
+            display: flex;
+            flex-direction: column;
+            gap: 87px;
+
+            .home-content-title {
+                font-size: 45px;
+                font-weight: 400px;
+                line-height: 50.18px;
+                color: $text;
+            }
+
+            .home-content-entry {
+                font-size: 18px;
+                font-weight: 400px;
+                line-height: 20.07px;
+                color: $text;
+            }
+        }
+        .nav-bar {
+            align-items: center;
+            display: flex;
+            justify-content: space-between;
+            max-width: 600px;
+
+            .but-3,
+            .but-4 {
+                background-color: $button-bg;
+                text-align: center;
+                border: none;
+                font-weight: 400;
+                font-size: 30px;
+                line-height: 33px;
+                cursor: pointer;
+                border-radius: 12px;
+                color: $bg-1;
+                width: 222px;
+                height: 80px;
+            }
+        }
+
+    }
+}

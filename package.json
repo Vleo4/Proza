@@ -2,7 +2,7 @@
   "name": "webpack",
   "homepage": "https://Vleo4.github.io/Proza",
   "version": "1.0.0",
-  "main": "src/index.js",
+  "main": "Proza/index.js",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -13,10 +13,11 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-responsive": "^9.0.0",
+    "react-router-dom": "^6.4.3",
     "react-scripts": "5.0.1"
   },
   "scripts": {
-    "start": "npm run build && node server/index.js",
+    "start": "npm run build && node Proza/server/index.js",
     "dev": "NODE_ENV=development webpack serve --config webpack.config.js",
     "build": "NODE_ENV=production webpack --config webpack.config.js",
     "build:dev": "NODE_ENV=development webpack --config webpack.config.js",
