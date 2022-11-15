@@ -18,20 +18,14 @@ const LeftDiv=()=>{
 
 const RightDiv=()=>{
     return(
-        <div>
-            <div className='top-bar'>
-                <button className='but-1'>Вхід</button>
-                <div className='but-2'><Button label='Реєстрація'/> </div>
-            </div>
             <div className='home-content'>
                 <div className='home-content-title'><span>Кохай як Жадан, Фотографуйся як Іздрик</span></div>
                 <div className='home-content-entry'><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit quibusdam exercitationem obcaecati corrupti aperiam rem blanditiis eum, commodi repudiandae eaque rerum natus totam, neque aspernatur porro maxime quasi fugiat omnis!</span></div>
                 <div className='nav-bar'>
-                    <button className='but-3'>Вірші</button>
-                    <button className='but-4'>Рецензії</button>
+                    <button className='but-3'>Вхід</button>
+                    <button className='but-4'>Реєстрація</button>
                 </div>
             </div>
-        </div>
     )
 }
 
