@@ -1,0 +1,56 @@
+@import '/src/styles/colors.scss';
+
+.login-container {
+    padding: 45px; 
+    position: relative;
+
+    .form {
+        max-width: 500px;
+        padding: 55px 50px;
+        background-color: $CONTENT_BG;
+        margin: 40px auto;
+        border-radius: 10px;
+            
+        .title {
+            color: $TEXT;
+            font-size: 43px;
+            text-align: center;
+            font-weight: 400;
+            line-height: 48px;
+            margin: 0;
+            margin-bottom: 87px;
+        }
+
+        .inputs-container {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            padding: 0 20px;
+        }
+
+        .checkbox-and-link {
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            margin-top: 57px;
+            margin-bottom: 94px;
+
+            .checkbox {
+                width: 23px;
+                height: 23px;
+                border: 1px solid #000000;
+                margin-right: 14px;
+            }
+
+            .forgot-password {
+                color: $LINK;
+                text-decoration: none;
+                margin-left: auto;
+            }
+        }
+
+        .signup-btn {
+            width: 100%;
+        }
+    }
+}

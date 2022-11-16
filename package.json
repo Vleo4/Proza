@@ -1,66 +1,49 @@
-{
-  "name": "webpack",
-  "homepage": "https://Vleo4.github.io/Proza",
-  "version": "1.0.0",
-  "main": "Proza/index.js",
-  "dependencies": {
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "body-parser": "^1.20.1",
-    "express": "^4.18.2",
-    "gh-pages": "^4.0.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-responsive": "^9.0.0",
-    "react-router-dom": "^6.4.3",
-    "react-scripts": "5.0.1"
-  },
-  "scripts": {
-    "start": "npm run build && node Proza/server/index.js",
-    "dev": "NODE_ENV=development webpack serve --config webpack.config.js",
-    "build": "NODE_ENV=production webpack --config webpack.config.js",
-    "build:dev": "NODE_ENV=development webpack --config webpack.config.js",
-    "build:watch": "NODE_ENV=development node ./node_modules/webpack/bin/webpack.js --config webpack.config.js --watch",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "devDependencies": {
-    "@babel/core": "^7.20.2",
-    "@babel/preset-env": "^7.20.2",
-    "@babel/preset-react": "^7.18.6",
-    "babel-loader": "^9.1.0",
-    "clean-webpack-plugin": "^4.0.0",
-    "css-loader": "^6.7.1",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "html-webpack-plugin": "^5.5.0",
-    "mini-css-extract-plugin": "^2.6.1",
-    "sass": "^1.56.1",
-    "sass-loader": "^13.1.0",
-    "scss": "^0.2.4",
-    "scss-loader": "^0.0.1",
-    "style-loader": "^3.3.1",
-    "terser-webpack-plugin": "^5.3.6",
-    "webpack": "^5.74.0",
-    "webpack-cli": "^4.10.0",
-    "webpack-dev-server": "^4.11.1"
-  }
+{ 
+  "name": "proza", 
+  "version": "0.1.0", 
+  "private": true, 
+  "dependencies": { 
+    "express": "^4.18.2", 
+    "gh-pages": "^4.0.0", 
+    "react": "^18.2.0", 
+    "react-dom": "^18.2.0", 
+    "react-icons": "^4.6.0", 
+    "react-responsive": "^9.0.0", 
+    "react-router-dom": "^6.4.3", 
+    "react-scripts": "^5.0.1" 
+  }, 
+  "devDependencies": { 
+    "eslint": "^8.27.0", 
+    "eslint-config-prettier": "^8.5.0", 
+    "eslint-plugin-prettier": "^4.2.1", 
+    "eslint-plugin-react": "^7.31.10", 
+    "prettier": "^2.7.1" 
+  }, 
+  "scripts": { 
+    "start": "node server.js", 
+    "dev": "NODE_ENV=development react-scripts start", 
+    "build": "NODE_ENV=production react-scripts build", 
+    "predeploy": "npm run build", 
+    "deploy": "gh-pages -d build", 
+    "lint": "eslint .", 
+    "lint:fix": "eslint --fix", 
+    "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc" 
+  }, 
+  "eslintConfig": { 
+    "extends": [ 
+      "react-app" 
+    ] 
+  }, 
+  "browserslist": { 
+    "production": [ 
+      ">0.2%", 
+      "not dead", 
+      "not op_mini all" 
+    ], 
+    "development": [ 
+      "last 1 chrome version", 
+      "last 1 firefox version", 
+      "last 1 safari version" 
+    ] 
+  } 
 }

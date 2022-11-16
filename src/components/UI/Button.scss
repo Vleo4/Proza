@@ -1,0 +1,56 @@
+@import '../../styles/colors.scss';
+
+.button {
+    min-width: 150px;
+    height: 40px;
+    text-align: center;
+    border: none;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+    color: $BG_1;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    &:active {
+        scale: 0.95;
+    }
+
+    .leftIcon {
+        margin-right: 5px;
+    }
+
+    .rightIcon {
+        margin-left: 5px;
+    }
+}
+
+.default {
+    background-color: $BUTTON_BG;
+    
+    &:hover:not(.disabled) {
+        opacity: 0.95;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    }
+}
+
+.transparent {
+    background-color: transparent;
+    color: $TEXT;
+}
+
+.bordered {
+    background-color: transparent;
+    color: $TEXT;
+    border: 5px solid $BUTTON_BG;
+}
+
+
+.disabled {
+    opacity: 0.5;
+    cursor: default;
+}

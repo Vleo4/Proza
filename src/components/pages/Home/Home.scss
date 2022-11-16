@@ -1,120 +1,118 @@
-$bg-1:#FFF;
-$bg-2:#F1B4BB;
-$text:#000000;
-$button-bg: #C0777F;
-
-
-.button {
-    width: 150px;
-    height: 40px;
-    background-color: $button-bg;
-    text-align: center;
-    border: none;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 21.78px;
-    color: $text;
-    cursor: pointer;
-    border-radius: 10px;
-}
+@import '../../../styles/colors.scss';
 
 .home-page {
+    display: block;
+    width: 100%;
 
-    .divLeft {
-        width: 40%;
-        height: 100%;
-        background-color: $bg-1;
+    .top-bar {
+        position: absolute;
+        width: 100%;
+        height: 100px;
+        left: 0px;
+        top: 0px;
+        background-color: $BG_2;
+        align-items: center;
 
-        .logo-image {
-            display: block;
-            justify-content: center;
-            position: absolute;
-            top: 50%;
-            left: 20%;
-            width: 600px;
-            height: 600px;
-            transform: translate(-50%, -50%);
-        }
-    }
-
-    .divRight {
-        position: fixed;
-        right: 0;
-        top: 0;
-        height: 100%;
-        background-color: $bg-2;
-
-        .top-bar {
+        .top-content {
             display: flex;
-            gap: 10px;
-            margin-top: 38px;
-            margin-left: 35px;
-            
-            .but-1 {
-                background-color: transparent;
-                min-width: 150px;
-                height: 40px;
-                text-align: center;
-                border: none;
-                font-weight: 400;
-                font-size: 18px;
-                line-height: 21.78px;
-                color: $text;
-                cursor: pointer;
-                border-radius: 10px;
-            }
+            justify-content: space-between;
+            padding: 15px;
+            margin-right: 25px;
 
-            .but-2 {
-                :hover {box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            .logo-images {
+                display: flex;
+                flex-direction: row;
+                gap: 23px;
+                align-items: center;
 
+                .portrait-image {
+                    width: 69px;
+                    height: 69px;
+                }
+
+                .proza-image {
+                    width: 150px;
+                    height: 41px;
+                }
+
+                .portrait-image,
+                .proza-image {
+                    display: block;
+                    mask-repeat: no-repeat;
                 }
             }
 
-        }
+            .buttons {
+                display: flex;
+                flex-direction: row;
+                gap: 23px;
+                align-items: center;
+                gap: 65px;
 
-        .home-content {
-            margin: 10%;
-            //max-width: 600px;
-            justify-content: center;
-            display: flex;
-            flex-direction: column;
-            gap: 87px;
-
-            .home-content-title {
-                font-size: 45px;
-                font-weight: 400px;
-                line-height: 50.18px;
-                color: $text;
-            }
-
-            .home-content-entry {
-                font-size: 18px;
-                font-weight: 400px;
-                line-height: 20.07px;
-                color: $text;
+                .but-1,
+                .but-2 {
+                    width: 175px;
+                    height: 70px;
+                }
             }
         }
-        .nav-bar {
-            align-items: center;
-            display: flex;
-            justify-content: space-between;
-            max-width: 600px;
-
-            .but-3,
-            .but-4 {
-                background-color: $button-bg;
-                text-align: center;
-                border: none;
-                font-weight: 400;
-                font-size: 30px;
-                line-height: 33px;
-                cursor: pointer;
-                border-radius: 12px;
-                color: $bg-1;
-                width: 222px;
-                height: 80px;
-            }
-        }
-
     }
+
+    .side-bar {
+        position: absolute;
+        left: 0px;
+        top: 100px;
+        background-color: $BG_1;
+        width: 20%;
+        height: 100%;
+    }
+    
+    .content {
+        position: absolute;
+        top: 100px;
+        right: 0px;
+        height: 100%;
+        background-color: $CONTENT_BG;
+        width: 80%;
+    }
+
+
+    // .divRight {
+    //     position: fixed;
+    //     right: 0;
+    //     top: 0;
+    //     height: 100%;
+    //     background-color: $BG_2;
+
+        
+
+    //     .home-content {
+    //         margin: 10%;
+    //         justify-content: center;
+    //         display: flex;
+    //         flex-direction: column;
+    //         gap: 60px;
+
+    //         .home-content-title {
+    //             font-size: 45px;
+    //             font-weight: 400px;
+    //             line-height: 50.18px;
+    //             color: $TEXT;
+    //         }
+
+    //         .home-content-entry {
+    //             font-size: 18px;
+    //             font-weight: 400px;
+    //             line-height: 20.07px;
+    //             color: $TEXT;
+    //         }
+    //     }
+    //     .nav-bar {
+    //         align-items: center;
+    //         display: flex;
+    //         justify-content: space-between;
+    //         max-width: 600px;
+    //     }
+
+    // }
 }
