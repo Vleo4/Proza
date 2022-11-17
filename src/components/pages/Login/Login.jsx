@@ -76,7 +76,7 @@ const Login = () => {
                         </Link>
                     </div>
                     <Button
-                        className='signup-btn'
+                        className='login-btn'
                         label='Увійти'
                         isDisabled={isDisabled}
                         onClick={handleSubmit}
