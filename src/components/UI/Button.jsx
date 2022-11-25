@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import classNames from 'utils/classNames';
 import './Button.scss';
 import { useNavigate } from 'react-router-dom';
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 
 const Button = ({
     label,
@@ -11,7 +12,8 @@ const Button = ({
     isDisabled,
     path,
     leftIcon,
-    rightIcon
+    rightIcon,
+    isLoading
 }) => {
     const navigate = useNavigate();
 
@@ -31,7 +33,7 @@ const Button = ({
     const handleClick = () => {
         handleNavigate();
 
-        if (isDisabled || !onClick) return;
+        if (isDisabled || isLoading || !onClick) return;
 
         onClick();
     };
@@ -39,7 +41,11 @@ const Button = ({
     return (
         <button className={buttonStyles} onClick={handleClick}>
             {leftIcon && <span className='leftIcon'>{leftIcon}</span>}
-            {label}
+            {isLoading ? (
+                <AiOutlineLoading3Quarters width={10} height={10} className='loading-icon' />
+            ) : (
+                label
+            )}
             {rightIcon && <span className='rightIcon'>{rightIcon}</span>}
         </button>
     );
@@ -52,7 +58,8 @@ Button.propTypes = {
     className: PropTypes.string,
     isDisabled: PropTypes.bool,
     leftIcon: PropTypes.element,
-    rightIcon: PropTypes.element
+    rightIcon: PropTypes.element,
+    isLoading: PropTypes.bool
 };
 
 export default Button;

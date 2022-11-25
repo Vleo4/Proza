@@ -6,40 +6,40 @@
 
     .form {
         max-width: 500px;
-        padding: 55px 50px;
+        padding: 3.438rem 3.125rem;
         background-color: $CONTENT_BG;
-        margin: 40px auto;
-        border-radius: 10px;
+        margin: 2.5rem auto;
+        border-radius: 0.625rem;
             
         .title {
             color: $TEXT;
-            font-size: 43px;
+            font-size: 2.688rem;
             text-align: center;
             font-weight: 400;
-            line-height: 48px;
+            line-height: 3rem;
             margin: 0;
-            margin-bottom: 87px;
+            margin-bottom: 5.438rem;
         }
 
         .inputs-container {
             display: flex;
             flex-direction: column;
-            gap: 40px;
-            padding: 0 20px;
+            gap: 2.5rem;
+            padding: 0 1.25rem;
         }
 
         .checkbox-and-link {
-            font-size: 18px;
+            font-size: 1.125rem;
             display: flex;
             align-items: center;
-            margin-top: 57px;
-            margin-bottom: 94px;
+            margin-top: 3.563rem;
+            margin-bottom: 5.875rem;
 
             .checkbox {
-                width: 23px;
-                height: 23px;
-                border: 1px solid #000000;
-                margin-right: 14px;
+                width: 1.438rem;
+                height: 1.438rem;
+                border: 0.063rem solid #000000;
+                margin-right: 0.875rem;
             }
 
             .forgot-password {
@@ -49,8 +49,16 @@
             }
         }
 
-        .signup-btn {
+        .login-btn {
+            height: 3.125rem;
             width: 100%;
+        }
+
+        .error-text {
+            display: block;
+            margin: 0.625rem auto;
+            text-align: center;
+            color: $DANGER;
         }
     }
 }

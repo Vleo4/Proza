@@ -7,32 +7,32 @@
     .top-bar {
         position: absolute;
         width: 100%;
-        height: 100px;
-        left: 0px;
-        top: 0px;
+        height: 6.25rem;
+        left: 0;
+        top: 0;
         background-color: $BG_2;
         align-items: center;
 
         .top-content {
             display: flex;
             justify-content: space-between;
-            padding: 15px;
-            margin-right: 25px;
+            padding: 0.938rem;
+            margin-right: 1.563rem;
 
             .logo-images {
                 display: flex;
                 flex-direction: row;
-                gap: 23px;
+                gap: 1.438rem;
                 align-items: center;
 
                 .portrait-image {
-                    width: 69px;
-                    height: 69px;
+                    width: 4.313rem;
+                    height: 4.313rem;
                 }
 
                 .proza-image {
-                    width: 150px;
-                    height: 41px;
+                    width: 9.375rem;
+                    height: 2.563rem;
                 }
 
                 .portrait-image,
@@ -45,14 +45,13 @@
             .buttons {
                 display: flex;
                 flex-direction: row;
-                gap: 23px;
                 align-items: center;
-                gap: 65px;
+                gap: 4.063rem;
 
                 .but-1,
                 .but-2 {
-                    width: 175px;
-                    height: 70px;
+                    width: 10.938rem;
+                    height: 4.375rem;
                 }
             }
         }
@@ -60,59 +59,19 @@
 
     .side-bar {
         position: absolute;
-        left: 0px;
-        top: 100px;
+        left: 0;
+        top: 6.25rem;
         background-color: $BG_1;
         width: 20%;
         height: 100%;
     }
-    
+
     .content {
         position: absolute;
-        top: 100px;
-        right: 0px;
+        top: 6.25rem;
+        right: 0;
         height: 100%;
         background-color: $CONTENT_BG;
         width: 80%;
     }
-
-
-    // .divRight {
-    //     position: fixed;
-    //     right: 0;
-    //     top: 0;
-    //     height: 100%;
-    //     background-color: $BG_2;
-
-        
-
-    //     .home-content {
-    //         margin: 10%;
-    //         justify-content: center;
-    //         display: flex;
-    //         flex-direction: column;
-    //         gap: 60px;
-
-    //         .home-content-title {
-    //             font-size: 45px;
-    //             font-weight: 400px;
-    //             line-height: 50.18px;
-    //             color: $TEXT;
-    //         }
-
-    //         .home-content-entry {
-    //             font-size: 18px;
-    //             font-weight: 400px;
-    //             line-height: 20.07px;
-    //             color: $TEXT;
-    //         }
-    //     }
-    //     .nav-bar {
-    //         align-items: center;
-    //         display: flex;
-    //         justify-content: space-between;
-    //         max-width: 600px;
-    //     }
-
-    // }
 }
