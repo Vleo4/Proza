@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import './Input.scss';
 import classNames from 'utils/classNames';
 
-const Input = ({ type, placeholder, value, onChange, className }) => {
+const Input = ({ type, placeholder, value, onChange, className, error }) => {
     const inputSyles = classNames({
         input: true,
-        [className]: !!className
+        [className]: !!className,
+        error: error
     });
 
     return (
@@ -21,7 +22,8 @@ Input.propTypes = {
     placeholder: PropTypes.string,
     value: PropTypes.string.isRequired,
     className: PropTypes.string,
-    onChange: PropTypes.func.isRequired
+    onChange: PropTypes.func.isRequired,
+    error: PropTypes.bool
 };
 
 export default Input;

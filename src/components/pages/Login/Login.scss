@@ -53,5 +53,12 @@
             height: 50px;
             width: 100%;
         }
+
+        .error-text {
+            display: block;
+            margin: 10px auto;
+            text-align: center;
+            color: $DANGER;
+        }
     }
 }

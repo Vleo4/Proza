@@ -54,3 +54,16 @@
     opacity: 0.5;
     cursor: default;
 }
+
+.loading-icon {
+    animation: rotate-animation 1s linear infinite;
+}
+
+@keyframes rotate-animation {
+    from{
+        transform: rotate(0deg);
+    }
+    to{
+        transform: rotate(360deg);
+    }
+}
