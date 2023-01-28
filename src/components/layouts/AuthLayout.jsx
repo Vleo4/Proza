@@ -1,5 +1,5 @@
 import React from 'react';
-import './HomeLayout.scss';
+import './AuthLayout.scss';
 import logo from '../../assets/images/logo.png';
 
 const HomeLayout = ({ children }) => {

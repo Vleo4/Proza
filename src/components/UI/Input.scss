@@ -1,28 +1,49 @@
 @import '../../styles/colors.scss';
 
-.input > input {
-    width: 100%;
-    display: block;
-    padding: 16px 7px;
-    background: #FFFFFF;
-    border: 1px solid rgba(0, 0, 0, 0.5);
-    border-radius: 10px;
-    font-size: 20px;
-    line-height: 24px;
-    outline: none;
-
-    &::placeholder {
-        color: #000000;
-    }
-
-}
 
 .input {
     width: 100%;
     display: flex;
+    position: relative;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    background: #FFFFFF;
+
+    &__input {
+        width: 100%;
+        display: block;
+        padding: 16px 7px;
+        background: transparent;
+        font-size: 20px;
+        line-height: 24px;
+        outline: none;
+        border: none;
+        height: 100%;
+    
+    
+        &::placeholder {
+            color: #000000;
+        }
+    }
+
+    &__input:not(:placeholder-shown) + &__label {
+        transform: translate(0, -250%);
+        opacity: 1;
+    }
+
+    &__label {
+        left: 14px;
+        position: absolute;
+        top: 50%;
+        opacity: 0;
+        transition: all 200ms;
+        padding: 0 7px;
+        font-size: 20px;
+        line-height: 24px;
+    }
 
     &.error {
-        input {
+        &__input {
             border-color: $DANGER;
         }
     }

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { BsArrowLeft } from 'react-icons/bs';
-import HomeLayout from 'components/layouts/HomeLayout';
+import HomeLayout from 'components/layouts/AuthLayout';
 import Button from 'components/UI/Button';
 import './Login.scss';
 import Input from 'components/UI/Input';

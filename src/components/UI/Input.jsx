@@ -12,7 +12,14 @@ const Input = ({ type, placeholder, value, onChange, className, error }) => {
 
     return (
         <div className={inputSyles}>
-            <input type={type} value={value} placeholder={placeholder} onChange={onChange} />
+            <input
+                type={type}
+                value={value}
+                placeholder={placeholder}
+                onChange={onChange}
+                className='input__input'
+            />
+            <label className='input__label'>{placeholder}</label>
         </div>
     );
 };

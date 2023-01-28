@@ -1,6 +1,6 @@
 import Auth from './auth';
 
-const apiPrefix = 'https://example.com/api';
+const apiPrefix = process.env.REACT_APP_API_PREFIX;
 
 const api = {
     auth: new Auth(apiPrefix)

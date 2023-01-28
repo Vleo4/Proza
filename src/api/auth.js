@@ -7,7 +7,7 @@ class Auth {
     }
 
     async login(email, password) {
-        const response = await axios.post(`${this.apiPrefix}/api/auth/login`, {
+        const response = await axios.post(`${this.apiPrefix}/v1/drf-auth/login/`, {
             email,
             password
         });
@@ -15,7 +15,7 @@ class Auth {
     }
 
     async register(name, email, password) {
-        const response = await axios.post(`${this.apiPrefix}/api/auth/register`, {
+        const response = await axios.post(`${this.apiPrefix}/v1/drf-auth/register/`, {
             name,
             email,
             password
