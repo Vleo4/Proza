@@ -7,8 +7,6 @@ import Users from '../../UI/Users';
 import axios from 'axios';
 
 const Verse = () => {
-    //const POSTS_PER_QUERY = 4;
-    //запит поста
     const postsProps = [
         {
             tittle: 'І жінка з чорними очима, як земля, волоссям\n',
@@ -37,22 +35,6 @@ const Verse = () => {
             author: 'Four Ananas'
         }
     ];
-    // eslint-disable-next-line no-unused-vars
-    const newPostsProps = [
-        {
-            tittle: 'І жінка з чорними очима, як земля, волоссям\n',
-            content: 'abc',
-            id: '5',
-            author: 'Tripple Ananas'
-        },
-        {
-            tittle: 'І жінка з чорними очима, як земля, волоссям\n',
-            content:
-                "As I walk through the valley of the shadow of death\\r\\nI take a look at my life and realize there's not much left\\r\\n'Cause I've been blastin' and laughin' so long, that\\r\\nEven my mama thinks that my mind is gone\\r\\nBut I ain't never crossed a man that didn't deserve it\\r\\nMe be treated like a punk, you know that's unheard of\\r\\nYou better watch how you're talkin', and where you're walkin'\\r\\nOr you and your homies might be lined in chalk\\r\\nI really hate to trip but I gotta loc\\r\\nAs they croak, I see myself in the pistol smoke, fool\\r\\nI'm the kinda G the little homies wanna be like\\r\\nOn my knees in the night, sayin' prayers in the streetlight",
-            id: '6',
-            author: 'No Ananas'
-        }
-    ];
     const [infinite, setInfinite] = useState({
         items: [
             {
@@ -73,7 +55,6 @@ const Verse = () => {
         hasMore: true,
         length: 0
     });
-    // eslint-disable-next-line no-unused-vars
     const [state, setState] = useState(null);
     const fetchMoreData = () => {
         console.log(state.items);
