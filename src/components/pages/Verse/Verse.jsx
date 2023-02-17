@@ -7,6 +7,7 @@ import Users from '../../UI/Users';
 import axios from 'axios';
 
 const Verse = () => {
+    // eslint-disable-next-line no-unused-vars
     const postsProps = [
         {
             tittle: 'І жінка з чорними очима, як земля, волоссям\n',
@@ -35,36 +36,21 @@ const Verse = () => {
             author: 'Four Ananas'
         }
     ];
-    const [infinite, setInfinite] = useState({
-        items: [
-            {
-                tittle: 'І жінка з чорними очима, як земля, волоссям\n',
-                content:
-                    "As I walk through the valley of the shadow of death\\r\\nI take a look at my life and realize there's not much left\\r\\n'Cause I've been blastin' and laughin' so long, that\\r\\nEven my mama thinks that my mind is gone\\r\\nBut I ain't never crossed a man that didn't deserve it\\r\\nMe be treated like a punk, you know that's unheard of\\r\\nYou better watch how you're talkin', and where you're walkin'\\r\\nOr you and your homies might be lined in chalk\\r\\nI really hate to trip but I gotta loc\\r\\nAs they croak, I see myself in the pistol smoke, fool\\r\\nI'm the kinda G the little homies wanna be like\\r\\nOn my knees in the night, sayin' prayers in the streetlight",
-                id: '6',
-                author: 'No Ananas'
-            },
-            {
-                tittle: 'І жінка з чорними очима, як земля, волоссям\n',
-                content:
-                    "As I walk through the valley of the shadow of death\\r\\nI take a look at my life and realize there's not much left\\r\\n'Cause I've been blastin' and laughin' so long, that\\r\\nEven my mama thinks that my mind is gone\\r\\nBut I ain't never crossed a man that didn't deserve it\\r\\nMe be treated like a punk, you know that's unheard of\\r\\nYou better watch how you're talkin', and where you're walkin'\\r\\nOr you and your homies might be lined in chalk\\r\\nI really hate to trip but I gotta loc\\r\\nAs they croak, I see myself in the pistol smoke, fool\\r\\nI'm the kinda G the little homies wanna be like\\r\\nOn my knees in the night, sayin' prayers in the streetlight",
-                id: '4',
-                author: 'No Ananas'
-            }
-        ],
-        hasMore: true,
-        length: 0
-    });
+    const [infinite, setInfinite] = useState({ items: [] });
     const [state, setState] = useState(null);
+    const [indexCount, setIndexCount] = useState(2);
+    const [hasMore, setHasMore] = useState(true);
     const fetchMoreData = () => {
-        console.log(state.items);
-        setInfinite({ items: state.items });
-        console.log(infinite);
+        setInfinite({ items: [...infinite.items, state.items[indexCount]] });
+        setIndexCount(indexCount + 1);
+        if (indexCount === state.items.length - 1) setHasMore(false);
     };
     const apiURL = 'https://prozaapp.art/api/v1/';
     React.useEffect(() => {
         axios.get(apiURL + 'article/?format=json').then((response) => {
+            console.log(response.data);
             setState({ items: response.data });
+            setInfinite({ items: [response.data[0], response.data[1]] });
         });
     }, []);
     const [active, setActive] = useState(false);
@@ -78,26 +64,19 @@ const Verse = () => {
                         <InfiniteScroll
                             scrollableTarget='scrollableDiv'
                             next={fetchMoreData}
-                            hasMore={infinite.hasMore}
+                            hasMore={hasMore}
                             loader={<h4>Loading..</h4>}
                             height={'100vh'}
-                            dataLength={infinite.length}
+                            dataLength={infinite.items.length}
                             endMessage={<p>LAST</p>}>
                             {infinite.items.map((p, index) => (
-                                <Posts tittle={p.title} content={p.content} key={index}>
-                                    {p}
-                                </Posts>
+                                <Posts tittle={p.title} content={p.content} key={index}></Posts>
                             ))}
                         </InfiniteScroll>
                     </div>
                 </div>
                 <div className='right-small'>
-                    <Users
-                        className='users'
-                        author={postsProps[0].author}
-                        verseOne={postsProps[0].tittle}
-                        verseSecond={postsProps[1].tittle}
-                    />
+                    <Users className='users' />
                 </div>
             </div>
         );
@@ -110,15 +89,13 @@ const Verse = () => {
                     <InfiniteScroll
                         scrollableTarget='scrollableDiv'
                         next={fetchMoreData}
-                        hasMore={infinite.hasMore}
+                        hasMore={hasMore}
                         loader={<h4>Loading..</h4>}
                         height={'100vh'}
-                        dataLength={infinite.length}
+                        dataLength={infinite.items.length}
                         endMessage={<p>LAST</p>}>
                         {infinite.items.map((p, index) => (
-                            <Posts tittle={p.title} content={p.content} key={index}>
-                                {p}
-                            </Posts>
+                            <Posts tittle={p.title} content={p.content} key={index}></Posts>
                         ))}
                     </InfiniteScroll>
                 </div>
@@ -128,7 +105,7 @@ const Verse = () => {
                         className='users'
                         author={postsProps[0].author}
                         verseOne={postsProps[0].tittle}
-                        verseSecond={postsProps[2].tittle}
+                        verseSecond={postsProps[0].tittle}
                     />
                 </div>
             </div>
