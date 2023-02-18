@@ -5,9 +5,9 @@ import Posts from '../../UI/Posts';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Users from '../../UI/Users';
 import axios from 'axios';
+import useResizer from '../../../utils/utils';
 
 const Verse = () => {
-    // eslint-disable-next-line no-unused-vars
     const postsProps = [
         {
             tittle: 'І жінка з чорними очима, як земля, волоссям\n',
@@ -36,6 +36,7 @@ const Verse = () => {
             author: 'Four Ananas'
         }
     ];
+    const isMobile = useResizer();
     const [infinite, setInfinite] = useState({ items: [] });
     const [state, setState] = useState(null);
     const [indexCount, setIndexCount] = useState(2);
@@ -54,11 +55,12 @@ const Verse = () => {
         });
     }, []);
     const [active, setActive] = useState(false);
-    if (active) {
+    if (isMobile) {
         return (
-            <div className='verse-page-small'>
-                <Navbar className='navBar' active={active} setActive={setActive} />
+            <>
                 <div className='verse-small'>
+                    <Navbar className='navBar' active={active} setActive={setActive} />
+
                     <div className='verse'>
                         {' '}
                         <InfiniteScroll
@@ -75,41 +77,71 @@ const Verse = () => {
                         </InfiniteScroll>
                     </div>
                 </div>
-                <div className='right-small'>
-                    <Users className='users' />
-                </div>
-            </div>
+            </>
         );
-    }
-    if (!active) {
-        return (
-            <div className='verse-page' style={{ overflow: 'auto' }} id='scrollableDiv'>
-                <Navbar className='navBar' active={active} setActive={setActive} />
-                <div className='verse-block'>
-                    <InfiniteScroll
-                        scrollableTarget='scrollableDiv'
-                        next={fetchMoreData}
-                        hasMore={hasMore}
-                        loader={<h4>Loading..</h4>}
-                        height={'100vh'}
-                        dataLength={infinite.items.length}
-                        endMessage={<p>LAST</p>}>
-                        {infinite.items.map((p, index) => (
-                            <Posts tittle={p.title} content={p.content} key={index}></Posts>
-                        ))}
-                    </InfiniteScroll>
-                </div>
+    } else {
+        if (active) {
+            return (
+                <>
+                    <div className='verse-page-small'>
+                        <Navbar className='navBar' active={active} setActive={setActive} />
+                        <div className='verse-small'>
+                            <div className='verse'>
+                                {' '}
+                                <InfiniteScroll
+                                    scrollableTarget='scrollableDiv'
+                                    next={fetchMoreData}
+                                    hasMore={hasMore}
+                                    loader={<h4>Loading..</h4>}
+                                    height={'100vh'}
+                                    dataLength={infinite.items.length}
+                                    endMessage={<p>LAST</p>}>
+                                    {infinite.items.map((p, index) => (
+                                        <Posts
+                                            tittle={p.title}
+                                            content={p.content}
+                                            key={index}></Posts>
+                                    ))}
+                                </InfiniteScroll>
+                            </div>
+                        </div>
+                        <div className='right-small'>
+                            <Users className='users' />
+                        </div>
+                    </div>
+                </>
+            );
+        }
+        if (!active) {
+            return (
+                <div className='verse-page' style={{ overflow: 'auto' }} id='scrollableDiv'>
+                    <Navbar className='navBar' active={active} setActive={setActive} />
+                    <div className='verse-block'>
+                        <InfiniteScroll
+                            scrollableTarget='scrollableDiv'
+                            next={fetchMoreData}
+                            hasMore={hasMore}
+                            loader={<h4>Loading..</h4>}
+                            height={'100vh'}
+                            dataLength={infinite.items.length}
+                            endMessage={<p>LAST</p>}>
+                            {infinite.items.map((p, index) => (
+                                <Posts tittle={p.title} content={p.content} key={index}></Posts>
+                            ))}
+                        </InfiniteScroll>
+                    </div>
 
-                <div className='right'>
-                    <Users
-                        className='users'
-                        author={postsProps[0].author}
-                        verseOne={postsProps[0].tittle}
-                        verseSecond={postsProps[0].tittle}
-                    />
+                    <div className='right'>
+                        <Users
+                            className='users'
+                            author={postsProps[0].author}
+                            verseOne={postsProps[0].tittle}
+                            verseSecond={postsProps[0].tittle}
+                        />
+                    </div>
                 </div>
-            </div>
-        );
+            );
+        }
     }
 };
 
