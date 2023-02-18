@@ -1,15 +1,13 @@
 @import '../../../styles/colors.scss';
 
 .home-page {
-    display: block;
+    display: flex;
     width: 100%;
 
     .top-bar {
-        position: absolute;
-        width: 100%;
+        margin-left: auto;
+        width: 75%;
         height: 100px;
-        left: 0px;
-        top: 0px;
         background-color: $BG_2;
         align-items: center;
 
@@ -19,35 +17,11 @@
             padding: 15px;
             margin-right: 25px;
 
-            .logo-images {
-                display: flex;
-                flex-direction: row;
-                gap: 23px;
-                align-items: center;
-
-                .portrait-image {
-                    width: 69px;
-                    height: 69px;
-                }
-
-                .proza-image {
-                    width: 150px;
-                    height: 41px;
-                }
-
-                .portrait-image,
-                .proza-image {
-                    display: block;
-                    mask-repeat: no-repeat;
-                }
-            }
-
             .buttons {
                 display: flex;
                 flex-direction: row;
                 gap: 23px;
                 align-items: center;
-                gap: 65px;
 
                 .but-1,
                 .but-2 {
@@ -58,15 +32,6 @@
         }
     }
 
-    .side-bar {
-        position: absolute;
-        left: 0px;
-        top: 100px;
-        background-color: $BG_1;
-        width: 20%;
-        height: 100%;
-    }
-    
     .content {
         position: absolute;
         top: 100px;
@@ -75,44 +40,4 @@
         background-color: $CONTENT_BG;
         width: 80%;
     }
-
-
-    // .divRight {
-    //     position: fixed;
-    //     right: 0;
-    //     top: 0;
-    //     height: 100%;
-    //     background-color: $BG_2;
-
-        
-
-    //     .home-content {
-    //         margin: 10%;
-    //         justify-content: center;
-    //         display: flex;
-    //         flex-direction: column;
-    //         gap: 60px;
-
-    //         .home-content-title {
-    //             font-size: 45px;
-    //             font-weight: 400px;
-    //             line-height: 50.18px;
-    //             color: $TEXT;
-    //         }
-
-    //         .home-content-entry {
-    //             font-size: 18px;
-    //             font-weight: 400px;
-    //             line-height: 20.07px;
-    //             color: $TEXT;
-    //         }
-    //     }
-    //     .nav-bar {
-    //         align-items: center;
-    //         display: flex;
-    //         justify-content: space-between;
-    //         max-width: 600px;
-    //     }
-
-    // }
 }
