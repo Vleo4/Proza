@@ -1,0 +1,22 @@
+nav .ul-mobile li {
+  cursor: pointer;
+  width:20%;
+  margin-top:5%;
+}
+nav .ul-mobile{
+  padding:0;
+  margin: auto;
+}
+nav .ul-mobile li .icon-mobile {
+  width: 30%;
+  display: inline-block;
+  margin-left: 33%;
+}
+nav .ul-mobile .not-active{
+    display: inline-grid;
+}
+nav .ul-mobile .active{
+  display: inline-grid;
+  background: #FFE3FF;
+  border-radius: 15px;
+}

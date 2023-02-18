@@ -1,14 +1,15 @@
-import './Posts.scss';
-import dots from '../../assets/images/Posts/dots.png';
-import likes from '../../assets/images/Posts/likes.png';
-import noLikes from '../../assets/images/Posts/nolikes.png';
-import comments from '../../assets/images/Posts/comments.png';
-import noSaves from '../../assets/images/Posts/nosaves.png';
-import saves from '../../assets/images/Posts/saves.png';
-import share from '../../assets/images/Posts/share.png';
+import './PostsMobile.scss';
+import dots from '../../../assets/images/Posts/dots.png';
+import likes from '../../../assets/images/Posts/likes.png';
+import noLikes from '../../../assets/images/Posts/nolikes.png';
+import comments from '../../../assets/images/Posts/comments.png';
+import noSaves from '../../../assets/images/Posts/nosaves.png';
+import saves from '../../../assets/images/Posts/saves.png';
+import share from '../../../assets/images/Posts/share.png';
+import model from '../../../assets/images/Users/model.png';
 import { useState } from 'react';
 
-const Posts = (props) => {
+const PostsMobile = (props) => {
     const regex = /\\n|\\r\\n|\\n\\r|\\r/g;
     const content = () => {
         return props.content.replace(regex, '\n');
@@ -25,13 +26,14 @@ const Posts = (props) => {
         setIsSave(!isSave);
     };
     return (
-        <div className='posts'>
-            <div className='header-post'>
-                {props.tittle}
-                <img src={dots} onClick={alertMessage} alt='dots'></img>
+        <div className='postsMobile'>
+            <div className='header-postMobile'>
+                <img src={model} className='avatarMobile' alt='avatar' />
+                <a>{props.author}</a>
+                <img src={dots} className='dots' onClick={alertMessage} alt='dots'></img>
             </div>
-            <div className='text'>{content()}</div>
-            <div className='footer-post'>
+            <div className='textMobile'>{content()}</div>
+            <div className='footer-post-mobile'>
                 <img
                     src={isLike ? likes : noLikes}
                     className='first'
@@ -49,4 +51,4 @@ const Posts = (props) => {
     );
 };
 
-export default Posts;
+export default PostsMobile;

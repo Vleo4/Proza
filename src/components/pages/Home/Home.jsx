@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './Home.scss';
 import '../../../styles/globals.scss';
 import Button from 'components/UI/Button';
-import Navbar from '../../UI/Navbar';
+import Navbar from '../../UI/Navbar/Navbar';
 
 const Home = () => {
     const [active, setActive] = useState(false);
