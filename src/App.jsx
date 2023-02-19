@@ -3,9 +3,9 @@ import Signup from 'components/pages/Signup/Signup';
 import { Routes, Route } from 'react-router-dom';
 import MainLayout from './components/layouts/MainLayout';
 import Home from './components/pages/Home/Home';
-import Verse from './components/pages/Verse/Verse';
 import Article from './components/pages/Article/Article';
 import React from 'react';
+import ArticleID from './components/pages/Articleid/ArticleID';
 
 function App() {
     return (
@@ -22,7 +22,8 @@ function App() {
                     <Route path='likes' element={<Article />} />
                     <Route path='saves' element={<Article />} />
                     <Route path='profile' element={<Article />} />
-                    <Route path='settings' element={<Verse />} />
+                    <Route path='settings' element={<Article />} />
+                    <Route path='article/:id' element={<ArticleID />} />
                 </Route>
             </Routes>
         </div>

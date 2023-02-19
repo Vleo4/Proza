@@ -31,6 +31,7 @@ const Verse = (props) => {
                                 <PostsMobile
                                     author={p.author}
                                     content={p.content}
+                                    id={p.id}
                                     key={index}></PostsMobile>
                             </div>
                         ))}
@@ -62,6 +63,7 @@ const Verse = (props) => {
                                         <Posts
                                             tittle={p.title}
                                             content={p.content}
+                                            id={p.id}
                                             key={index}></Posts>
                                     ))}
                                 </InfiniteScroll>
@@ -81,32 +83,38 @@ const Verse = (props) => {
         }
         if (!active) {
             return (
-                <div className='verse-page' style={{ overflow: 'auto' }} id='scrollableDiv'>
-                    <Navbar className='navBar' active={active} setActive={setActive} />
-                    <div className='verse-block'>
-                        <InfiniteScroll
-                            scrollableTarget='scrollableDiv'
-                            next={props.fetchMoreData}
-                            hasMore={props.hasMore}
-                            loader={<h4>Loading..</h4>}
-                            height={'100vh'}
-                            dataLength={props.infinite.items.length}
-                            endMessage={<p>LAST</p>}>
-                            {props.infinite.items.map((p, index) => (
-                                <Posts tittle={p.title} content={p.content} key={index}></Posts>
-                            ))}
-                        </InfiniteScroll>
-                    </div>
+                <>
+                    <div className='verse-page' style={{ overflow: 'auto' }} id='scrollableDiv'>
+                        <Navbar className='navBar' active={active} setActive={setActive} />
+                        <div className='verse-block'>
+                            <InfiniteScroll
+                                scrollableTarget='scrollableDiv'
+                                next={props.fetchMoreData}
+                                hasMore={props.hasMore}
+                                loader={<h4>Loading..</h4>}
+                                height={'100vh'}
+                                dataLength={props.infinite.items.length}
+                                endMessage={<p>LAST</p>}>
+                                {props.infinite.items.map((p, index) => (
+                                    <Posts
+                                        tittle={p.title}
+                                        content={p.content}
+                                        id={p.id}
+                                        key={index}></Posts>
+                                ))}
+                            </InfiniteScroll>
+                        </div>
 
-                    <div className='right'>
-                        <Users
-                            className='users'
-                            author={'Анастасія Костирка'}
-                            verseOne={'І жінка з чорними очима, як земля, волоссям\n'}
-                            verseSecond={'І жінка з чорними очима, як земля, волоссям\n'}
-                        />
+                        <div className='right'>
+                            <Users
+                                className='users'
+                                author={'Анастасія Костирка'}
+                                verseOne={'І жінка з чорними очима, як земля, волоссям\n'}
+                                verseSecond={'І жінка з чорними очима, як земля, волоссям\n'}
+                            />
+                        </div>
                     </div>
-                </div>
+                </>
             );
         }
     }

@@ -24,11 +24,13 @@ const PostsMobile = (props) => {
     };
     const [isSave, setIsSave] = useState(false);
     const onSaves = () => {
-        console.log(window.innerHeight / window.innerWidth);
         setIsSave(!isSave);
     };
     const executeOnClick = () => {
         alert(content());
+    };
+    const onShare = () => {
+        navigator.clipboard.writeText('https://prozaapp.art/article/' + props.id);
     };
     return (
         <div className='postsMobile'>
@@ -70,7 +72,7 @@ const PostsMobile = (props) => {
                     className='next'
                     onClick={onSaves}
                     alt='saves'></img>
-                <img src={share} className='last' onClick={alertMessage} alt='share'></img>
+                <img src={share} className='last' onClick={onShare} alt='share'></img>
             </div>
         </div>
     );
