@@ -7,6 +7,7 @@ import noSaves from '../../../assets/images/Posts/nosaves.png';
 import saves from '../../../assets/images/Posts/saves.png';
 import share from '../../../assets/images/Posts/share.png';
 import { useState } from 'react';
+import ShowMoreText from 'react-show-more-text';
 
 const Posts = (props) => {
     const regex = /\\n|\\r\\n|\\n\\r|\\r/g;
@@ -24,13 +25,31 @@ const Posts = (props) => {
     const onSaves = () => {
         setIsSave(!isSave);
     };
+    const executeOnClick = () => {
+        alert(content());
+    };
     return (
         <div className='posts'>
             <div className='header-post'>
                 {props.tittle}
                 <img src={dots} onClick={alertMessage} alt='dots'></img>
             </div>
-            <div className='text'>{content()}</div>
+            <div className='text-parent'>
+                {
+                    <ShowMoreText
+                        className='text'
+                        width={300}
+                        lines={parseInt(window.outerHeight / 45)}
+                        more='Читати далі'
+                        keepNewLines={true}
+                        anchorClass='textNext'
+                        onClick={executeOnClick}
+                        expandByClick={false}
+                        expanded={false}>
+                        {content()}
+                    </ShowMoreText>
+                }{' '}
+            </div>
             <div className='footer-post'>
                 <img
                     src={isLike ? likes : noLikes}

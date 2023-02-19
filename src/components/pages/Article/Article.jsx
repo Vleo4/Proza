@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import Verse from '../Verse/Verse';
-const Home = () => {
+const Article = () => {
     const [infinite, setInfinite] = useState({ items: [] });
     const [state, setState] = useState(null);
     const apiURL = 'https://prozaapp.art/api/v1/';
@@ -23,4 +23,4 @@ const Home = () => {
     );
 };
 
-export default Home;
+export default Article;

@@ -35,6 +35,20 @@
    font-weight: 400;
    font-size: 11px;
    line-height: 13.31px;
+  span {
+   white-space: pre-line;
+   display: block;
+   font-family: 'Inter', system-ui;
+   font-style: normal;
+   font-weight: 400;
+   font-size: 11px;
+   line-height: 13.31px;
+
+  }
+  .textNext{
+   text-decoration-line: underline;
+   font-weight: 700;
+  }
  }
  .footer-post {
   border-top: 1px solid #727373;

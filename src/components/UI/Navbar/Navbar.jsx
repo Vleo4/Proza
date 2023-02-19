@@ -9,7 +9,7 @@ import likes from '../../../assets/images/navbar/likes.png';
 import saves from '../../../assets/images/navbar/saves.png';
 import profile from '../../../assets/images/navbar/profile.png';
 import settings from '../../../assets/images/navbar/settings.png';
-import logo from '../../../assets/images/portrait.svg';
+import logo from '../../../assets/images/portrait.png';
 import proza from '../../../assets/images/proza.svg';
 const Navbar = (props) => {
     const [isShownVerse, setIsShownVerse] = useState(false);
@@ -36,13 +36,13 @@ const Navbar = (props) => {
                         </Link>
                     </li>
                     <li
-                        className={location.pathname === '/verse' ? 'active' : 'not-active'}
+                        className={location.pathname === '/article' ? 'active' : 'not-active'}
                         onMouseOver={() => setIsShownVerse(true)}
                         onMouseLeave={() => setIsShownVerse(false)}>
-                        <Link to='/verse'>
-                            <img className='icon' src={verse} alt={'verse'} />
+                        <Link to='/article'>
+                            <img className='icon' src={verse} alt={'article'} />
                         </Link>
-                        <Link to='/verse' className={isShownVerse ? '' : 'show'}>
+                        <Link to='/article' className={isShownVerse ? '' : 'show'}>
                             Вірші
                         </Link>
                     </li>

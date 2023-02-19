@@ -1,0 +1,45 @@
+.headerMobile-verse{
+  height: 3.125rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  background-color: #F1B4BB;
+  color: white;
+  margin: 0;
+  img{
+    float: left;
+    margin-left: 0.725rem;
+  }
+  .logo{
+    width: 1.625rem;
+    float: left;
+    padding-top: 0.4rem;
+  }
+  .proza{
+    width: 3.725rem;
+    padding-top: 1rem;
+
+  }
+  a{
+    text-decoration-line: underline;
+    font-family: 'Inter', system-ui;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 1rem;
+    height: 1rem;
+    color:black;
+    position:absolute;
+    right: 3.5rem;
+    padding-top: 1rem;
+
+  }
+  .guest{
+    width:2rem;
+    padding-top: 0.5625rem;
+    float: right;
+    margin-right: 1rem;
+  }
+}

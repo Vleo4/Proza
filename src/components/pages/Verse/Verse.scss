@@ -1,6 +1,13 @@
+*{
+  font-family: 'Inter', system-ui;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 23px;
+}
 .verse-page-small {
   display: block;
-  width: 83%;
+  width: 85%;
   height: 100vh;
   background-image: url("../../../assets/images/verse-background.png");
   background-color: #FFE3FF;
@@ -10,20 +17,20 @@
   .verse-small {
     position: absolute;
     background-color: white;
-    width:52%;
+    width:57.85%;
     min-height: 100%;
     top: 8%;
-    right: 36.6%;
+    right: 35%;
     border: 1px solid rgba(0, 0, 0, 0.7);
   }
   .right-small{
     position: absolute;
     background-color: white;
-    width:24%;
+    width:24.1%;
     height: 86%;
     top: 8%;
     bottom: 8%;
-    right:2%;
+    right:4%;
     border: 1px solid rgba(0, 0, 0, 0.7);
   }
 }
@@ -53,7 +60,7 @@
     height: 86%;
     top: 8%;
     bottom: 8%;
-    right:6.5%;
+    right: 7%;
     border: 1px solid rgba(0, 0, 0, 0.7);
   }
 }
@@ -70,43 +77,37 @@
 
 
 .mobile-verse{
-  background-image: url("../../../assets/images/verse-background.png");
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
   left: 0;
   width: 100%;
   position: absolute;
-  background-color: white;
-  min-height: 75%;
-  top: 5%;
-  .headerMobile-verse{
-    height: 8%;
+  background: #FFE3FF url("../../../assets/images/verse-background.png") no-repeat fixed center center;
+  min-height: 100%;
+  top: 3.125rem;
+  .mobileMiddle {
     position: fixed;
-    top: 0;
-    left: 0;
     width: 100%;
-    text-align: center;
-    background-color: #F1B4BB;
-    color: white;
-    margin: 0;
+    .infiniteMobile {
+      .verseMobileBlock {
+        background-color: white;
+        width: 90%;
+        height: 80%;
+        margin: 1.625rem auto 1.5rem;
+        border: 1px solid rgba(0, 0, 0, 0.7);
+        box-sizing: border-box;
+      }
+    }
   }
-  .infiniteMobile{
-  .verseMobileBlock{
-    background-color: white;
-    width:90%;
-    height: 80%;
-    margin-top: 8%;
-    margin-left: auto;
-    margin-right: auto;
-    border: 1px solid rgba(0, 0, 0, 0.7);
-    box-sizing: border-box;
-  }
-}
 
   .footerMobile-verse{
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 8%;
+    height: 3.125rem;
     background-color: white;
   }
 }
