@@ -1,16 +1,16 @@
 @import '../../styles/colors.scss';
 
 .button {
-    min-width: 150px;
-    height: 40px;
+    min-width: auto;
+    padding: 0 0.6rem;
+    height: 1.56rem;
     text-align: center;
     border: none;
     font-weight: 400;
-    font-size: 18px;
-    line-height: 21px;
+    font-size: 0.88rem;
     color: $BG_1;
     cursor: pointer;
-    border-radius: 10px;
+    border-radius: 0.63rem;
     transition: all 0.3s;
     display: inline-flex;
     align-items: center;
@@ -21,11 +21,11 @@
     }
 
     .leftIcon {
-        margin-right: 5px;
+        margin-right: 0.31rem;
     }
 
     .rightIcon {
-        margin-left: 5px;
+        margin-left: 0.31rem;
     }
 }
 
@@ -34,7 +34,7 @@
     
     &:hover:not(.disabled) {
         opacity: 0.95;
-        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        box-shadow: 0rem 0.25rem 0.25rem rgba(0, 0, 0, 0.25);
     }
 }
 
@@ -46,11 +46,24 @@
 .bordered {
     background-color: transparent;
     color: $TEXT;
-    border: 5px solid $BUTTON_BG;
+    border: 0.31rem solid $BUTTON_BG;
 }
 
 
 .disabled {
     opacity: 0.5;
     cursor: default;
+}
+
+.loading-icon {
+    animation: rotate-animation 1s linear infinite;
+}
+
+@keyframes rotate-animation {
+    from{
+        transform: rotate(0deg);
+    }
+    to{
+        transform: rotate(360deg);
+    }
 }
