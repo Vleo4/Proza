@@ -38,7 +38,7 @@ const HomeLayout = ({ children }) => {
                     width='350'
                     height='96'
                 />
-                <div className='children'>{children}</div>
+                {children}
             </div>
         </div>
     );

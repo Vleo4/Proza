@@ -2,10 +2,13 @@
 
 .signup-container {
     position: relative;
+    width: 100%;
+    max-width: 19.5rem;
 
     .form {
         padding: 3.88rem 2.75rem 2.06rem;
         max-width: 19.5rem;
+        width: 100%;
         background-color: $CONTENT_BG;
         border-radius: 0.63rem;
             
