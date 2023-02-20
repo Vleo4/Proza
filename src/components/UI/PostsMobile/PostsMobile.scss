@@ -1,0 +1,76 @@
+.postsMobile{
+ background-color: #ffffff;
+ box-sizing: border-box;
+ border: 3px solid #FFE3FF;
+ border-radius: 15px;
+ height: 90% ;
+ width: 95%;
+ position:relative;
+ margin-right:auto;
+ margin-left:auto;
+ margin-top: 3vh;
+ .header-postMobile{
+  line-height: 2rem;
+  width: 100%;
+  box-sizing: border-box;
+  border-bottom: 1px solid #727373;
+  a{
+   font-family: 'Inter', system-ui;
+   display: inline-block;
+   font-style: normal;
+   font-weight: 400;
+   font-size: 12.5px;
+   line-height: 10px;
+   margin-left: .5rem;
+   vertical-align: text-top;
+  }
+  .dots{
+   line-height: 16px;
+   margin-top: 7%;
+   margin-right: 1.25rem;
+   width: 1rem;
+   float:right;
+   display: inline-block;
+  }
+  .avatarMobile{
+   line-height: 16px;
+   width: 1.5rem;
+   margin-left: 0.5rem;
+   margin-top: 3%;
+   display: inline-block;
+  }
+ }
+ .textMobile{
+  margin-top: 1rem;
+  margin-left: 1rem;
+  white-space: pre-line;
+   display: block;
+   font-family: 'Inter', system-ui;
+   font-style: normal;
+   font-weight: 400;
+   font-size: 11px;
+   line-height: 13.31px;
+ }
+ .footer-post-mobile {
+  border-top: 1px solid #727373;
+  width: 100%;
+  display: block;
+  position:absolute;
+  bottom:0.75rem;
+  img{
+   margin-top: 0.75rem;
+   width: 1.5rem;
+   display: inline-block;
+  }
+  .first{
+   margin-left: 1rem;
+  }
+  .next{
+   margin-left: 1rem;
+  }
+  .last{
+   float:right;
+   margin-right: 1rem;
+  }
+ }
+}
