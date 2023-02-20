@@ -13,7 +13,8 @@ const Button = ({
     path,
     leftIcon,
     rightIcon,
-    isLoading
+    isLoading,
+    buttonProps = {}
 }) => {
     const navigate = useNavigate();
 
@@ -39,7 +40,7 @@ const Button = ({
     };
 
     return (
-        <button className={buttonStyles} onClick={handleClick}>
+        <button className={buttonStyles} onClick={handleClick} {...buttonProps}>
             {leftIcon && <span className='leftIcon'>{leftIcon}</span>}
             {isLoading ? (
                 <AiOutlineLoading3Quarters width={10} height={10} className='loading-icon' />
@@ -59,7 +60,8 @@ Button.propTypes = {
     isDisabled: PropTypes.bool,
     leftIcon: PropTypes.element,
     rightIcon: PropTypes.element,
-    isLoading: PropTypes.bool
+    isLoading: PropTypes.bool,
+    buttonProps: PropTypes.object
 };
 
 export default Button;

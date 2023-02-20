@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import Auth from './auth';
 
 const apiPrefix = process.env.REACT_APP_API_PREFIX;

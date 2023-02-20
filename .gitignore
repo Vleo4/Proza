@@ -14,7 +14,8 @@
 # misc 
 .DS_Store
 .idea/
-.env.local 
+# need to add .env.local file to deployment enviroment
+# .env.local 
 .env.development.local 
 .env.test.local 
 .env.production.local 

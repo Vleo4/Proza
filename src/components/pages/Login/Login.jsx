@@ -1,56 +1,54 @@
-import React, { useState } from 'react';
-import { BsArrowLeft } from 'react-icons/bs';
-import HomeLayout from 'components/layouts/AuthLayout';
-import Button from 'components/UI/Button';
-import './Login.scss';
-import Input from 'components/UI/Input';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { Controller, useForm } from 'react-hook-form';
+
 import api from 'api';
 import { saveToLocalStorage, saveToSessionStorage } from 'utils/storage';
-import { TOKEN } from 'constants/localStorageKeys';
+import { ACCESS_TOKEN, REFRESH_TOKEN } from 'constants/localStorageKeys';
+
+import HomeLayout from 'components/layouts/AuthLayout';
+import Button from 'components/UI/Button';
+import Input from 'components/UI/Input';
+
+import './Login.scss';
+import { useAuthContext } from 'contexts/AuthContext';
 
 const Login = () => {
+    const {
+        control,
+        handleSubmit,
+        setError,
+        formState: { errors }
+    } = useForm();
     const navigate = useNavigate();
-
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [isRemember, setRemember] = useState(false);
-    const [error, setError] = useState('');
+    const { isAuthentificated, isLoading: isAuthLoading } = useAuthContext();
     const [isLoading, setLoading] = useState(false);
 
-    const isDisabled = !password || !email;
+    useEffect(() => {
+        if (isAuthentificated && !isAuthLoading) {
+            navigate('/');
+        }
+    }, [isAuthentificated, isAuthLoading]);
 
-    const handleChangeEmail = (event) => {
-        setEmail(event.target.value);
-        setError('');
-    };
-
-    const handleChangePassword = (event) => {
-        setPassword(event.target.value);
-        setError('');
-    };
-
-    const handleChangeRemember = (event) => {
-        setRemember(event.target.checked);
-    };
-
-    const handleSubmit = async (event) => {
-        event?.preventDefault();
-
-        if (isDisabled) return;
+    const onSubmit = async (data) => {
+        const { username, password, isRemember } = data;
         setLoading(true);
 
         try {
-            const data = await api.auth.login(email, password);
+            const { access, refresh } = await api.auth.login(username, password);
             if (isRemember) {
-                saveToLocalStorage(TOKEN, data.token);
+                saveToLocalStorage(ACCESS_TOKEN, access);
+                saveToLocalStorage(REFRESH_TOKEN, refresh);
             } else {
-                saveToSessionStorage(TOKEN, data.token);
+                saveToSessionStorage(ACCESS_TOKEN, access);
+                saveToSessionStorage(REFRESH_TOKEN, refresh);
             }
-            navigate('/');
+            window.location.href = '/';
         } catch (err) {
-            setError('Incorrect email or password');
             console.error(err);
+            setError('password', {
+                message: 'Неправильний логін або пароль!'
+            })
         } finally {
             setLoading(false);
         }
@@ -59,54 +57,58 @@ const Login = () => {
     return (
         <HomeLayout>
             <div className='login-container'>
-                <header>
-                    <Button
-                        label='Назад'
-                        type='transparent'
-                        path='/home'
-                        leftIcon={<BsArrowLeft width={10} height={10} />}
-                    />
-                    <Button label='Реєстрація' type='default' path='/signup' />
-                </header>
-                <form className='form' onSubmit={handleSubmit}>
-                    <h1 className='title'>Світ ловив мене, та не спіймав</h1>
-                    <div className='inputs-container'>
-                        <Input
-                            type='email'
-                            placeholder='Електронна пошта'
-                            value={email}
-                            onChange={handleChangeEmail}
-                            error={error}
+                <div className='form-container'>
+                    <form className='form' onSubmit={handleSubmit(onSubmit)} noValidate>
+                        <h1 className='form__title'>Світ ловив мене, та не спіймав</h1>
+                        <div className='inputs-container'>
+                            <Controller
+                                control={control}
+                                name='username'
+                                rules={{ required: 'Це поле обовʼязкове для введення' }}
+                                render={({ field }) => (
+                                    <Input
+                                        type='text'
+                                        placeholder='Логін'
+                                        error={errors.username}
+                                        inputProps={field}
+                                    />
+                                )}
+                            />
+                            <Controller
+                                control={control}
+                                name='password'
+                                rules={{ required: 'Це поле обовʼязкове для введення' }}
+                                render={({ field }) => (
+                                    <Input
+                                        type='password'
+                                        placeholder='Пароль'
+                                        error={errors.password}
+                                        inputProps={field}
+                                    />
+                                )}
+                            />
+                        </div>
+                        <div className='checkbox-and-link'>
+                            <Controller
+                                control={control}
+                                name='isRemember'
+                                render={({ field }) => (
+                                    <input {...field} type='checkbox' className='checkbox' />
+                                )}
+                            />
+                            <span>Запам&apos;ятати мене</span>
+                            <Link to='/forgot-password' className='forgot-password'>
+                                Забули пароль?
+                            </Link>
+                        </div>
+                        <Button
+                            buttonProps={{ type: 'submit' }}
+                            className='login-btn'
+                            label='Увійти'
+                            isLoading={isLoading}
                         />
-                        <Input
-                            type='password'
-                            placeholder='Пароль'
-                            value={password}
-                            onChange={handleChangePassword}
-                            error={error}
-                        />
-                    </div>
-                    {error && <span className='error-text'>{error}</span>}
-                    <div className='checkbox-and-link'>
-                        <input
-                            type='checkbox'
-                            className='checkbox'
-                            onChange={handleChangeRemember}
-                            checked={isRemember}
-                        />
-                        <span>Запам&apos;ятати мене</span>
-                        <Link to='/forgot-password' className='forgot-password'>
-                            Забули пароль?
-                        </Link>
-                    </div>
-                    <Button
-                        className='login-btn'
-                        label='Увійти'
-                        isDisabled={isDisabled}
-                        onClick={handleSubmit}
-                        isLoading={isLoading}
-                    />
-                </form>
+                    </form>
+                </div>
             </div>
         </HomeLayout>
     );

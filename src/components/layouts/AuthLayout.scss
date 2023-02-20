@@ -1,38 +1,89 @@
-@import '../../styles/colors.scss';
 @import '../../styles/globals.scss';
 
 .container {
     width: 100%;
-    min-height: 100vh;
+    min-height: 100dvh;
+    background: url('../../assets/images/auth/mobile-portrait.png') no-repeat 50% 0%;
 
     .left-cotainer {
-        width: 40%;
-
-        .logo-image {
-            display: block;
-            justify-content: center;
-            position: absolute;
-            
-            top: 50%;
-            left: 20%;
-            max-width: 600px;
-            max-height: 600px;
-            transform: translate(-50%, -50%);
-
-            img {
-                object-fit: cover;
-                object-position: center;
-                height: 100%;
-                width: 100%;
-                max-width: 100vh;
-            }
-        }
+        display: none;
     }
 
     .right-container {
-        margin-left: auto;
-        min-height: inherit;
-        width: 60%;
-        background-color: $BG_2;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-height: 100dvh;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        padding: 2.18rem;
+        padding-bottom: 5rem;
+
+        &__navigation {
+            position: absolute;
+            bottom: 2.18rem;
+            left: 2.18rem;
+        }
+
+        &__mobile-logo {
+            display: inline-block;
+            max-width: 21.88rem;
+            width: 100%;
+            height: auto;
+            margin: -0.94rem auto 1.5rem auto;
+        }
+    }
+}
+
+@include xl {
+    .container {
+        width: 100%;
+        min-height: 100vh;
+        background: none;
+
+        .left-cotainer {
+            display: block;
+            max-width: 30rem;
+            width: 40%;
+
+            .logo-image {
+                display: block;
+                justify-content: center;
+                position: absolute;
+
+                top: 50%;
+                left: 20%;
+                max-width: 23.44rem;
+                max-height: 23.44rem;
+                transform: translate(-50%, -50%);
+
+                img {
+                    object-fit: cover;
+                    object-position: center;
+                    height: 100%;
+                    width: 100%;
+                    max-width: 100vh;
+                }
+            }
+        }
+
+        .right-container {
+            margin-left: auto;
+            min-height: inherit;
+            width: 60%;
+            background-color: $BG_2;
+            padding: 1.87rem;
+
+            &__navigation {
+                bottom: initial;
+                top: 1.87rem;
+                left: 1.87rem;
+            }
+
+            &__mobile-logo {
+                display: none;
+            }
+        }
     }
 }

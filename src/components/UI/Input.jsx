@@ -1,13 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './Input.scss';
-import classNames from 'utils/classNames';
 
-const Input = ({ type, placeholder, value, onChange, className, error }) => {
+import classNames from 'utils/classNames';
+import './Input.scss';
+
+const Input = ({
+    type,
+    placeholder,
+    value = '',
+    onChange = () => {},
+    onBlur = () => {},
+    className,
+    error,
+    inputProps = {}
+}) => {
     const inputSyles = classNames({
         input: true,
         [className]: !!className,
-        error: error
+        error: !!error
     });
 
     return (
@@ -17,9 +27,12 @@ const Input = ({ type, placeholder, value, onChange, className, error }) => {
                 value={value}
                 placeholder={placeholder}
                 onChange={onChange}
+                onBlur={onBlur}
                 className='input__input'
+                {...inputProps}
             />
             <label className='input__label'>{placeholder}</label>
+            {error && <span className='input__error-text'>{error.message}</span>}
         </div>
     );
 };
@@ -27,10 +40,12 @@ const Input = ({ type, placeholder, value, onChange, className, error }) => {
 Input.propTypes = {
     type: PropTypes.string.isRequired,
     placeholder: PropTypes.string,
-    value: PropTypes.string.isRequired,
+    value: PropTypes.string,
     className: PropTypes.string,
-    onChange: PropTypes.func.isRequired,
-    error: PropTypes.bool
+    onChange: PropTypes.func,
+    onBlur: PropTypes.func,
+    error: PropTypes.object,
+    inputProps: PropTypes.object
 };
 
 export default Input;

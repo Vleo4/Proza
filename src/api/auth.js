@@ -6,20 +6,28 @@ class Auth {
         this.apiPrefix = apiPrefix;
     }
 
-    async login(email, password) {
-        const response = await axios.post(`${this.apiPrefix}/v1/drf-auth/login/`, {
+    async login(username, password) {
+        const response = await axios.post(`${this.apiPrefix}/v1/token/`, {
+            username,
+            password
+        });
+        return response.data;
+    }
+
+    async register(username, email, password) {
+        const response = await axios.post(`${this.apiPrefix}/v1/register/`, {
+            username,
             email,
             password
         });
         return response.data;
     }
 
-    async register(name, email, password) {
-        const response = await axios.post(`${this.apiPrefix}/v1/drf-auth/register/`, {
-            name,
-            email,
-            password
+    async valide(token) {
+        const response = await axios.post(`${this.apiPrefix}/v1/token/refresh/`, {
+            refresh: token
         });
+
         return response.data;
     }
 }

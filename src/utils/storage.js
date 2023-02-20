@@ -23,3 +23,8 @@ export const getFromSessionStorage = (key) => {
 export const saveToSessionStorage = (key, value) => {
     sessionStorage.setItem(key, JSON.stringify(value));
 };
+
+export const clearStorages = () => {
+    sessionStorage.clear();
+    localStorage.clear();
+}

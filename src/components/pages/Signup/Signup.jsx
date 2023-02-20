@@ -1,90 +1,116 @@
-import React, { useState } from 'react';
-import { BsArrowLeft } from 'react-icons/bs';
+import React, { useEffect } from 'react';
 import HomeLayout from 'components/layouts/AuthLayout';
 import Button from 'components/UI/Button';
 import './Signup.scss';
 import Input from 'components/UI/Input';
+import { Controller, useForm } from 'react-hook-form';
+import api from 'api';
+import { useAuthContext } from 'contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
     const navigate = useNavigate();
+    const { isAuthentificated, isLoading } = useAuthContext();
+    const {
+        control,
+        handleSubmit,
+        setError,
+        formState: { errors }
+    } = useForm();
 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [name, setName] = useState('');
-    const [confirmedPassword, setConfirmedPassword] = useState('');
+    useEffect(() => {
+        if (isAuthentificated && !isLoading) {
+            navigate('/');
+        }
+    }, [isAuthentificated, isLoading]);
 
-    const isDisabled = !password || !email;
+    const onSubmit = async (data) => {
+        if (data.password !== data.confirmedPassword) {
+            setError('confirmedPassword', 'Паролі не збігаються');
+            return;
+        }
 
-    const handleChangeEmail = (event) => {
-        setEmail(event.target.value);
-    };
+        try {
+            const response = await api.auth.register(data.username, data.email, data.password);
 
-    const handleChangePassword = (event) => {
-        setPassword(event.target.value);
-    };
-
-    const handleChangeName = (event) => {
-        setName(event.target.value);
-    };
-
-    const handleChangeConfirmedPassword = (event) => {
-        setConfirmedPassword(event.target.value);
-    };
-
-    const handleSubmit = (event) => {
-        event?.preventDefault();
-
-        if (isDisabled) return;
-
-        navigate('/');
+            if (response.user) {
+                navigate('/login');
+            }
+        } catch (e) {
+            console.error(e);
+            setError('username', {
+                message: 'Це імʼя вже зареєстроване'
+            });
+            return;
+        }
     };
 
     return (
         <HomeLayout>
             <div className='signup-container'>
-                <header>
-                    <Button
-                        label='Назад'
-                        type='transparent'
-                        path='/home'
-                        leftIcon={<BsArrowLeft width={10} height={10} />}
-                    />
-                    <Button label='Вхід' type='default' path='/login' />
-                </header>
-                <form className='form' onSubmit={handleSubmit}>
+                <form className='form' onSubmit={handleSubmit(onSubmit)}>
                     <h1 className='title'>Ласкаво просимо!</h1>
                     <div className='inputs-container'>
-                        <Input
-                            type='text'
-                            placeholder="Ім'я користувача"
-                            value={name}
-                            onChange={handleChangeName}
+                        <Controller
+                            name='username'
+                            control={control}
+                            rules={{
+                                required: 'Це поле обовʼязкове для вводу!',
+                                pattern: /^(?=[a-zA-Z0-9._]{8,20}$)(?!.*[_.]{2})[^_.].*[^_.]$/
+                            }}
+                            render={({ field }) => (
+                                <Input
+                                    inputProps={field}
+                                    type='text'
+                                    error={errors.username}
+                                    placeholder="Ім'я користувача"
+                                />
+                            )}
                         />
-                        <Input
-                            type='email'
-                            placeholder='Електронна пошта'
-                            value={email}
-                            onChange={handleChangeEmail}
+                        <Controller
+                            name='email'
+                            control={control}
+                            rules={{ required: 'Це поле обовʼязкове для вводу!' }}
+                            render={({ field }) => (
+                                <Input
+                                    inputProps={field}
+                                    type='email'
+                                    error={errors.email}
+                                    placeholder='Електронна пошта'
+                                />
+                            )}
                         />
-                        <Input
-                            type='password'
-                            placeholder='Пароль'
-                            value={password}
-                            onChange={handleChangePassword}
+                        <Controller
+                            name='password'
+                            control={control}
+                            rules={{ required: 'Це поле обовʼязкове для вводу!' }}
+                            render={({ field }) => (
+                                <Input
+                                    inputProps={field}
+                                    type='password'
+                                    placeholder='Пароль'
+                                    error={errors.password}
+                                />
+                            )}
                         />
-                        <Input
-                            type='password'
-                            placeholder='Підтвердження паролю'
-                            value={confirmedPassword}
-                            onChange={handleChangeConfirmedPassword}
+                        <Controller
+                            name='confirmedPassword'
+                            control={control}
+                            rules={{ required: 'Це поле обовʼязкове для вводу!' }}
+                            render={({ field }) => (
+                                <Input
+                                    inputProps={field}
+                                    error={errors.confirmedPassword}
+                                    type='password'
+                                    placeholder='Підтвердження паролю'
+                                />
+                            )}
                         />
                     </div>
                     <Button
+                        buttonProps={{ type: 'submit' }}
                         className='signup-btn'
                         label='Зареєструватися'
-                        isDisabled={isDisabled}
-                        onClick={handleSubmit}
                     />
                 </form>
             </div>
