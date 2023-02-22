@@ -49,7 +49,7 @@ const AlertAddPost = (props) => {
                             className='header-input'
                             onChange={handleTitleChange}
                             type='text'
-                            placeholder='Назва вірша'
+                            placeholder='NAME'
                         />
                     </div>
                     <div className='text'>
