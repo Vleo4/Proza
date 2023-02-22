@@ -1,8 +1,8 @@
 import './Users.scss';
 import { useState } from 'react';
-import subscribe from '../../assets/images/Users/subscribe.png';
-import noSubscribe from '../../assets/images/Users/noSubscribe.png';
-import model from '../../assets/images/Users/model.png';
+import subscribe from '../../../assets/images/Users/subscribe.png';
+import noSubscribe from '../../../assets/images/Users/noSubscribe.png';
+import model from '../../../assets/images/Users/model.png';
 const Users = (props) => {
     const [isSubscribe, setIsSubscribe] = useState(true);
     const onSubscribe = () => {
@@ -24,23 +24,9 @@ const Users = (props) => {
                 {props.author}
                 <div className='info'>
                     <div className='part'>
-                        <div className='leftSide'>Підписники</div>
-                        <div className='rightSide'>
-                            7
-                            <div />
-                        </div>
-                    </div>
-                    <div className='part'>
-                        <div className='leftSide'>Підписки</div>
-                        <div className='rightSide'>
-                            17
-                            <div />
-                        </div>
-                    </div>
-                    <div className='part'>
                         <div className='leftSide'>Публікації</div>
                         <div className='rightSide'>
-                            17
+                            7
                             <div />
                         </div>
                     </div>

@@ -9,8 +9,9 @@ import likes from '../../../assets/images/navbar/likes.png';
 import saves from '../../../assets/images/navbar/saves.png';
 import profile from '../../../assets/images/navbar/profile.png';
 import settings from '../../../assets/images/navbar/settings.png';
-import logo from '../../../assets/images/portrait.svg';
+import logo from '../../../assets/images/portrait.png';
 import proza from '../../../assets/images/proza.svg';
+
 const Navbar = (props) => {
     const [isShownVerse, setIsShownVerse] = useState(false);
     const [isShownRecommendation, setIsShownRecommendation] = useState(false);
@@ -36,27 +37,25 @@ const Navbar = (props) => {
                         </Link>
                     </li>
                     <li
-                        className={location.pathname === '/verse' ? 'active' : 'not-active'}
+                        className={location.pathname === '/article' ? 'active' : 'not-active'}
                         onMouseOver={() => setIsShownVerse(true)}
                         onMouseLeave={() => setIsShownVerse(false)}>
-                        <Link to='/verse'>
-                            <img className='icon' src={verse} alt={'verse'} />
+                        <Link to='/article'>
+                            <img className='icon' src={verse} alt={'article'} />
                         </Link>
-                        <Link to='/verse' className={isShownVerse ? '' : 'show'}>
+                        <Link to='/article' className={isShownVerse ? '' : 'show'}>
                             Вірші
                         </Link>
                     </li>
 
                     <li
-                        className={
-                            location.pathname === '/recommendation' ? 'active' : 'not-active'
-                        }
+                        className={location.pathname === '/' ? 'active' : 'not-active'}
                         onMouseOver={() => setIsShownRecommendation(true)}
                         onMouseLeave={() => setIsShownRecommendation(false)}>
-                        <Link to='/recommendation'>
+                        <Link to='/'>
                             <img className='icon' src={recommendation} alt={'recommendation'} />
                         </Link>
-                        <Link to='/recommendation' className={isShownRecommendation ? '' : 'show'}>
+                        <Link to='/' className={isShownRecommendation ? '' : 'show'}>
                             Рекомендації
                         </Link>
                     </li>
@@ -80,7 +79,7 @@ const Navbar = (props) => {
                         <Link to='/likes'>
                             <img className='icon' src={likes} alt={'likes'} />
                         </Link>
-                        <Link to='/rec' className={isShownLikes ? '' : 'show'}>
+                        <Link to='/likes' className={isShownLikes ? '' : 'show'}>
                             Вподобані
                         </Link>
                     </li>
@@ -92,19 +91,19 @@ const Navbar = (props) => {
                         <Link to='/saves'>
                             <img className='icon' src={saves} alt={'saves'} />
                         </Link>
-                        <Link to='/' className={isShownSaves ? '' : 'show'}>
+                        <Link to='/saves' className={isShownSaves ? '' : 'show'}>
                             Збережені
                         </Link>
                     </li>
 
                     <li
-                        className={location.pathname === '/profile' ? 'active' : 'not-active'}
+                        className={location.pathname === '/profile/' ? 'active' : 'not-active'}
                         onMouseOver={() => setIsShownProfile(true)}
                         onMouseLeave={() => setIsShownProfile(false)}>
-                        <Link to='/profile'>
+                        <Link to='/profile/'>
                             <img className='icon' src={profile} alt={'profile'} />
                         </Link>
-                        <Link to='/' className={isShownProfile ? '' : 'show'}>
+                        <Link to='/profile' className={isShownProfile ? '' : 'show'}>
                             Мій профіль
                         </Link>
                     </li>
@@ -115,7 +114,7 @@ const Navbar = (props) => {
                         <Link to='/settings'>
                             <img className='icon' src={settings} alt={'settings'} />
                         </Link>
-                        <Link to='/' className={isShownSettings ? '' : 'show'}>
+                        <Link to='/settings' className={isShownSettings ? '' : 'show'}>
                             Налаштування
                         </Link>
                     </li>

@@ -1,1 +1,37 @@
 @import '/src/styles/colors.scss';
+
+.signup-container {
+    position: relative;
+    width: 100%;
+    max-width: 19.5rem;
+
+    .form {
+        padding: 3.88rem 2.75rem 2.06rem;
+        max-width: 19.5rem;
+        width: 100%;
+        background-color: $CONTENT_BG;
+        border-radius: 0.63rem;
+            
+        .title {
+            color: $TEXT;
+            font-size: 1.37rem;
+            text-align: center;
+            font-weight: 400;
+            margin: 0;
+            margin-bottom: 2.25rem;
+        }
+
+        .inputs-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .signup-btn {
+            margin-top: 2.19rem;
+            max-width: 22.5rem;
+            width: 100%;
+            height: 3.13rem;
+        }
+    }
+}

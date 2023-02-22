@@ -1,22 +1,25 @@
 nav .ul-mobile li {
-  cursor: pointer;
-  width:20%;
-  margin-top:5%;
+  width:15%;
+  border-radius: 30px;
+  margin-left: 4%;
+  height: 2.5rem;
+  margin-top: .2rem;
 }
 nav .ul-mobile{
   padding:0;
   margin: auto;
 }
+
 nav .ul-mobile li .icon-mobile {
-  width: 30%;
-  display: inline-block;
-  margin-left: 33%;
+  width: 33%;
+  margin-left: 34%;
+  padding-top: 0.7rem;
 }
 nav .ul-mobile .not-active{
     display: inline-grid;
+  background: rgba(0, 0, 0, 0.05);
 }
 nav .ul-mobile .active{
   display: inline-grid;
-  background: #FFE3FF;
-  border-radius: 15px;
+  background-color: #ffe3ff;
 }
