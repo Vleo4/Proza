@@ -17,11 +17,8 @@ const Navbar = () => {
                         </Link>
                     </li>
 
-                    <li
-                        className={
-                            location.pathname === '/recommendation' ? 'active' : 'not-active'
-                        }>
-                        <Link to='/recommendation'>
+                    <li className={location.pathname === '/' ? 'active' : 'not-active'}>
+                        <Link to='/'>
                             <img
                                 className='icon-mobile'
                                 src={recommendation}
@@ -30,8 +27,8 @@ const Navbar = () => {
                         </Link>
                     </li>
 
-                    <li className={location.pathname === '/profile' ? 'active' : 'not-active'}>
-                        <Link to='/profile'>
+                    <li className={location.pathname === '/profile/' ? 'active' : 'not-active'}>
+                        <Link to='/profile/'>
                             <img className='icon-mobile' src={profile} alt={'profile'} />
                         </Link>
                     </li>

@@ -8,13 +8,16 @@ import saves from '../../../assets/images/Posts/saves.png';
 import share from '../../../assets/images/Posts/share.png';
 import ShowMoreText from 'react-show-more-text';
 import React, { useState } from 'react';
-import Alert from '../Alert/Alert';
+import AlertPost from '../Alert/Alert';
+import ComplaintAlert from '../ComplaintAlert/ComplaintAlert';
 
 const Posts = (props) => {
-    const [state, setState] = useState({ showAlert: false });
-
+    const [state, setState] = useState({ showAlert: false, complaintAlert: false });
     const toggleAlert = () => {
-        setState({ showAlert: !state.showAlert });
+        setState({ showAlert: !state.showAlert, complaintAlert: false });
+    };
+    const toggleComplaintAlert = () => {
+        setState({ showAlert: false, complaintAlert: !state.complaintAlert });
     };
     const regex = /\\n|\\r\\n|\\n\\r|\\r/g;
     const content = () => {
@@ -32,23 +35,30 @@ const Posts = (props) => {
         setIsSave(!isSave);
     };
     const onShare = () => {
-        navigator.clipboard.writeText('https://prozaapp.art/article/' + props.id);
+        navigator.clipboard.writeText('https://prozaapp.art/article/' + props.id).then();
+    };
+    const handleMouseOver = () => {
+        props.setAuthor(props.user);
     };
     return (
         <>
-            <Alert
+            <ComplaintAlert
+                state={state}
+                toggleComplaintAlert={toggleComplaintAlert}
+                className='complaintAlert'
+            />
+            <AlertPost
                 state={state}
                 useState={useState()}
                 toggleAlert={toggleAlert}
                 content={content}
                 posts={props}
-                alertMessage={alertMessage}
                 className='fullAlert'
             />
-            <div className='posts'>
+            <div className='posts' onMouseOver={handleMouseOver}>
                 <div className='header-post'>
                     {props.tittle}
-                    <img src={dots} onClick={alertMessage} alt='dots'></img>
+                    <img src={dots} onClick={toggleComplaintAlert} alt='dots'></img>
                 </div>
                 <div className='text-parent'>
                     {

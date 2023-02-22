@@ -3,7 +3,7 @@ import './Verse.scss';
 import React, { useState } from 'react';
 import Posts from '../../UI/Posts/Posts';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import Users from '../../UI/Users';
+import Users from '../../UI/Users/Users';
 import useResizer from '../../../utils/utils';
 import NavbarMobile from '../../UI/NavbarMobile/NavbarMobile';
 import PostsMobile from '../../UI/PostsMobile/PostsMobile';
@@ -12,6 +12,7 @@ import HeaderMobile from '../../UI/HeaderMobile/HeaderMobile';
 const Verse = (props) => {
     const isMobile = useResizer();
     const [active, setActive] = useState(false);
+    const [author, setAuthor] = useState(null);
     if (isMobile) {
         return (
             <div className='mobile-verse'>
@@ -29,7 +30,7 @@ const Verse = (props) => {
                         {props.infinite.items.map((p, index) => (
                             <div className='verseMobileBlock' key={index}>
                                 <PostsMobile
-                                    author={p.author}
+                                    tittle={p.title}
                                     content={p.content}
                                     id={p.id}
                                     key={index}></PostsMobile>
@@ -61,6 +62,8 @@ const Verse = (props) => {
                                     endMessage={<p>LAST</p>}>
                                     {props.infinite.items.map((p, index) => (
                                         <Posts
+                                            setAuthor={setAuthor}
+                                            user={p.user}
                                             tittle={p.title}
                                             content={p.content}
                                             id={p.id}
@@ -72,7 +75,7 @@ const Verse = (props) => {
                         <div className='right-small'>
                             <Users
                                 className='users'
-                                author={'Анастасія Костирка'}
+                                author={author}
                                 verseOne={'І жінка з чорними очима, як земля, волоссям\n'}
                                 verseSecond={'І жінка з чорними очима, як земля, волоссям\n'}
                             />
@@ -84,7 +87,7 @@ const Verse = (props) => {
         if (!active) {
             return (
                 <>
-                    <div className='verse-page' style={{ overflow: 'auto' }} id='scrollableDiv'>
+                    <div className='verse-page' id='scrollableDiv'>
                         <Navbar className='navBar' active={active} setActive={setActive} />
                         <div className='verse-block'>
                             <InfiniteScroll
@@ -97,6 +100,8 @@ const Verse = (props) => {
                                 endMessage={<p>LAST</p>}>
                                 {props.infinite.items.map((p, index) => (
                                     <Posts
+                                        setAuthor={setAuthor}
+                                        user={p.user}
                                         tittle={p.title}
                                         content={p.content}
                                         id={p.id}
@@ -108,7 +113,7 @@ const Verse = (props) => {
                         <div className='right'>
                             <Users
                                 className='users'
-                                author={'Анастасія Костирка'}
+                                author={author}
                                 verseOne={'І жінка з чорними очима, як земля, волоссям\n'}
                                 verseSecond={'І жінка з чорними очима, як земля, волоссям\n'}
                             />

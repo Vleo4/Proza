@@ -6,18 +6,19 @@ import PostsMobile from '../../UI/PostsMobile/PostsMobile';
 import NavbarMobile from '../../UI/NavbarMobile/NavbarMobile';
 import Navbar from '../../UI/Navbar/Navbar';
 import Posts from '../../UI/Posts/Posts';
-import Users from '../../UI/Users';
+import Users from '../../UI/Users/Users';
 import './ArticleID.scss';
 import axios from 'axios';
 const ArticleID = () => {
+    const [author, setAuthor] = useState(null);
     let { id } = useParams();
     const [state, setState] = useState(null);
     const apiURL = 'https://prozaapp.art/api/v1/';
     React.useEffect(() => {
         const getData = () => {
             axios.get(apiURL + 'article/' + id + '/?format=json').then((response) => {
-                console.log(response.data);
                 setState(response.data);
+                setAuthor(response.data.user);
             });
         };
         getData();
@@ -80,13 +81,15 @@ const ArticleID = () => {
                             <Posts
                                 tittle={state.title}
                                 content={state.content}
+                                user={state.user}
+                                setAuthor={setAuthor}
                                 id={state.id}></Posts>
                         </div>
 
                         <div className='right'>
                             <Users
                                 className='users'
-                                author={'Анастасія Костирка'}
+                                author={author}
                                 verseOne={'І жінка з чорними очима, як земля, волоссям\n'}
                                 verseSecond={'І жінка з чорними очима, як земля, волоссям\n'}
                             />

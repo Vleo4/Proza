@@ -1,8 +1,11 @@
+@import '/src/styles/colors';
+@import '/src/styles/breakpoints';
+
 * {
     font-family: 'Comfortaa', cursive;
     box-sizing: border-box;
 }
-    
+
 html, body {
     padding: 0;
     margin: 0;

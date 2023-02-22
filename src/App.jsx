@@ -6,27 +6,33 @@ import Home from './components/pages/Home/Home';
 import Article from './components/pages/Article/Article';
 import React from 'react';
 import ArticleID from './components/pages/Articleid/ArticleID';
+import Settings from './components/pages/Settings/Settings';
+import Notifications from './components/pages/Notiifications/Notifications';
+import Likes from './components/pages/Likes/Likes';
+import Saves from './components/pages/Saves/Saves';
+import Profile from './components/pages/Profile/Profile';
+import AuthContextProvider from './contexts/AuthContext';
+import MyProfile from './components/pages/MyProfile/MyProfile';
 
 function App() {
     return (
-        <div>
+        <AuthContextProvider>
             <Routes>
                 <Route path='/' element={<MainLayout />}>
                     <Route index element={<Home />} />
                     <Route path='login' element={<Login />} />
                     <Route path='signup' element={<Signup />} />
-                    <Route path='home' element={<Home />} />
                     <Route path='article' element={<Article />} />
-                    <Route path='recommendation' element={<Article />} />
-                    <Route path='notifications' element={<Article />} />
-                    <Route path='likes' element={<Article />} />
-                    <Route path='saves' element={<Article />} />
-                    <Route path='profile' element={<Article />} />
-                    <Route path='settings' element={<Article />} />
+                    <Route path='notifications' element={<Notifications />} />
+                    <Route path='likes' element={<Likes />} />
+                    <Route path='saves' element={<Saves />} />
+                    <Route path='profile' element={<MyProfile />} />
+                    <Route path='settings' element={<Settings />} />
                     <Route path='article/:id' element={<ArticleID />} />
+                    <Route path='profile/:id' element={<Profile />} />
                 </Route>
             </Routes>
-        </div>
+        </AuthContextProvider>
     );
 }
 

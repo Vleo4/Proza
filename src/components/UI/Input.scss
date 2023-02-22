@@ -1,20 +1,63 @@
-.input > input {
-    width: 100%;
-    display: block;
-    padding: 16px 7px;
-    background: #FFFFFF;
-    border: 1px solid rgba(0, 0, 0, 0.5);
-    border-radius: 10px;
-    font-size: 20px;
-    line-height: 24px;
-    outline: none;
-
-    &::placeholder {
-        color: #000000;
-    }
-}
+@import '../../styles/colors.scss';
 
 .input {
     width: 100%;
     display: flex;
+    position: relative;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    border-radius: 0.63rem;
+    background: #ffffff;
+    transition: margin-bottom 0.3s;
+
+    &__input {
+        width: 100%;
+        display: block;
+        padding: 0.62rem 0.25rem;
+        border-radius: inherit;
+        background: transparent;
+        font-size: 0.88rem;
+        line-height: 0.94rem;
+        outline: none;
+        border: none;
+        height: 100%;
+
+        &::placeholder {
+            color: #000000;
+        }
+    }
+
+    &__input:not(:placeholder-shown) + &__label {
+        transform: translate(0, -250%);
+        opacity: 1;
+    }
+
+    &__label {
+        position: absolute;
+        top: 50%;
+        opacity: 0;
+        transition: all 200ms;
+        padding: 0 0.25rem;
+        font-size: 0.88rem;
+        line-height: 0.94rem;
+    }
+
+    &__error-text {
+        position: absolute;
+        opacity: 0;
+        bottom: 0;
+        font-size: 0.68rem;
+        color: $DANGER;
+        transition: all 0.3s;
+    }
+
+    &.error {
+        border-color: $DANGER;
+        margin-bottom: 1rem;
+
+        .input__error-text {
+            transform: translateY(calc(100% + 0.62rem));
+            opacity: 1;
+            z-index: 2;
+        }
+    }
 }

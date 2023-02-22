@@ -7,10 +7,7 @@ const AlertPost = (props) => {
     return (
         <Alert show={props.state.showAlert} className={'fullAlert'}>
             <div className='posts'>
-                <Scrollbars
-                    renderTrackHorizontal={({ style, ...props }) => (
-                        <div {...props} style={{ ...style, display: 'hidden' }} />
-                    )}>
+                <Scrollbars>
                     <div className='header-post'>
                         {props.posts.tittle}
                         <img src={Close} onClick={props.toggleAlert} />

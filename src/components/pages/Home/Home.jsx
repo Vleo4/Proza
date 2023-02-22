@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import Verse from '../Verse/Verse';
+
 const Home = () => {
     const [infinite, setInfinite] = useState({ items: [] });
     const [state, setState] = useState(null);
