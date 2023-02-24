@@ -4,7 +4,7 @@ import HeaderMobile from '../../UI/HeaderMobile/HeaderMobile';
 import NavbarMobile from '../../UI/NavbarMobile/NavbarMobile';
 import Navbar from '../../UI/Navbar/Navbar';
 import Users from '../../UI/Users/Users';
-import './Settings.scss';
+import '../Verse/Verse.scss';
 import { useAuthContext } from '../../../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 const Settings = () => {

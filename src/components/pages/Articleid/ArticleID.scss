@@ -5,7 +5,7 @@
   font-size: 18px;
   line-height: 23px;
 }
-.verse-page-small {
+.verse-page-smallArticle {
   display: block;
   width: 85%;
   height: 100vh;
@@ -13,27 +13,50 @@
   background-color: #FFE3FF;
   position: fixed;
   right: 0;
-  .verse-small {
+  .verse-smallArticle {
     position: absolute;
     background-color: white;
     width:53%;
     min-height: 100%;
-    top: 8%;
+    top: 10%;
     right: 35%;
     border: 1px solid rgba(0, 0, 0, 0.7);
   }
-  .right-small{
+  .right-smallArticle{
     position: absolute;
     background-color: white;
     width:24.1%;
     height: 86%;
-    top: 8%;
+    top: 10%;
     bottom: 8%;
     right:4%;
     border: 1px solid rgba(0, 0, 0, 0.7);
   }
+  .right-btn{
+    position: absolute;
+    width: 10%;
+    height: 2.8rem;
+    top: 1%;
+    right: 16%;
+    box-sizing: border-box;
+    background: #FFE3FF;
+    border: 3px solid #C0777F;
+    border-radius: 10px;
+    align-items: center;
+    text-align: center;
+  }
+  .right-btn2{
+    position: absolute;
+    width:10%;
+    height: 2.8rem;
+    top: 1%;
+    right: 4%;
+    box-sizing: border-box;
+    background: #C0777F;
+    border-radius: 10px;
+  }
 }
-.verse-page {
+.verse-pageArticle {
   right: 0;
   display: block;
   width: 94%;
@@ -42,26 +65,51 @@
   background-color: #FFE3FF;
   background-cover:scope;
   position: fixed;
-  .verse-block {
-    height: 92vh;
+  .verse-blockArticle {
+    height: 90vh;
     position: absolute;
     background-color: white;
     width:48%;
-    top: 8%;
+    top: 10%;
     right: 36.6%;
     border: 1px solid rgba(0, 0, 0, 0.7);
     border-bottom: 0;
     box-sizing: border-box;
   }
-  .right{
+  .rightArticle{
       position: absolute;
     background-color: white;
     width:20%;
     height: 86%;
-    top: 8%;
+    top: 10%;
     bottom: 8%;
     right: 7%;
     border: 1px solid rgba(0, 0, 0, 0.7);
+  }
+  .right-btn{
+    position: absolute;
+    width:9%;
+    height: 2.8rem;
+    top: 1%;
+    right: 18%;
+    box-sizing: border-box;
+    background: #FFE3FF;
+    border: 3px solid #C0777F;
+    border-radius: 10px;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+  }
+  .right-btn2{
+    position: absolute;
+    width:9%;
+    height: 2.8rem;
+    top: 1%;
+    right: 7%;
+    box-sizing: border-box;
+    background: #C0777F;
+    border-radius: 10px;
+    cursor: pointer;
   }
 }
 .posts{

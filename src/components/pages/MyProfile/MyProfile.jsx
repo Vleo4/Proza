@@ -1,21 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useAuthContext } from '../../../contexts/AuthContext';
-import { useNavigate } from 'react-router-dom';
 import { ACCESS_TOKEN } from '../../../constants/localStorageKeys';
 import { getFromLocalStorage, getFromSessionStorage } from '../../../utils/storage';
 import VerseAdd from '../VerseAdd/VerseAdd';
 import Verse from '../Verse/Verse';
 const MyProfile = () => {
     const accessToken = getFromSessionStorage(ACCESS_TOKEN) ?? getFromLocalStorage(ACCESS_TOKEN);
-    const { isAuthentificated, isLoading: isAuthLoading } = useAuthContext();
-
-    const navigate = useNavigate();
-    React.useEffect(() => {
-        if (!isAuthentificated) {
-            navigate('/');
-        }
-    }, [isAuthentificated, isAuthLoading]);
     const [infinite, setInfinite] = useState({ items: [] });
     const [state, setState] = useState(null);
     const apiURL = 'https://prozaapp.art/api/v1/';
@@ -47,7 +37,7 @@ const MyProfile = () => {
         setIndexCount(indexCount + 1);
         if (indexCount === state.items.length - 1) setHasMore(false);
     };
-    if (infinite.items.length) {
+    if (!infinite.items.length) {
         return <VerseAdd accessToken={accessToken} />;
     } else {
         return (
