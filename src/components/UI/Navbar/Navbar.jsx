@@ -4,18 +4,19 @@ import './Navbar.scss';
 import burger from '../../../assets/images/navbar/burger.png';
 import verse from '../../../assets/images/navbar/verse.png';
 import recommendation from '../../../assets/images/navbar/recommendation.png';
-import notifications from '../../../assets/images/navbar/notifications.png';
 import likes from '../../../assets/images/navbar/likes.png';
 import saves from '../../../assets/images/navbar/saves.png';
 import profile from '../../../assets/images/navbar/profile.png';
 import settings from '../../../assets/images/navbar/settings.png';
 import logo from '../../../assets/images/portrait.png';
 import proza from '../../../assets/images/proza.svg';
+import { useAuthContext } from '../../../contexts/AuthContext';
 
 const Navbar = (props) => {
+    const { isAuthentificated } = useAuthContext();
+
     const [isShownVerse, setIsShownVerse] = useState(false);
     const [isShownRecommendation, setIsShownRecommendation] = useState(false);
-    const [isShownNotifications, setIsShownNotifications] = useState(false);
     const [isShownLikes, setIsShownLikes] = useState(false);
     const [isShownSaves, setIsShownSaves] = useState(false);
     const [isShownProfile, setIsShownProfile] = useState(false);
@@ -40,10 +41,12 @@ const Navbar = (props) => {
                         className={location.pathname === '/article' ? 'active' : 'not-active'}
                         onMouseOver={() => setIsShownVerse(true)}
                         onMouseLeave={() => setIsShownVerse(false)}>
-                        <Link to='/article'>
+                        <Link to={isAuthentificated ? '/article' : '/'}>
                             <img className='icon' src={verse} alt={'article'} />
                         </Link>
-                        <Link to='/article' className={isShownVerse ? '' : 'show'}>
+                        <Link
+                            to={isAuthentificated ? '/article' : '/'}
+                            className={isShownVerse ? '' : 'show'}>
                             Вірші
                         </Link>
                     </li>
@@ -61,25 +64,15 @@ const Navbar = (props) => {
                     </li>
 
                     <li
-                        className={location.pathname === '/notifications' ? 'active' : 'not-active'}
-                        onMouseOver={() => setIsShownNotifications(true)}
-                        onMouseLeave={() => setIsShownNotifications(false)}>
-                        <Link to='/notifications'>
-                            <img src={notifications} className='icon' alt={'notifications'} />
-                        </Link>
-                        <Link to='/notifications' className={isShownNotifications ? '' : 'show'}>
-                            Сповіщення
-                        </Link>
-                    </li>
-
-                    <li
                         className={location.pathname === '/likes' ? 'active' : 'not-active'}
                         onMouseOver={() => setIsShownLikes(true)}
                         onMouseLeave={() => setIsShownLikes(false)}>
-                        <Link to='/likes'>
+                        <Link to={isAuthentificated ? '/likes' : '/'}>
                             <img className='icon' src={likes} alt={'likes'} />
                         </Link>
-                        <Link to='/likes' className={isShownLikes ? '' : 'show'}>
+                        <Link
+                            to={isAuthentificated ? '/likes' : '/'}
+                            className={isShownLikes ? '' : 'show'}>
                             Вподобані
                         </Link>
                     </li>
@@ -88,22 +81,26 @@ const Navbar = (props) => {
                         className={location.pathname === '/saves' ? 'active' : 'not-active'}
                         onMouseOver={() => setIsShownSaves(true)}
                         onMouseLeave={() => setIsShownSaves(false)}>
-                        <Link to='/saves'>
+                        <Link to={isAuthentificated ? '/saves' : '/'}>
                             <img className='icon' src={saves} alt={'saves'} />
                         </Link>
-                        <Link to='/saves' className={isShownSaves ? '' : 'show'}>
+                        <Link
+                            to={isAuthentificated ? '/saves' : '/'}
+                            className={isShownSaves ? '' : 'show'}>
                             Збережені
                         </Link>
                     </li>
 
                     <li
-                        className={location.pathname === '/profile/' ? 'active' : 'not-active'}
+                        className={location.pathname === '/profile' ? 'active' : 'not-active'}
                         onMouseOver={() => setIsShownProfile(true)}
                         onMouseLeave={() => setIsShownProfile(false)}>
-                        <Link to='/profile/'>
+                        <Link to={isAuthentificated ? '/profile' : '/'}>
                             <img className='icon' src={profile} alt={'profile'} />
                         </Link>
-                        <Link to='/profile' className={isShownProfile ? '' : 'show'}>
+                        <Link
+                            to={isAuthentificated ? '/profile' : '/'}
+                            className={isShownProfile ? '' : 'show'}>
                             Мій профіль
                         </Link>
                     </li>
@@ -111,10 +108,12 @@ const Navbar = (props) => {
                         className={location.pathname === '/settings' ? 'active' : 'not-active'}
                         onMouseOver={() => setIsShownSettings(true)}
                         onMouseLeave={() => setIsShownSettings(false)}>
-                        <Link to='/settings'>
+                        <Link to={isAuthentificated ? '/settings' : '/'}>
                             <img className='icon' src={settings} alt={'settings'} />
                         </Link>
-                        <Link to='/settings' className={isShownSettings ? '' : 'show'}>
+                        <Link
+                            to={isAuthentificated ? '/settings' : '/'}
+                            className={isShownSettings ? '' : 'show'}>
                             Налаштування
                         </Link>
                     </li>

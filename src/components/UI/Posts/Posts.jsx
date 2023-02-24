@@ -63,6 +63,7 @@ const Posts = (props) => {
                 <div className='text-parent'>
                     {
                         <ShowMoreText
+                            truncatedEndingComponent=''
                             className='text'
                             width={300}
                             lines={parseInt(window.outerHeight / 45)}

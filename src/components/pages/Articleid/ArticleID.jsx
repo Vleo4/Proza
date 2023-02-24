@@ -7,9 +7,14 @@ import NavbarMobile from '../../UI/NavbarMobile/NavbarMobile';
 import Navbar from '../../UI/Navbar/Navbar';
 import Posts from '../../UI/Posts/Posts';
 import Users from '../../UI/Users/Users';
-import './ArticleID.scss';
 import axios from 'axios';
+import './ArticleID.scss';
+import { useAuthContext } from '../../../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
+
 const ArticleID = () => {
+    const navigate = useNavigate();
+    const { isAuthentificated } = useAuthContext();
     const [author, setAuthor] = useState(null);
     let { id } = useParams();
     const [state, setState] = useState(null);
@@ -50,9 +55,9 @@ const ArticleID = () => {
         if (active) {
             return (
                 <>
-                    <div className='verse-page-small'>
+                    <div className='verse-page-smallArticle'>
                         <Navbar className='navBar' active={active} setActive={setActive} />
-                        <div className='verse-small'>
+                        <div className='verse-smallArticle'>
                             <div className='verse'>
                                 <Posts
                                     tittle={state.title}
@@ -60,7 +65,28 @@ const ArticleID = () => {
                                     id={state.id}></Posts>
                             </div>
                         </div>
-                        <div className='right-small'>
+                        {!isAuthentificated ? (
+                            <>
+                                {' '}
+                                <div
+                                    className='right-btn'
+                                    onClick={() => {
+                                        navigate('/login');
+                                    }}>
+                                    <a className='textL'>Вхід</a>
+                                </div>
+                                <div
+                                    className='right-btn2'
+                                    onClick={() => {
+                                        navigate('/signup');
+                                    }}>
+                                    <a className='textR'>Реєстрація</a>
+                                </div>
+                            </>
+                        ) : (
+                            ''
+                        )}
+                        <div className='right-smallArticle'>
                             <Users
                                 className='users'
                                 author={'Анастасія Костирка'}
@@ -75,9 +101,12 @@ const ArticleID = () => {
         if (!active) {
             return (
                 <>
-                    <div className='verse-page' style={{ overflow: 'auto' }} id='scrollableDiv'>
+                    <div
+                        className='verse-pageArticle'
+                        style={{ overflow: 'auto' }}
+                        id='scrollableDiv'>
                         <Navbar className='navBar' active={active} setActive={setActive} />
-                        <div className='verse-block'>
+                        <div className='verse-blockArticle'>
                             <Posts
                                 tittle={state.title}
                                 content={state.content}
@@ -85,8 +114,28 @@ const ArticleID = () => {
                                 setAuthor={setAuthor}
                                 id={state.id}></Posts>
                         </div>
-
-                        <div className='right'>
+                        {!isAuthentificated ? (
+                            <>
+                                {' '}
+                                <div
+                                    className='right-btn'
+                                    onClick={() => {
+                                        navigate('/login');
+                                    }}>
+                                    <a className='textL'>Вхід</a>
+                                </div>
+                                <div
+                                    className='right-btn2'
+                                    onClick={() => {
+                                        navigate('/signup');
+                                    }}>
+                                    <a className='textR'>Реєстрація</a>
+                                </div>
+                            </>
+                        ) : (
+                            ''
+                        )}
+                        <div className='rightArticle'>
                             <Users
                                 className='users'
                                 author={author}
