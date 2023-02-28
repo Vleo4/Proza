@@ -10,38 +10,107 @@ import ShowMoreText from 'react-show-more-text';
 import React, { useState } from 'react';
 import AlertPost from '../Alert/Alert';
 import ComplaintAlert from '../ComplaintAlert/ComplaintAlert';
+import { useParams } from 'react-router-dom';
+import AlertCopy from '../AlertCopy/AlertCopy';
+import axios from 'axios';
+import { getFromLocalStorage, getFromSessionStorage } from '../../../utils/storage';
+import { ACCESS_TOKEN } from '../../../constants/localStorageKeys';
+import { useAuthContext } from '../../../contexts/AuthContext';
 
 const Posts = (props) => {
-    const [state, setState] = useState({ showAlert: false, complaintAlert: false });
+    const { isAuthentificated } = useAuthContext();
+    const accessToken = getFromSessionStorage(ACCESS_TOKEN) ?? getFromLocalStorage(ACCESS_TOKEN);
+    let { id } = useParams();
+    const [state, setState] = useState({
+        showAlert: false,
+        complaintAlert: false,
+        alertCopy: false
+    });
     const toggleAlert = () => {
-        setState({ showAlert: !state.showAlert, complaintAlert: false });
+        setState({ showAlert: !state.showAlert, complaintAlert: false, alertCopy: false });
     };
     const toggleComplaintAlert = () => {
-        setState({ showAlert: false, complaintAlert: !state.complaintAlert });
+        setState({ showAlert: false, complaintAlert: !state.complaintAlert, alertCopy: false });
+    };
+    const toggleCopyAlert = () => {
+        setState({ showAlert: false, complaintAlert: false, alertCopy: !state.alertCopy });
     };
     const regex = /\\n|\\r\\n|\\n\\r|\\r/g;
     const content = () => {
         return props.content.replace(regex, '\n');
     };
-    const alertMessage = () => {
-        alert('abc');
-    };
     const [isLike, setIsLike] = useState(false);
+    const apiURL = 'https://prozaapp.art/api/v1/';
     const onLikes = () => {
-        setIsLike(!isLike);
+        if (isAuthentificated) {
+            setIsLike(!isLike);
+            axios
+                .put(
+                    apiURL + 'like/' + props.id + '/',
+                    {},
+                    {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Authorization: 'Bearer ' + accessToken
+                        }
+                    }
+                )
+                .then(function (response) {
+                    console.log(response);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        }
     };
     const [isSave, setIsSave] = useState(false);
     const onSaves = () => {
-        setIsSave(!isSave);
+        if (isAuthentificated) {
+            axios
+                .put(
+                    apiURL + 'save/' + props.id + '/',
+                    {},
+                    {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Authorization: 'Bearer ' + accessToken
+                        }
+                    }
+                )
+                .then(function () {
+                    setIsSave(!isSave);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        }
     };
     const onShare = () => {
         navigator.clipboard.writeText('https://prozaapp.art/article/' + props.id).then();
+        toggleCopyAlert();
     };
     const handleMouseOver = () => {
         props.setAuthor(props.user);
     };
+    React.useEffect(() => {
+        axios
+            .get(apiURL + 'savedarticles/?format=json', {
+                headers: {
+                    Authorization: 'Bearer ' + accessToken
+                }
+            })
+            .then((response) => {
+                console.log(response.data);
+                response.data.map((index) => {
+                    if (index.id === props.id) {
+                        setIsSave(true);
+                    }
+                });
+            });
+    });
     return (
         <>
+            <AlertCopy toggleCopyAlert={toggleCopyAlert} state={state} className='copyAlert' />
             <ComplaintAlert
                 state={state}
                 toggleComplaintAlert={toggleComplaintAlert}
@@ -55,7 +124,7 @@ const Posts = (props) => {
                 posts={props}
                 className='fullAlert'
             />
-            <div className='posts' onMouseOver={handleMouseOver}>
+            <div className={id ? 'postsArticle' : 'posts'} onMouseOver={handleMouseOver}>
                 <div className='header-post'>
                     {props.tittle}
                     <img src={dots} onClick={toggleComplaintAlert} alt='dots'></img>
@@ -66,7 +135,11 @@ const Posts = (props) => {
                             truncatedEndingComponent=''
                             className='text'
                             width={300}
-                            lines={parseInt(window.outerHeight / 45)}
+                            lines={
+                                id
+                                    ? parseInt(window.outerHeight / 50)
+                                    : parseInt(window.outerHeight / 45)
+                            }
                             more='Читати далі'
                             keepNewLines={true}
                             anchorClass='textNext'
@@ -83,11 +156,7 @@ const Posts = (props) => {
                         className='first'
                         onClick={onLikes}
                         alt='likes'></img>
-                    <img
-                        src={comments}
-                        className='next'
-                        onClick={alertMessage}
-                        alt='comments'></img>
+                    <img src={comments} className='next' alt='comments'></img>
                     <img
                         src={isSave ? saves : noSaves}
                         className='next'

@@ -7,9 +7,21 @@
 
     .left-cotainer {
         display: none;
+        @media only screen and (max-width: 1400px) {
+            zoom: 0.9;
+        }
+        @media only screen and (min-width: 1800px) {
+            zoom: 1.6;
+        }
     }
 
     .right-container {
+        @media only screen and (max-width: 1400px) {
+            zoom: 0.8;
+        }
+        @media only screen and (min-width: 1800px) {
+            zoom: 1.6 ;
+        }
         position: relative;
         display: flex;
         flex-direction: column;
