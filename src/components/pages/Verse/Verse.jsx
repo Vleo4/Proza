@@ -12,6 +12,7 @@ import { useAuthContext } from '../../../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import AlertAddPost from '../../UI/AlertAddPost/AlertAddPost';
 import addPost from '../../../assets/images/Posts/addPost.png';
+import Search from 'components/UI/Search/Search';
 
 const Verse = (props) => {
     const navigate = useNavigate();
@@ -124,6 +125,7 @@ const Verse = (props) => {
                             ''
                         )}
                         <div className='right-small'>
+                            <Search />
                             <Users
                                 className='users'
                                 author={author}
@@ -203,6 +205,7 @@ const Verse = (props) => {
                             ''
                         )}
                         <div className='right'>
+                            <Search />
                             <Users
                                 className='users'
                                 author={author}
