@@ -117,7 +117,13 @@ const Navbar = (props) => {
                             Налаштування
                         </Link>
                     </li>
-                    <li className='not-active' onClick={activateNav}>
+                    <li
+                        className='not-active'
+                        onClick={() => {
+                            if (isAuthentificated) {
+                                activateNav();
+                            }
+                        }}>
                         <img className='icon' src={burger} alt={'burger'} />
                     </li>
                 </ul>
