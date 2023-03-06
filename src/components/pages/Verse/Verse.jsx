@@ -17,8 +17,11 @@ const Verse = (props) => {
     const navigate = useNavigate();
     const { isAuthentificated } = useAuthContext();
     const isMobile = useResizer();
-    const [active, setActive] = useState(false);
+    const [active, setActive] = useState(null);
     const [author, setAuthor] = useState(null);
+    React.useEffect(() => {
+        setAuthor(props.author);
+    }, [props.author]);
     const [alert, setAlert] = useState(false);
     const toggleAlert = () => {
         setAlert(!alert);
@@ -40,6 +43,7 @@ const Verse = (props) => {
                         {props.infinite.items.map((p, index) => (
                             <div className='verseMobileBlock' key={index}>
                                 <PostsMobile
+                                    author={p.user}
                                     tittle={p.title}
                                     content={p.content}
                                     id={p.id}
@@ -127,8 +131,8 @@ const Verse = (props) => {
                             <Users
                                 className='users'
                                 author={author}
-                                verseOne={'І жінка з чорними очима, як земля, волоссям\n'}
-                                verseSecond={'І жінка з чорними очима, як земля, волоссям\n'}
+                                verseOne={''}
+                                verseSecond={''}
                             />
                         </div>
                     </div>
@@ -206,8 +210,8 @@ const Verse = (props) => {
                             <Users
                                 className='users'
                                 author={author}
-                                verseOne={'І жінка з чорними очима, як земля, волоссям\n'}
-                                verseSecond={'І жінка з чорними очима, як земля, волоссям\n'}
+                                verseOne={''}
+                                verseSecond={''}
                             />
                         </div>
                     </div>

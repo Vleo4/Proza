@@ -44,7 +44,13 @@ const Profile = () => {
         return <h1>Loading...</h1>;
     }
     return (
-        <Verse state={state} infinite={infinite} fetchMoreData={fetchMoreData} hasMore={hasMore} />
+        <Verse
+            state={state}
+            author={id}
+            infinite={infinite}
+            fetchMoreData={fetchMoreData}
+            hasMore={hasMore}
+        />
     );
 };
 

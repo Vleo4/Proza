@@ -27,7 +27,7 @@ const ArticleID = () => {
             });
         };
         getData();
-    }, []);
+    }, [id]);
 
     const isMobile = useResizer();
     const [active, setActive] = useState(false);

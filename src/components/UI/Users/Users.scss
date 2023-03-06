@@ -14,6 +14,12 @@
     zoom: 0.98;
   }
   .header-user {
+    @media only screen and (max-width: 1400px) {
+      zoom: 0.9;
+    }
+    @media only screen and (min-width: 1800px) {
+      zoom: 1.5;
+    }
     font-family: 'Inter', system-ui;
     font-style: normal;
     font-weight: 700;
@@ -22,6 +28,10 @@
     text-align: center;
     font-size: 14px;
     line-height: 17px;
+    @media only screen and (min-width: 1800px) {
+      font-size: 24px;
+      line-height: 28px;
+    }
     .info{
       min-height: 14vh;
       margin-left: 10%;
@@ -31,6 +41,10 @@
         font-weight: 400;
         font-size: 14px;
         line-height: 17px;
+        @media only screen and (min-width: 1800px) {
+          font-size: 22px;
+          line-height: 28px;
+        }
       }
       .part{
         margin-top:15px;
@@ -44,6 +58,9 @@
     }
 
     .avatar{
+      @media only screen and (max-width: 1400px) {
+        zoom: 0.9;
+      }
       display: block;
       .avatarImage {
         margin-left: auto;
@@ -54,11 +71,20 @@
         position: relative;
         border-radius: 50%;
       }
+      .avatarImageProfile {
+        margin-left: auto;
+        margin-right: auto;
+        width:125px;
+        display: inline-block;
+        position: relative;
+        border-radius: 50%;
+      }
       .avatarStatus {
         z-index: 3;
         right: .7rem;
         width:30px;
         position: relative;
+        cursor: pointer;
       }
     }
   }
@@ -79,6 +105,53 @@
       font-weight: 400;
       font-size: 14px;
       line-height: 17px;
+      @media only screen and (min-width: 1800px) {
+        font-size: 24px;
+        line-height: 28px;
+      }
+    }
+  }
+}
+
+.partTopUser{
+  margin-left: 0;
+  display: flex;
+  flex-direction: row;
+
+  .likeTopUser{
+    position: fixed;
+    flex:1;
+  }
+  .commentTopUser{
+    position: fixed;
+    flex: 3;
+    padding-left: 10%;
+  }
+}
+
+.infoTopUser {
+  min-height: 14vh;
+
+  img {
+    @media only screen and (max-width: 1400px) {
+      zoom: 0.9;
+    }
+    @media only screen and (min-width: 1800px) {
+      zoom: 1.5;
+    }
+    width: 1rem;
+
+  }
+  div {
+    font-family: 'Inter', system-ui;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    margin-right: 1rem;
+    @media only screen and (min-width: 1800px) {
+      font-size: 24px;
+      line-height: 28px;
     }
   }
 }

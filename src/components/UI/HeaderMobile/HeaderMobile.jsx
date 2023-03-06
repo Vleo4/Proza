@@ -2,6 +2,7 @@ import './HeaderMobile.scss';
 import logo from '../../../assets/images/portrait.png';
 import proza from '../../../assets/images/proza.svg';
 import guest from '../../../assets/images/Header/Guest.png';
+import model from '../../../assets/images/Users/model.png';
 import { useAuthContext } from '../../../contexts/AuthContext';
 import { Link } from 'react-router-dom';
 import React, { useState } from 'react';
@@ -31,11 +32,18 @@ const HeaderMobile = () => {
             <img src={logo} className='logo' alt='logo' />
             <img src={proza} className='proza' alt='proza' />
             {!isAuthentificated ? (
-                <Link to={'/login'}>Гість</Link>
+                <>
+                    <Link to={'/login'}>Гість</Link>
+                    <img src={guest} className='guest' alt='guest' />
+                </>
             ) : (
-                <Link to={'/profile'}>{author}</Link>
+                <>
+                    <Link to={'/profile'} className='authorTxt'>
+                        {author}
+                    </Link>
+                    <img src={model} className='guest' alt='guest' />
+                </>
             )}
-            <img src={guest} className='guest' alt='guest' />
         </div>
     );
 };
