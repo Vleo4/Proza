@@ -17,13 +17,17 @@ const Users = (props) => {
     const [isSubscribe, setIsSubscribe] = useState(false);
     const accessToken = getFromSessionStorage(ACCESS_TOKEN) ?? getFromLocalStorage(ACCESS_TOKEN);
     const navigate = useNavigate();
+    const [length, setLength] = useState(0);
     React.useEffect(() => {
         axios.get(apiURL + 'getuserarticles/' + props.author + '/?format=json').then((response) => {
+            if (response.data.length !== 842) {
+                setLength(response.data.length);
+            }
             setState({ items: response.data });
         });
     }, [props.author]);
     const onSubscribe = () => {
-        if (isAuthentificated) {
+        if (isAuthentificated && location.pathname !== '/profile') {
             axios
                 .put(
                     apiURL + 'subscription/' + props.author + '/',
@@ -129,25 +133,27 @@ const Users = (props) => {
                 </div>
             </div>
             <div className='footer-user'>
-                <div>Популярні твори</div>
-                {state.items[0] ? (
-                    <div className='infoTopUser'>
-                        <div className='partTopUser'>{state.items[0].title}</div>
-                        <div className='partTopUser'>
-                            <div className='likeTopUser'>
-                                {state.items[0].likes.length}
-                                <img src={likes} />
-                            </div>
-                            <div className='commentTopUser'>
-                                {state.items[0].count_of_reviews}
-                                <img src={comments} />
+                {length > 0 ? (
+                    <>
+                        <div>Популярні твори</div>
+                        <div className='infoTopUser'>
+                            <div className='partTopUser'>{state.items[0].title}</div>
+                            <div className='partTopUser'>
+                                <div className='likeTopUser'>
+                                    {state.items[0].likes.length}
+                                    <img src={likes} />
+                                </div>
+                                <div className='commentTopUser'>
+                                    {state.items[0].count_of_reviews}
+                                    <img src={comments} />
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </>
                 ) : (
                     <></>
                 )}
-                {state.items[1] ? (
+                {length > 1 ? (
                     <div className='infoTopUser'>
                         <div className='partTopUser'>{state.items[1].title}</div>
                         <div className='partTopUser'>

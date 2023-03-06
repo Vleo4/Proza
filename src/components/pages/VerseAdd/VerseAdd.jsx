@@ -33,12 +33,7 @@ const VerseAdd = (props) => {
                             </div>
                         </div>
                         <div className='right-small'>
-                            <Users
-                                className='users'
-                                author={props.author}
-                                verseOne={''}
-                                verseSecond={''}
-                            />
+                            <Users className='users' author={props.author} />
                         </div>
                     </div>
                 </>
@@ -53,12 +48,7 @@ const VerseAdd = (props) => {
                             <PostsAdd />
                         </div>
                         <div className='right'>
-                            <Users
-                                className='users'
-                                author={props.author}
-                                verseOne={''}
-                                verseSecond={''}
-                            />
+                            <Users className='users' author={props.author} />
                         </div>
                     </div>
                 </>
