@@ -8,6 +8,7 @@ class Posts {
 
     async search(search) {
         const response = await axios.get(`${this.apiPrefix}/v1/searcharticle/?search=${search}`);
+
         return response.data;
     }
 }
