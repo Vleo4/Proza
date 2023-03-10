@@ -14,6 +14,7 @@ const MyProfile = () => {
     const apiURL = 'https://prozaapp.art/api/v1/';
     const { isAuthentificated, isLoading: isAuthLoading } = useAuthContext();
     const navigate = useNavigate();
+    const [hasMore, setHasMore] = useState(true);
     React.useEffect(() => {
         if (!isAuthentificated) {
             navigate('/login');
@@ -28,6 +29,7 @@ const MyProfile = () => {
             })
             .then((response) => {
                 if (response.data.length === 1) {
+                    setHasMore(false);
                     setState(response.data[0]);
                     setInfinite({ items: [response.data[0]] });
                 } else if (response.data.length === 2) {
@@ -52,7 +54,6 @@ const MyProfile = () => {
             });
     }, []);
     const [indexCount, setIndexCount] = useState(2);
-    const [hasMore, setHasMore] = useState(true);
     const fetchMoreData = () => {
         setInfinite({ items: [...infinite.items, state.items[indexCount]] });
         setIndexCount(indexCount + 1);

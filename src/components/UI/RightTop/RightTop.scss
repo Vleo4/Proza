@@ -3,13 +3,9 @@
   box-sizing: border-box;
   border: 3px solid #FFE3FF;
   border-radius: 15px;
-  min-height: 72vh;
-  width: 82%;
+  height: 82%;
   position: relative;
   padding-top: 1rem;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 4rem;
   @media only screen and (max-width: 1400px) {
     zoom: 0.98;
   }
@@ -17,9 +13,6 @@
   .headerTop {
     @media only screen and (max-width: 1400px) {
       zoom: 0.9;
-    }
-    @media only screen and (min-width: 1800px) {
-      zoom: 1.5;
     }
     font-family: 'Inter', system-ui;
     font-style: normal;
@@ -35,15 +28,16 @@
     }
 
     .infoTop {
-      min-height: 14vh;
-
+      height: 9vh;
+      padding-top: 0.5rem;
       div {
+        cursor: pointer;
         font-family: 'Inter', system-ui;
         font-style: normal;
         font-weight: 400;
-        font-size: 14px;
+        font-size: 17px;
         line-height: 17px;
-        margin-right: 1rem;
+
         @media only screen and (min-width: 1800px) {
           font-size: 24px;
           line-height: 28px;
@@ -58,25 +52,22 @@
       @media only screen and (min-width: 1800px) {
         zoom: 1.5;
       }
-      width: 1rem;
-
+      width: 1.2rem;
     }
   }
 }
 .partTop{
-  margin-left: 1rem;
-  display: flex;
-  flex-direction: row;
-
+  a{
+vertical-align: text-top;  }
   .likeTop{
     position: fixed;
     flex: 1;
-
+    margin-left: 4%;
   }
   .commentTop{
     flex:3;
     position: fixed;
-    margin-left: 10%;
+    margin-left: 9%;
   }
 }
 

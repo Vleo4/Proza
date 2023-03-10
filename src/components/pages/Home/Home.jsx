@@ -9,7 +9,6 @@ const Home = () => {
     const apiURL = 'https://prozaapp.art/api/v1/';
     React.useEffect(() => {
         axios.get(apiURL + 'article/?format=json').then((response) => {
-            response.data.reverse();
             setAuthor(response.data[0].user);
             setState({ items: response.data });
             setInfinite({ items: [response.data[0], response.data[1]] });

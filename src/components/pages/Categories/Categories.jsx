@@ -14,6 +14,7 @@ import Users from '../../UI/Users/Users';
 import RightTop from '../../UI/RightTop/RightTop';
 import { useAuthContext } from '../../../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import Search from '../../UI/Search/Search';
 
 const Categories = () => {
     const { isAuthentificated, isLoading: isAuthLoading } = useAuthContext();
@@ -41,7 +42,7 @@ const Categories = () => {
                             id: '',
                             user: 'NO NAME',
                             cat: '',
-                            title: '',
+                            title: ' ',
                             content: '',
                             author: '',
                             count_of_likes: 0,
@@ -148,7 +149,10 @@ const Categories = () => {
                                         verseSecond={''}
                                     />
                                 ) : (
-                                    <RightTop />
+                                    <>
+                                        <Search />
+                                        <RightTop className='users' />
+                                    </>
                                 )}{' '}
                             </div>
                         </div>
@@ -211,18 +215,22 @@ const Categories = () => {
                             </div>
                         </div>
                         <div className='right'>
-                            <div className='users'>
-                                {author ? (
+                            {author ? (
+                                <>
+                                    <Search />
                                     <Users
                                         className='users'
                                         author={author}
                                         verseOne={''}
                                         verseSecond={''}
                                     />
-                                ) : (
-                                    <RightTop />
-                                )}{' '}
-                            </div>
+                                </>
+                            ) : (
+                                <>
+                                    <Search />
+                                    <RightTop className='users' />
+                                </>
+                            )}{' '}
                         </div>
                     </div>
                 </>

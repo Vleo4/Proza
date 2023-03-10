@@ -12,6 +12,7 @@ import NavbarMobile from '../../UI/NavbarMobile/NavbarMobile';
 import Navbar from '../../UI/Navbar/Navbar';
 import RightTop from '../../UI/RightTop/RightTop';
 import '../Articleid/ArticleID.scss';
+import Search from '../../UI/Search/Search';
 const Saves = () => {
     const [author, setAuthor] = useState(null);
     const accessToken = getFromSessionStorage(ACCESS_TOKEN) ?? getFromLocalStorage(ACCESS_TOKEN);
@@ -107,6 +108,7 @@ const Saves = () => {
                                 </div>
                             </div>
                             <div className='right-smallArticle'>
+                                <Search />
                                 <RightTop />
                             </div>
                         </div>
@@ -128,6 +130,7 @@ const Saves = () => {
                                 </div>
                             </div>
                             <div className='rightArticle'>
+                                <Search />
                                 <RightTop />
                             </div>
                         </div>

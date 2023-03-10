@@ -1,38 +1,19 @@
-import './Users.scss';
+import '../Posts/Posts.scss';
 import React, { useState } from 'react';
+import AlertAddPost from '../AlertAddPost/AlertAddPost';
 import subscribe from '../../../assets/images/Users/subscribe.png';
 import noSubscribe from '../../../assets/images/Users/noSubscribe.png';
-import model from '../../../assets/images/Users/model.png';
 import axios from 'axios';
 import { getFromLocalStorage, getFromSessionStorage } from '../../../utils/storage';
 import { ACCESS_TOKEN } from '../../../constants/localStorageKeys';
 import { useAuthContext } from '../../../contexts/AuthContext';
 import jwtDecode from 'jwt-decode';
 import { useNavigate } from 'react-router-dom';
-import likes from '../../../assets/images/Right/likes.png';
-import comments from '../../../assets/images/Right/comments.png';
-const Users = (props) => {
-    const [state, setState] = useState({ items: [] });
+const ProfileHeader = (props) => {
     const { isAuthentificated } = useAuthContext();
     const [isSubscribe, setIsSubscribe] = useState(false);
     const accessToken = getFromSessionStorage(ACCESS_TOKEN) ?? getFromLocalStorage(ACCESS_TOKEN);
     const navigate = useNavigate();
-    const [length, setLength] = useState(0);
-    React.useEffect(() => {
-        axios
-            .get(apiURL + 'getuserarticles/' + props.author + '/?format=json', {
-                headers: {
-                    Accept: 'application/json'
-                }
-            })
-            .then((response) => {
-                console.log(response.data);
-                if (response.data.length !== 842) {
-                    setLength(response.data.length);
-                }
-                setState({ items: response.data });
-            });
-    }, [props.author]);
     const onSubscribe = () => {
         if (isAuthentificated && location.pathname !== '/profile') {
             axios
@@ -101,9 +82,34 @@ const Users = (props) => {
                 });
         }
     }, [props.author]);
+    const [alert, setAlert] = useState(false);
+    const toggleAlert = () => {
+        setAlert(!alert);
+    };
+    const [imageData, setImageData] = useState(null);
+    React.useEffect(() => {
+        axios
+            .get(
+                'https://cookbook.brainstormingapplication.com/media/photos/2023/03/08/WIN_20221018_20_12_28_Pro.jpg',
+                { responseType: 'arraybuffer' }
+            )
+            .then((response) => {
+                const base64 = btoa(
+                    new Uint8Array(response.data).reduce(
+                        (data, byte) => data + String.fromCharCode(byte),
+                        ''
+                    )
+                );
+                setImageData(`data:image/jpeg;base64,${base64}`);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, []);
     return (
-        <div className='user'>
-            <div className='header-user'>
+        <>
+            <AlertAddPost toggleAlert={toggleAlert} alert={alert} className='complaintAlert' />
+            <div className='profileHeader'>
                 <div className='avatar'>
                     <img
                         className={
@@ -111,10 +117,10 @@ const Users = (props) => {
                                 ? 'avatarImage'
                                 : 'avatarImageProfile'
                         }
-                        src={model}
+                        src={imageData}
                         alt='avatar'
                     />
-                    {location.pathname !== '/profile' && props.author !== current ? (
+                    {location.pathname !== '/profile' && props.author === current ? (
                         <img
                             className='avatarStatus'
                             src={isSubscribe ? subscribe : noSubscribe}
@@ -125,72 +131,29 @@ const Users = (props) => {
                         ''
                     )}
                 </div>
-                {props.author}
-                <div className='info'>
-                    <div className='part'>
-                        <div className='leftSide'>Публікації</div>
-                        <div className='rightSide'>
-                            {articles}
-                            <div />
-                        </div>
-                        <div className='part'>
-                            <div className='leftSide'>Підписники</div>
-                            <div className='rightSide'>
-                                {subscribers.length} <div />
-                            </div>
-                        </div>
-
-                        <div className='part'>
-                            <div className='leftSide'>Підписки</div>
-                            <div className='rightSide'>
-                                {follows.length}
-                                <div />
-                            </div>
-                        </div>
+                <div className='block'>
+                    <div className='header'> {props.author}</div>
+                    <div className='slug'>{props.author}</div>
+                    <div className='textAchievement'>Письменник(ця)-початківець</div>
+                    <div className='text'>
+                        Володя тримає Настю в рабстві! Допоможіть!*тут має бути опис, але не більше
+                        трьох рядків*
+                    </div>
+                </div>
+                <div className='allRows'>
+                    <div className='textRow'>
+                        Публікації {'   '} {articles}
+                    </div>
+                    <div className='textRow'>
+                        Підписники {'   '} {subscribers.length}
+                    </div>
+                    <div className='textRow'>
+                        Підписки{'   '} {follows.length}
                     </div>
                 </div>
             </div>
-            <div className='footer-user'>
-                {length > 0 ? (
-                    <>
-                        <div>Популярні твори</div>
-                        <div className='infoTopUser'>
-                            <div className='partTopUser'>{state.items[0].title}</div>
-                            <div className='partTopUser'>
-                                <div className='likeTopUser'>
-                                    <a>{state.items[0].likes.length + ' '}</a>
-                                    <img src={likes} />
-                                </div>
-                                <div className='commentTopUser'>
-                                    <a>{state.items[0].count_of_reviews + ' '}</a>
-                                    <img src={comments} />
-                                </div>
-                            </div>
-                        </div>
-                    </>
-                ) : (
-                    <></>
-                )}
-                {length > 1 ? (
-                    <div className='infoTopUser'>
-                        <div className='partTopUser'>{state.items[1].title}</div>
-                        <div className='partTopUser'>
-                            <div className='likeTopUser'>
-                                <a>{state.items[1].likes.length + ' '}</a>
-                                <img src={likes} />
-                            </div>
-                            <div className='commentTopUser'>
-                                <a>{state.items[1].count_of_reviews + ' '}</a>
-                                <img src={comments} />
-                            </div>
-                        </div>
-                    </div>
-                ) : (
-                    <></>
-                )}
-            </div>
-        </div>
+        </>
     );
 };
 
-export default Users;
+export default ProfileHeader;
