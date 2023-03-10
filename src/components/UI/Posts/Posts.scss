@@ -11,25 +11,22 @@
  margin-right: auto;
  margin-top: 3%;
  .header-post{
+  border-bottom: 1px solid #727373;
+  transform: translateX(-1rem);
+
   font-family: 'Inter', system-ui;
   font-style: normal;
   font-weight: 700;
   font-size: 13px;
   line-height: 16px;
   width: 100%;
-  display: block;
+  display: flex;
   margin-top: 1rem;
   margin-left: 1rem;
-  img{
-   margin-right: 2rem;
-   width: 22px;
-   float:right;
-   display: inline-block;
-  }
  }
  .text{
-  margin-top: 1rem;
-  margin-left: 1rem;
+  margin-top: 0.3rem;
+  margin-left: 0.5rem;
   white-space: pre-line;
   display: block;
   font-family: 'Inter', system-ui;
@@ -88,28 +85,25 @@
  padding-bottom:50px;
 
  .header-post{
-   font-family: 'Inter', system-ui;
+  border-bottom: 1px solid #727373;
+  transform: translateX(-1rem);
+
+  font-family: 'Inter', system-ui;
   font-style: normal;
   font-weight: 700;
   font-size: 13px;
   line-height: 16px;
   width: 100%;
-  display: block;
+  display: flex;
   margin-top: 1rem;
   margin-left: 1rem;
   @media only screen and (min-width: 1800px) {
    font-size: 30px;
    line-height: 35px;
   }
-  img{
-   margin-right: 2rem;
-   width: 22px;
-   float:right;
-   display: inline-block;
-  }
  }
  .text{
-  margin-top: 1rem;
+  margin-top: 0.3rem;
   margin-left: 0.5rem;
   white-space: pre-line;
    display: block;
@@ -191,20 +185,17 @@
   padding-top: 1rem;
   overflow: hidden;
   .header-post{
+   border-bottom: 1px solid #727373;
+  transform: translateX(-1rem);
+
    font-family: 'Inter', system-ui;
    font-style: normal;
    font-weight: 700;
    font-size: 16px;
    line-height: 16px;
    width: 97%;
-   display: block;
+   display: flex;
    margin-left: 1rem;
-   img{
-    margin-right: 1rem;
-    width: 22px;
-    float:right;
-    display: inline-block;
-   }
   }
   .text{
    margin-top: 1rem;
@@ -260,10 +251,12 @@ overflow: auto;
    line-height: 24px;
    text-align: center;
    img{
-    margin-right: 2rem;
-    width: 22px;
+    display:inline-block;
     float:right;
-    display: inline-block;
+    margin-right:1rem;
+    width:22px;
+    margin-top: 0.5rem;
+    cursor: pointer
    }
   }
   .text{
@@ -309,12 +302,14 @@ overflow: auto;
  float: right;
  padding-top:10%;
  margin-right: 1rem;
+ cursor: pointer
 }
 .expandedArrow{
  width: 1rem;
  float: right;
  margin-right: 1rem;
  margin-top:4%;
+ cursor: pointer
 }
 .textA{
  white-space: pre-line;
@@ -324,7 +319,6 @@ overflow: auto;
  font-weight: 400;
  font-size: 18px;
  line-height: 2rem;
- margin-right: 1rem;
  border-bottom: 1px solid #000000;
 }
 .addPost{
@@ -365,29 +359,23 @@ overflow: auto;
  margin-top: 1.65rem;
  height: 100%;
  .header-post{
+  border-bottom: 1px solid #727373;
   font-family: 'Inter', system-ui;
   font-style: normal;
   font-weight: 700;
   font-size: 13px;
   line-height: 16px;
   width: 100%;
-  display: block;
+  display: flex;
   margin-top: 1rem;
-  margin-left: 1rem;
   @media only screen and (min-width: 1800px) {
    font-size: 30px;
    line-height: 35px;
   }
-  img{
-   margin-right: 2rem;
-   width: 22px;
-   float:right;
-   display: inline-block;
-  }
  }
  .text{
-  margin-top: 1rem;
-  margin-left: 1rem;
+  margin-top: 0.3rem;
+  margin-left: 0.5rem;
   white-space: pre-line;
   display: block;
   font-family: 'Inter', system-ui;
@@ -583,4 +571,45 @@ overflow: auto;
  margin-left: auto;
  margin-right: auto;
  margin-top: 4%;
+}
+.header-two {
+ font-family: 'Inter', system-ui;
+ font-style: normal;
+ font-weight: 700;
+ font-size: 15px;
+ line-height: 17px;
+ width: 100%;
+ margin-left: 1rem;
+ margin-top: 1.5rem;
+ margin-bottom: 1rem;
+}
+.rowHead{
+ cursor: pointer;
+ font-family: 'Inter', system-ui;
+ font-style: normal;
+ font-weight: 400;
+ font-size: 18px;
+ line-height: 18px;
+ width: 100%;
+ margin-left: 0.5rem;
+ display: inline-block;
+ margin-top: 0.3rem;
+}
+.postsDots{
+ cursor: pointer;
+ margin-right: 1rem;
+ width: 1.6rem;
+ height: 1.6rem;
+ float:right;
+ display: inline-block;
+ position: relative;
+ top: 0;
+}
+.postsAvatar{
+ cursor: pointer;
+ margin-left:0.8rem;
+ display: inline-block;
+ height: 2.5rem;
+ position: relative;
+ top: -0.4rem;
 }

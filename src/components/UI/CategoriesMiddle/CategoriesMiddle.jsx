@@ -2,7 +2,6 @@ import './CategoriesMiddle.scss';
 import React from 'react';
 const CategoriesMiddle = (props) => {
     const setCategory = (value) => {
-        props.setAuthor(null);
         props.setCategory(value);
     };
     return (

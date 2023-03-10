@@ -119,17 +119,17 @@ const RightTop = () => {
                             <div
                                 className='partTop'
                                 onClick={() => {
-                                    navigate('/article/' + state[4].id);
+                                    navigate('/article/' + state[5].id);
                                 }}>
                                 {state[4].title}
                             </div>
                             <div className='partTop'>
                                 <div className='likeTop'>
-                                    <a>{state[4].likes.length + ' '}</a>
+                                    <a>{state[5].likes.length + ' '}</a>
                                     <img src={likes} />
                                 </div>
                                 <div className='commentTop'>
-                                    <a> {state[4].likes.length + ' '}</a>
+                                    <a> {state[5].likes.length + ' '}</a>
                                     <img src={comments} />
                                 </div>
                             </div>
@@ -140,15 +140,15 @@ const RightTop = () => {
                                 onClick={() => {
                                     navigate('/article/' + state[4].id);
                                 }}>
-                                {state[4].title}
+                                {state[6].title}
                             </div>
                             <div className='partTop'>
                                 <div className='likeTop'>
-                                    <a>{state[4].likes.length + ' '}</a>
+                                    <a>{state[6].likes.length + ' '}</a>
                                     <img src={likes} />
                                 </div>
                                 <div className='commentTop'>
-                                    <a> {state[4].likes.length + ' '}</a>
+                                    <a> {state[6].likes.length + ' '}</a>
                                     <img src={comments} />
                                 </div>
                             </div>

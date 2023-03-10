@@ -10,7 +10,6 @@ import AlertAddPost from '../../UI/AlertAddPost/AlertAddPost';
 import addPost from '../../../assets/images/Posts/addPost.png';
 import Posts from '../../UI/Posts/Posts';
 import axios from 'axios';
-import Users from '../../UI/Users/Users';
 import RightTop from '../../UI/RightTop/RightTop';
 import { useAuthContext } from '../../../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
@@ -25,7 +24,6 @@ const Categories = () => {
         }
     }, [isAuthentificated, isAuthLoading]);
     const [infinite, setInfinite] = useState({ items: [] });
-    const [author, setAuthor] = useState(null);
     const [state, setState] = useState(null);
     const apiURL = 'https://prozaapp.art/api/v1/';
     const [category, setCategory] = useState(null);
@@ -115,11 +113,10 @@ const Categories = () => {
                                     <CategoriesMiddle
                                         category={category}
                                         setCategory={setCategory}
-                                        setAuthor={setAuthor}
                                     />
                                     {infinite.items.map((p, index) => (
                                         <Posts
-                                            setAuthor={setAuthor}
+                                            author={p.user}
                                             user={p.user}
                                             tittle={p.title}
                                             content={p.content}
@@ -131,19 +128,8 @@ const Categories = () => {
                         </div>
                         <div className='right-small'>
                             <div className='users'>
-                                {author ? (
-                                    <Users
-                                        className='users'
-                                        author={author}
-                                        verseOne={''}
-                                        verseSecond={''}
-                                    />
-                                ) : (
-                                    <>
-                                        <Search />
-                                        <RightTop className='users' />
-                                    </>
-                                )}{' '}
+                                <Search />
+                                <RightTop className='users' />
                             </div>
                         </div>
                     </div>
@@ -190,12 +176,10 @@ const Categories = () => {
                                     <CategoriesMiddle
                                         category={category}
                                         setCategory={setCategory}
-                                        setAuthor={setAuthor}
                                     />
                                     {infinite.items.map((p, index) => (
                                         <Posts
-                                            setAuthor={setAuthor}
-                                            user={p.user}
+                                            author={p.user}
                                             tittle={p.title}
                                             content={p.content}
                                             id={p.id}
@@ -205,22 +189,8 @@ const Categories = () => {
                             </div>
                         </div>
                         <div className='right'>
-                            {author ? (
-                                <>
-                                    <Search />
-                                    <Users
-                                        className='users'
-                                        author={author}
-                                        verseOne={''}
-                                        verseSecond={''}
-                                    />
-                                </>
-                            ) : (
-                                <>
-                                    <Search />
-                                    <RightTop className='users' />
-                                </>
-                            )}{' '}
+                            <Search />
+                            <RightTop className='users' />
                         </div>
                     </div>
                 </>

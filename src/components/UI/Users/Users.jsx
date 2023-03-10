@@ -143,45 +143,49 @@ const Users = (props) => {
                     </div>
                 </div>
             </div>
-            <div className='footer-user'>
-                {length > 0 ? (
-                    <>
-                        <div>Популярні твори</div>
+            {length > 0 ? (
+                <div className='footer-user'>
+                    {length > 0 ? (
+                        <>
+                            <div>Популярні твори</div>
+                            <div className='infoTopUser'>
+                                <div className='partTopUser'>{state.items[0].title}</div>
+                                <div className='partTopUser'>
+                                    <div className='likeTopUser'>
+                                        <a>{state.items[0].likes.length + ' '}</a>
+                                        <img src={likes} />
+                                    </div>
+                                    <div className='commentTopUser'>
+                                        <a>{state.items[0].count_of_reviews + ' '}</a>
+                                        <img src={comments} />
+                                    </div>
+                                </div>
+                            </div>
+                        </>
+                    ) : (
+                        <></>
+                    )}
+                    {length > 1 ? (
                         <div className='infoTopUser'>
-                            <div className='partTopUser'>{state.items[0].title}</div>
+                            <div className='partTopUser'>{state.items[1].title}</div>
                             <div className='partTopUser'>
                                 <div className='likeTopUser'>
-                                    <a>{state.items[0].likes.length + ' '}</a>
+                                    <a>{state.items[1].likes.length + ' '}</a>
                                     <img src={likes} />
                                 </div>
                                 <div className='commentTopUser'>
-                                    <a>{state.items[0].count_of_reviews + ' '}</a>
+                                    <a>{state.items[1].count_of_reviews + ' '}</a>
                                     <img src={comments} />
                                 </div>
                             </div>
                         </div>
-                    </>
-                ) : (
-                    <></>
-                )}
-                {length > 1 ? (
-                    <div className='infoTopUser'>
-                        <div className='partTopUser'>{state.items[1].title}</div>
-                        <div className='partTopUser'>
-                            <div className='likeTopUser'>
-                                <a>{state.items[1].likes.length + ' '}</a>
-                                <img src={likes} />
-                            </div>
-                            <div className='commentTopUser'>
-                                <a>{state.items[1].count_of_reviews + ' '}</a>
-                                <img src={comments} />
-                            </div>
-                        </div>
-                    </div>
-                ) : (
-                    <></>
-                )}
-            </div>
+                    ) : (
+                        <></>
+                    )}
+                </div>
+            ) : (
+                <></>
+            )}
         </div>
     );
 };

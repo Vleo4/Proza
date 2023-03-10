@@ -21,10 +21,6 @@ const Verse = (props) => {
     const { isAuthentificated } = useAuthContext();
     const isMobile = useResizer();
     const [active, setActive] = useState(null);
-    const [author, setAuthor] = useState(null);
-    React.useEffect(() => {
-        setAuthor(props.author);
-    }, [props.author]);
     const [alert, setAlert] = useState(false);
     const toggleAlert = () => {
         setAlert(!alert);
@@ -103,7 +99,7 @@ const Verse = (props) => {
                                     )}{' '}
                                     {props.infinite.items.map((p, index) => (
                                         <Posts
-                                            setAuthor={setAuthor}
+                                            author={p.user}
                                             user={p.user}
                                             tittle={p.title}
                                             content={p.content}
@@ -143,7 +139,7 @@ const Verse = (props) => {
                                 </>
                             ) : (
                                 <>
-                                    <Users className='users' author={author} />
+                                    <Users className='users' author={props.author} />
                                 </>
                             )}
                         </div>
@@ -192,7 +188,7 @@ const Verse = (props) => {
                                 )}{' '}
                                 {props.infinite.items.map((p, index) => (
                                     <Posts
-                                        setAuthor={setAuthor}
+                                        author={p.user}
                                         user={p.user}
                                         tittle={p.title}
                                         content={p.content}
@@ -227,7 +223,7 @@ const Verse = (props) => {
                             {location.pathname === '/profile' ||
                             location.pathname === '/profile/' + id ? (
                                 <>
-                                    <Users className='users' author={author} />
+                                    <Users className='users' author={props.author} />
                                 </>
                             ) : (
                                 <>

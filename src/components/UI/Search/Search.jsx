@@ -12,8 +12,8 @@ const Search = () => {
     useEffect(() => {
         const loadSearch = async () => {
             try {
+                // eslint-disable-next-line no-unused-vars
                 const searchData = await api.posts.search(debouncedSearch);
-                console.log(searchData);
             } catch (e) {
                 console.error(e);
             }

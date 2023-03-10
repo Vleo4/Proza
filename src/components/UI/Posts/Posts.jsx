@@ -6,6 +6,7 @@ import comments from '../../../assets/images/Posts/comments.png';
 import noSaves from '../../../assets/images/Posts/nosaves.png';
 import saves from '../../../assets/images/Posts/saves.png';
 import share from '../../../assets/images/Posts/share.png';
+import model from '../../../assets/images/Users/model.png';
 import ShowMoreText from 'react-show-more-text';
 import React, { useState } from 'react';
 import AlertPost from '../Alert/Alert';
@@ -145,9 +146,6 @@ const Posts = (props) => {
         navigator.clipboard.writeText('https://prozaapp.art/article/' + props.id).then();
         toggleCopyAlert();
     };
-    const handleMouseOver = () => {
-        props.setAuthor(props.user);
-    };
     React.useEffect(() => {
         if (isAuthentificated) {
             axios
@@ -186,33 +184,32 @@ const Posts = (props) => {
         }
     }, [isLike]);
     const lines = () => {
-        console.log(window.innerHeight);
         if (window.innerHeight > 1100) {
-            return 17;
+            return 24;
         } else if (window.innerHeight > 1050) {
-            return 12;
-        } else if (window.innerHeight > 975) {
-            return 25;
-        } else if (window.innerHeight > 900) {
             return 23;
+        } else if (window.innerHeight > 975) {
+            return 21;
+        } else if (window.innerHeight > 900) {
+            return 19;
         } else if (window.innerHeight > 850) {
-            return 22;
+            return 17;
         } else if (window.innerHeight > 800) {
             return 15;
         } else if (window.innerHeight > 750) {
-            return 18;
+            return 15;
         } else if (window.innerHeight > 700) {
-            return 16;
-        } else if (window.innerHeight > 650) {
             return 14;
-        } else if (window.innerHeight > 600) {
-            return 13;
-        } else if (window.innerHeight > 550) {
+        } else if (window.innerHeight > 650) {
             return 12;
+        } else if (window.innerHeight > 600) {
+            return 10;
+        } else if (window.innerHeight > 550) {
+            return 9;
         } else if (window.innerHeight > 500) {
-            return 11;
+            return 8;
         } else {
-            return 11;
+            return 8;
         }
     };
 
@@ -233,11 +230,17 @@ const Posts = (props) => {
                 posts={props}
                 className='fullAlert'
             />
-            <div className={divBig()} onMouseOver={handleMouseOver}>
+            <div className={divBig()}>
                 <div className='header-post'>
-                    {props.tittle}
-                    <img src={dots} onClick={toggleComplaintAlert} alt='dots'></img>
+                    <img src={model} className='postsAvatar' />
+                    <div className='rowHead'>{props.author}</div>
+                    <img
+                        src={dots}
+                        className='postsDots'
+                        onClick={toggleComplaintAlert}
+                        alt='dots'></img>
                 </div>
+                <div className='header-two'>{props.tittle}</div>
                 <div className='text'>
                     {
                         <ShowMoreText

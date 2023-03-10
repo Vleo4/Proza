@@ -53,12 +53,15 @@
         zoom: 1.5;
       }
       width: 1.2rem;
+      cursor: default;
     }
   }
 }
 .partTop{
   a{
-vertical-align: text-top;  }
+    cursor: default;
+
+    vertical-align: text-top;  }
   .likeTop{
     position: fixed;
     flex: 1;
