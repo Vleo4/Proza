@@ -42,7 +42,7 @@ const Categories = () => {
                             id: '',
                             user: 'NO NAME',
                             cat: '',
-                            title: '',
+                            title: ' ',
                             content: '',
                             author: '',
                             count_of_likes: 0,
