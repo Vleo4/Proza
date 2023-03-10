@@ -7,6 +7,8 @@ import { Controller, useForm } from 'react-hook-form';
 import api from 'api';
 import { useAuthContext } from 'contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { saveToSessionStorage } from '../../../utils/storage';
+import { ACCESS_TOKEN, REFRESH_TOKEN } from '../../../constants/localStorageKeys';
 
 const Signup = () => {
     const navigate = useNavigate();
@@ -34,7 +36,10 @@ const Signup = () => {
             const response = await api.auth.register(data.username, data.email, data.password);
 
             if (response.user) {
-                navigate('/login');
+                const { access, refresh } = await api.auth.login(data.username, data.password);
+                saveToSessionStorage(ACCESS_TOKEN, access);
+                saveToSessionStorage(REFRESH_TOKEN, refresh);
+                window.location.href = '/';
             }
         } catch (e) {
             console.error(e);

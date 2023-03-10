@@ -185,6 +185,37 @@ const Posts = (props) => {
                 });
         }
     }, [isLike]);
+    const lines = () => {
+        console.log(window.innerHeight);
+        if (window.innerHeight > 1100) {
+            return 17;
+        } else if (window.innerHeight > 1050) {
+            return 12;
+        } else if (window.innerHeight > 975) {
+            return 25;
+        } else if (window.innerHeight > 900) {
+            return 23;
+        } else if (window.innerHeight > 850) {
+            return 22;
+        } else if (window.innerHeight > 800) {
+            return 15;
+        } else if (window.innerHeight > 750) {
+            return 18;
+        } else if (window.innerHeight > 700) {
+            return 16;
+        } else if (window.innerHeight > 650) {
+            return 14;
+        } else if (window.innerHeight > 600) {
+            return 13;
+        } else if (window.innerHeight > 550) {
+            return 12;
+        } else if (window.innerHeight > 500) {
+            return 11;
+        } else {
+            return 11;
+        }
+    };
+
     return (
         <>
             <AlertCopy toggleCopyAlert={toggleCopyAlert} state={state} className='copyAlert' />
@@ -207,17 +238,13 @@ const Posts = (props) => {
                     {props.tittle}
                     <img src={dots} onClick={toggleComplaintAlert} alt='dots'></img>
                 </div>
-                <div className='text-parent'>
+                <div className='text'>
                     {
                         <ShowMoreText
                             truncatedEndingComponent=''
                             className='text'
                             width={300}
-                            lines={
-                                id
-                                    ? parseInt(window.outerHeight / 50)
-                                    : parseInt(window.outerHeight / 45) - 1
-                            }
+                            lines={lines()}
                             more='Читати далі'
                             keepNewLines={true}
                             anchorClass='textNext'

@@ -14,7 +14,6 @@ import AlertAddPost from '../../UI/AlertAddPost/AlertAddPost';
 import addPost from '../../../assets/images/Posts/addPost.png';
 import Search from '../../UI/Search/Search';
 import RightTop from '../../UI/RightTop/RightTop';
-import ProfileHeader from '../../UI/ProfileHeader/ProfileHeader';
 
 const Verse = (props) => {
     let { id } = useParams();
@@ -80,7 +79,6 @@ const Verse = (props) => {
                                     {location.pathname === '/profile' ||
                                     location.pathname === '/profile/' + id ? (
                                         <>
-                                            <ProfileHeader author={author} />
                                             <AlertAddPost
                                                 toggleAlert={toggleAlert}
                                                 alert={alert}
@@ -137,15 +135,14 @@ const Verse = (props) => {
                             ''
                         )}
                         <div className='right-small'>
+                            <Search />
                             {location.pathname === '/profile' ||
                             location.pathname === '/profile/' + id ? (
                                 <>
-                                    <Search />
                                     <RightTop className='users' />
                                 </>
                             ) : (
                                 <>
-                                    <Search />
                                     <Users className='users' author={author} />
                                 </>
                             )}
@@ -171,7 +168,6 @@ const Verse = (props) => {
                                 {location.pathname === '/profile' ||
                                 location.pathname === '/profile/' + id ? (
                                     <>
-                                        <ProfileHeader author={author} />
                                         <AlertAddPost
                                             toggleAlert={toggleAlert}
                                             alert={alert}
@@ -227,16 +223,15 @@ const Verse = (props) => {
                             ''
                         )}
                         <div className='right'>
+                            <Search />
                             {location.pathname === '/profile' ||
                             location.pathname === '/profile/' + id ? (
                                 <>
-                                    <Search />
-                                    <RightTop className='users' />
+                                    <Users className='users' author={author} />
                                 </>
                             ) : (
                                 <>
-                                    <Search />
-                                    <Users className='users' author={author} />
+                                    <RightTop className='users' />
                                 </>
                             )}
                         </div>

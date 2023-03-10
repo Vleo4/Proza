@@ -19,19 +19,12 @@ const Users = (props) => {
     const navigate = useNavigate();
     const [length, setLength] = useState(0);
     React.useEffect(() => {
-        axios
-            .get(apiURL + 'getuserarticles/' + props.author + '/?format=json', {
-                headers: {
-                    Accept: 'application/json'
-                }
-            })
-            .then((response) => {
-                console.log(response.data);
-                if (response.data.length !== 842) {
-                    setLength(response.data.length);
-                }
-                setState({ items: response.data });
-            });
+        axios.get(apiURL + 'getuserarticles/' + props.author + '/?format=json').then((response) => {
+            if (response.data.length !== 842) {
+                setLength(response.data.length);
+            }
+            setState({ items: response.data });
+        });
     }, [props.author]);
     const onSubscribe = () => {
         if (isAuthentificated && location.pathname !== '/profile') {

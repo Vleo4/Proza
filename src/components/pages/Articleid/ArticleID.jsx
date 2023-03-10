@@ -11,6 +11,7 @@ import axios from 'axios';
 import './ArticleID.scss';
 import { useAuthContext } from '../../../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import Search from '../../UI/Search/Search';
 
 const ArticleID = () => {
     const navigate = useNavigate();
@@ -89,12 +90,8 @@ const ArticleID = () => {
                             ''
                         )}
                         <div className='right-smallArticle'>
-                            <Users
-                                className='users'
-                                author={'Анастасія Костирка'}
-                                verseOne={'І жінка з чорними очима, як земля, волоссям\n'}
-                                verseSecond={'І жінка з чорними очима, як земля, волоссям\n'}
-                            />
+                            <Search />
+                            <Users className='users' author={author} />
                         </div>
                     </div>
                 </>
@@ -138,12 +135,8 @@ const ArticleID = () => {
                             ''
                         )}
                         <div className='rightArticle'>
-                            <Users
-                                className='users'
-                                author={author}
-                                verseOne={'І жінка з чорними очима, як земля, волоссям\n'}
-                                verseSecond={'І жінка з чорними очима, як земля, волоссям\n'}
-                            />
+                            <Search />
+                            <Users className='users' author={author} />
                         </div>
                     </div>
                 </>

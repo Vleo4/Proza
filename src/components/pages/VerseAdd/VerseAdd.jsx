@@ -6,6 +6,7 @@ import useResizer from '../../../utils/utils';
 import NavbarMobile from '../../UI/NavbarMobile/NavbarMobile';
 import HeaderMobile from '../../UI/HeaderMobile/HeaderMobile';
 import PostsAdd from '../../UI/PostsAdd/PostsAdd';
+import Search from '../../UI/Search/Search';
 
 const VerseAdd = (props) => {
     const isMobile = useResizer();
@@ -26,13 +27,11 @@ const VerseAdd = (props) => {
                 <>
                     <div className='verse-page-small'>
                         <Navbar className='navBar' active={active} setActive={setActive} />
-                        <div className='verse-small'>
-                            <div className='verse'>
-                                {' '}
-                                <PostsAdd />
-                            </div>
+                        <div className='verse-blockAddSmall'>
+                            <PostsAdd />
                         </div>
                         <div className='right-small'>
+                            <Search />
                             <Users className='users' author={props.author} />
                         </div>
                     </div>
@@ -44,10 +43,11 @@ const VerseAdd = (props) => {
                 <>
                     <div className='verse-page' id='scrollableDiv'>
                         <Navbar className='navBar' active={active} setActive={setActive} />
-                        <div className='verse-block'>
+                        <div className='verse-blockAdd'>
                             <PostsAdd />
                         </div>
                         <div className='right'>
+                            <Search />
                             <Users className='users' author={props.author} />
                         </div>
                     </div>

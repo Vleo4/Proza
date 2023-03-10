@@ -10,7 +10,7 @@ const PostsAdd = () => {
     return (
         <>
             <AlertAddPost toggleAlert={toggleAlert} alert={alert} className='complaintAlert' />
-            <div className='posts'>
+            <div className='postsAddJsx'>
                 <div className='text-parent'>
                     <img src={addPost} className='addPost' onClick={toggleAlert} />
                 </div>

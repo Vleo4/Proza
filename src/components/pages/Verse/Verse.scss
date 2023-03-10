@@ -23,6 +23,16 @@
     right: 35%;
     border: 1px solid rgba(0, 0, 0, 0.7);
   }
+  .verse-blockAddSmall {
+    position: absolute;
+    background-color: white;
+    width:48%;
+    top: 10%;
+    right: 36.6%;
+    border: 1px solid rgba(0, 0, 0, 0.7);
+    box-sizing: border-box;
+    height: 86%;
+  }
   .right-small{
     padding-left: 1.12rem;
     padding-right: 1.12rem;
@@ -112,6 +122,16 @@
     border: 1px solid rgba(0, 0, 0, 0.7);
     border-bottom: 0;
     box-sizing: border-box;
+  }
+  .verse-blockAdd {
+    position: absolute;
+    background-color: white;
+    width:43%;
+    top: 10%;
+    right: 36.6%;
+    border: 1px solid rgba(0, 0, 0, 0.7);
+    box-sizing: border-box;
+    height: 86%;
   }
   .right{
     padding-left: 1.12rem;

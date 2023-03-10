@@ -38,16 +38,6 @@ const Categories = () => {
                         setState(response.data[0]);
                         setInfinite({ items: [response.data[0]] });
                     } else if (!response.data.length) {
-                        setState({
-                            id: '',
-                            user: 'NO NAME',
-                            cat: '',
-                            title: ' ',
-                            content: '',
-                            author: '',
-                            count_of_likes: 0,
-                            count_of_reviews: 0
-                        });
                         setInfinite({ items: [] });
                     } else if (response.data.length === 2) {
                         setState({ items: response.data });
