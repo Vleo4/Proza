@@ -8,7 +8,7 @@
 .verse-page-small {
   overflow: hidden;
   display: block;
-  width: 85%;
+  width: 84%;
   height: 100vh;
   background-image: url("../../../assets/images/verse-background.png");
   background-color: #FFE3FF;
@@ -24,6 +24,8 @@
     border: 1px solid rgba(0, 0, 0, 0.7);
   }
   .right-small{
+    padding-left: 1.12rem;
+    padding-right: 1.12rem;
     position: absolute;
     background-color: white;
     width:22%;
@@ -35,7 +37,7 @@
   .right-btn{
     position: absolute;
     width: 10%;
-    height: 2.8rem;
+    height: 2.7rem;
     top: 1%;
     right: 16%;
     box-sizing: border-box;
@@ -45,18 +47,25 @@
     align-items: center;
     text-align: center;
     cursor: pointer;
+    @media only screen and (min-width: 1800px) {
+      zoom: 1.5;
+    }
   }
   .right-btn2{
     position: absolute;
     width:10%;
-    height: 2.8rem;
+    height: 2.7rem;
     top: 1%;
     right: 4%;
     box-sizing: border-box;
     background: #C0777F;
     border-radius: 10px;
     cursor: pointer;
+    @media only screen and (min-width: 1800px) {
+      zoom: 1.5;
+    }
   }
+
 }
 
 .textL{
@@ -105,6 +114,8 @@
     box-sizing: border-box;
   }
   .right{
+    padding-left: 1.12rem;
+    padding-right: 1.12rem;
       position: absolute;
     background-color: white;
     width:20%;
@@ -116,9 +127,15 @@
     padding-right: 1.12rem;
   }
   .right-btn{
+    @media only screen and (max-width: 1400px) {
+      zoom: 0.9;
+    }
+    @media only screen and (min-width: 1800px) {
+      zoom: 1.5;
+    }
     position: absolute;
     width:9%;
-    height: 2.8rem;
+    height: 2.7rem;
     top: 1%;
     right: 18%;
     box-sizing: border-box;
@@ -130,14 +147,22 @@
     cursor: pointer;
   }
   .right-btn2{
+    @media only screen and (max-width: 1400px) {
+      zoom: 0.9;
+    }
+    @media only screen and (min-width: 1800px) {
+      zoom: 1.5;
+    }
     position: absolute;
     width:9%;
-    height: 2.8rem;
+    height: 2.7rem;
     top: 1%;
     right: 7%;
     box-sizing: border-box;
     background: #C0777F;
     border-radius: 10px;
+    align-items: center;
+    text-align: center;
     cursor: pointer;
   }
 }
@@ -149,7 +174,7 @@
 .users{
   margin-left: auto;
   margin-right: auto;
-  margin-top: 30px;
+  margin-top: 0.5rem;
 }
 
 
@@ -186,6 +211,7 @@
     width: 100%;
     height: 3.125rem;
     background-color: white;
+    z-index: 0;
   }
 }
 .postsAdd{

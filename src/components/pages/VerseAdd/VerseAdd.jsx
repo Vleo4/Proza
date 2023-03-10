@@ -6,24 +6,10 @@ import useResizer from '../../../utils/utils';
 import NavbarMobile from '../../UI/NavbarMobile/NavbarMobile';
 import HeaderMobile from '../../UI/HeaderMobile/HeaderMobile';
 import PostsAdd from '../../UI/PostsAdd/PostsAdd';
-import axios from 'axios';
 
 const VerseAdd = (props) => {
     const isMobile = useResizer();
-    const [author, setAuthor] = useState(null);
     const [active, setActive] = useState(false);
-    const apiURL = 'https://prozaapp.art/api/v1/';
-    React.useEffect(() => {
-        axios
-            .get(apiURL + 'prozauserprofile/?format=json', {
-                headers: {
-                    Authorization: 'Bearer ' + props.accessToken
-                }
-            })
-            .then((response) => {
-                setAuthor(response.data.user);
-            });
-    });
     if (isMobile) {
         return (
             <div className='mobile-verse'>
@@ -47,12 +33,7 @@ const VerseAdd = (props) => {
                             </div>
                         </div>
                         <div className='right-small'>
-                            <Users
-                                className='users'
-                                author={author}
-                                verseOne={'І жінка з чорними очима, як земля, волоссям\n'}
-                                verseSecond={'І жінка з чорними очима, як земля, волоссям\n'}
-                            />
+                            <Users className='users' author={props.author} />
                         </div>
                     </div>
                 </>
@@ -67,12 +48,7 @@ const VerseAdd = (props) => {
                             <PostsAdd />
                         </div>
                         <div className='right'>
-                            <Users
-                                className='users'
-                                author={author}
-                                verseOne={''}
-                                verseSecond={''}
-                            />
+                            <Users className='users' author={props.author} />
                         </div>
                     </div>
                 </>

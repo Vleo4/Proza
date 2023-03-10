@@ -1,0 +1,118 @@
+.middle{
+ background-color: #ffffff;
+ box-sizing: border-box;
+ border: 3px solid #FFE3FF;
+ border-radius: 15px;
+ height: 65vh ;
+ width: 82%;
+ position:relative;
+ padding-bottom:50px;
+ margin-left: auto;
+ margin-right: auto;
+ margin-top: 7%;
+}
+.lyric{
+ margin-right: auto;
+ margin-left: auto;
+ .txt {
+  margin-top: 1rem;
+  font-family: 'Inter', system-ui;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  align-items: center;
+  text-align: center;
+ }
+}
+.containerCat{
+ display: flex;
+ flex-direction: row;
+ margin-top: 5%;
+}
+.category{
+ height: 1.6rem;
+ width: 30%;
+ position: static;
+ margin-left: 2.5%;
+ margin-right: 2.5%;
+ text-align: center;
+ border: 2px solid #C0777F;
+ filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+ border-radius: 15px;
+ font-family: 'Inter',system-ui;
+ font-style: normal;
+ font-weight: 400;
+ font-size: 16px;
+ line-height: 19px;
+ cursor: pointer;
+
+}
+.categorySolo {
+ height: 1.6rem;
+ width: 28.5%;
+ position: static;
+ margin-left: 2.5%;
+ margin-right: 2.5%;
+ text-align: center;
+ border: 2px solid #C0777F;
+ filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+ border-radius: 15px;
+ font-family: 'Inter',system-ui;
+ font-style: normal;
+ font-weight: 400;
+ font-size: 16px;
+ line-height: 19px;
+ cursor: pointer;
+}
+.clear{
+ cursor: pointer;
+ font-family: 'Inter',system-ui;
+ font-style: normal;
+ font-weight: 400;
+ font-size: 15px;
+ line-height: 18px;
+ display: flex;
+ align-items: center;
+ text-decoration-line: underline;
+float: right;
+ margin-right: 4%;
+ margin-top: 2.5%;
+ color: #1D8AE2;
+}
+.categoryActive{
+ height: 1.6rem;
+ width: 30%;
+ position: static;
+ margin-left: 2.5%;
+ margin-right: 2.5%;
+ text-align: center;
+ border-radius: 15px;
+ font-family: 'Inter',system-ui;
+ font-style: normal;
+ font-weight: 400;
+ font-size: 16px;
+ line-height: 19px;
+ cursor: pointer;
+ background: #FFF3FF;
+ border: 2px solid #C0777F;
+ box-shadow: inset 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+.categoryActiveSolo {
+ height: 1.6rem;
+ width: 28.5%;
+ position: static;
+ margin-left: 2.5%;
+ margin-right: 2.5%;
+ text-align: center;
+ border-radius: 15px;
+ font-family: 'Inter',system-ui;
+ font-style: normal;
+ font-weight: 400;
+ font-size: 16px;
+ line-height: 19px;
+ cursor: pointer;
+ background: #FFF3FF;
+ border: 2px solid #C0777F;
+ box-shadow: inset 0 4px 4px rgba(0, 0, 0, 0.25);
+}

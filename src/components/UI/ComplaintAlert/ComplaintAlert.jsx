@@ -12,11 +12,14 @@ const ComplaintAlert = (props) => {
                     <img src={Close} onClick={props.toggleComplaintAlert} />
                 </div>
                 <div className='text'>
-                    <ExpandedBlock message={'Це спам'} />
-                    <ExpandedBlock message={'Мова ворожнечі або ворожі символи'} />
-                    <ExpandedBlock message={'Насильство або небезпечні організації'} />
-                    <ExpandedBlock message={'Продаж небезпечних товарів'} />
-                    <ExpandedBlock message={'Цькування або надокучання'} />
+                    <ExpandedBlock message={'Це спам'} id={props.id} />
+                    <ExpandedBlock message={'Мова ворожнечі або ворожі символи'} id={props.id} />
+                    <ExpandedBlock
+                        message={'Насильство або небезпечні організації'}
+                        id={props.id}
+                    />
+                    <ExpandedBlock message={'Продаж небезпечних товарів'} id={props.id} />
+                    <ExpandedBlock message={'Цькування або надокучання'} id={props.id} />
                     <ExpandedBlock message={'Плагіат'} />
                 </div>
             </div>

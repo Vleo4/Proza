@@ -9,17 +9,23 @@ import NavbarMobile from '../../UI/NavbarMobile/NavbarMobile';
 import PostsMobile from '../../UI/PostsMobile/PostsMobile';
 import HeaderMobile from '../../UI/HeaderMobile/HeaderMobile';
 import { useAuthContext } from '../../../contexts/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import AlertAddPost from '../../UI/AlertAddPost/AlertAddPost';
 import addPost from '../../../assets/images/Posts/addPost.png';
-import Search from 'components/UI/Search/Search';
+import Search from '../../UI/Search/Search';
+import RightTop from '../../UI/RightTop/RightTop';
+import ProfileHeader from '../../UI/ProfileHeader/ProfileHeader';
 
 const Verse = (props) => {
+    let { id } = useParams();
     const navigate = useNavigate();
     const { isAuthentificated } = useAuthContext();
     const isMobile = useResizer();
-    const [active, setActive] = useState(false);
+    const [active, setActive] = useState(null);
     const [author, setAuthor] = useState(null);
+    React.useEffect(() => {
+        setAuthor(props.author);
+    }, [props.author]);
     const [alert, setAlert] = useState(false);
     const toggleAlert = () => {
         setAlert(!alert);
@@ -41,6 +47,7 @@ const Verse = (props) => {
                         {props.infinite.items.map((p, index) => (
                             <div className='verseMobileBlock' key={index}>
                                 <PostsMobile
+                                    author={p.user}
                                     tittle={p.title}
                                     content={p.content}
                                     id={p.id}
@@ -70,23 +77,28 @@ const Verse = (props) => {
                                     height={'100vh'}
                                     dataLength={props.infinite.items.length}
                                     endMessage={<p>LAST</p>}>
-                                    {location.pathname === '/profile' ? (
+                                    {location.pathname === '/profile' ||
+                                    location.pathname === '/profile/' + id ? (
                                         <>
-                                            {' '}
+                                            <ProfileHeader author={author} />
                                             <AlertAddPost
                                                 toggleAlert={toggleAlert}
                                                 alert={alert}
                                                 className='complaintAlert'
                                             />
-                                            <div className='postsAdd'>
-                                                <div className='text-parent'>
-                                                    <img
-                                                        src={addPost}
-                                                        className='addPostSmall'
-                                                        onClick={toggleAlert}
-                                                    />
+                                            {location.pathname === '/profile' ? (
+                                                <div className='postsAdd'>
+                                                    <div className='text-parent'>
+                                                        <img
+                                                            src={addPost}
+                                                            className='addPostSmall'
+                                                            onClick={toggleAlert}
+                                                        />
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            ) : (
+                                                <></>
+                                            )}
                                         </>
                                     ) : (
                                         ''
@@ -125,13 +137,18 @@ const Verse = (props) => {
                             ''
                         )}
                         <div className='right-small'>
-                            <Search />
-                            <Users
-                                className='users'
-                                author={author}
-                                verseOne={'І жінка з чорними очима, як земля, волоссям\n'}
-                                verseSecond={'І жінка з чорними очима, як земля, волоссям\n'}
-                            />
+                            {location.pathname === '/profile' ||
+                            location.pathname === '/profile/' + id ? (
+                                <>
+                                    <Search />
+                                    <RightTop className='users' />
+                                </>
+                            ) : (
+                                <>
+                                    <Search />
+                                    <Users className='users' author={author} />
+                                </>
+                            )}
                         </div>
                     </div>
                 </>
@@ -151,23 +168,28 @@ const Verse = (props) => {
                                 height={'100vh'}
                                 dataLength={props.infinite.items.length}
                                 endMessage={<p>LAST</p>}>
-                                {location.pathname === '/profile' ? (
+                                {location.pathname === '/profile' ||
+                                location.pathname === '/profile/' + id ? (
                                     <>
-                                        {' '}
+                                        <ProfileHeader author={author} />
                                         <AlertAddPost
                                             toggleAlert={toggleAlert}
                                             alert={alert}
                                             className='complaintAlert'
                                         />
-                                        <div className='postsAdd'>
-                                            <div className='text-parent'>
-                                                <img
-                                                    src={addPost}
-                                                    className='addPostSmall'
-                                                    onClick={toggleAlert}
-                                                />
+                                        {location.pathname === '/profile' ? (
+                                            <div className='postsAdd'>
+                                                <div className='text-parent'>
+                                                    <img
+                                                        src={addPost}
+                                                        className='addPostSmall'
+                                                        onClick={toggleAlert}
+                                                    />
+                                                </div>
                                             </div>
-                                        </div>
+                                        ) : (
+                                            <></>
+                                        )}
                                     </>
                                 ) : (
                                     ''
@@ -205,13 +227,18 @@ const Verse = (props) => {
                             ''
                         )}
                         <div className='right'>
-                            <Search />
-                            <Users
-                                className='users'
-                                author={author}
-                                verseOne={'І жінка з чорними очима, як земля, волоссям\n'}
-                                verseSecond={'І жінка з чорними очима, як земля, волоссям\n'}
-                            />
+                            {location.pathname === '/profile' ||
+                            location.pathname === '/profile/' + id ? (
+                                <>
+                                    <Search />
+                                    <RightTop className='users' />
+                                </>
+                            ) : (
+                                <>
+                                    <Search />
+                                    <Users className='users' author={author} />
+                                </>
+                            )}
                         </div>
                     </div>
                 </>

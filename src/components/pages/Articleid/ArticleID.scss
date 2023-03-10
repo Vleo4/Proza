@@ -7,7 +7,7 @@
 }
 .verse-page-smallArticle {
   display: block;
-  width: 85%;
+  width: 84%;
   height: 100vh;
   background-image: url("../../../assets/images/verse-background.png");
   background-color: #FFE3FF;
@@ -16,20 +16,21 @@
   .verse-smallArticle {
     position: absolute;
     background-color: white;
-    width:53%;
-    min-height: 100%;
+    width:48.65%;
+    height: 86vh;
     top: 10%;
-    right: 35%;
+    bottom: 8%;
+    right: 41%;
     border: 1px solid rgba(0, 0, 0, 0.7);
   }
   .right-smallArticle{
     position: absolute;
     background-color: white;
-    width:24.1%;
+    width:22%;
     height: 86%;
     top: 10%;
     bottom: 8%;
-    right:4%;
+    right:9%;
     border: 1px solid rgba(0, 0, 0, 0.7);
   }
   .right-btn{
@@ -44,8 +45,20 @@
     border-radius: 10px;
     align-items: center;
     text-align: center;
+    @media only screen and (max-width: 1400px) {
+      zoom: 0.9;
+    }
+    @media only screen and (min-width: 1800px) {
+      zoom: 1.5;
+    }
   }
   .right-btn2{
+    @media only screen and (max-width: 1400px) {
+      zoom: 0.9;
+    }
+    @media only screen and (min-width: 1800px) {
+      zoom: 1.5;
+    }
     position: absolute;
     width:10%;
     height: 2.8rem;
@@ -66,17 +79,19 @@
   background-cover:scope;
   position: fixed;
   .verse-blockArticle {
-    height: 90vh;
+    height: 86vh;
     position: absolute;
     background-color: white;
-    width:48%;
+    width:44%;
     top: 10%;
+    bottom: 8%;
     right: 36.6%;
     border: 1px solid rgba(0, 0, 0, 0.7);
-    border-bottom: 0;
     box-sizing: border-box;
   }
   .rightArticle{
+    padding-left: 1.12rem;
+    padding-right: 1.12rem;
       position: absolute;
     background-color: white;
     width:20%;
@@ -87,6 +102,12 @@
     border: 1px solid rgba(0, 0, 0, 0.7);
   }
   .right-btn{
+    @media only screen and (max-width: 1400px) {
+      zoom: 0.9;
+    }
+    @media only screen and (min-width: 1800px) {
+      zoom: 1.5;
+    }
     position: absolute;
     width:9%;
     height: 2.8rem;
@@ -101,6 +122,12 @@
     cursor: pointer;
   }
   .right-btn2{
+    @media only screen and (max-width: 1400px) {
+      zoom: 0.9;
+    }
+    @media only screen and (min-width: 1800px) {
+      zoom: 1.5;
+    }
     position: absolute;
     width:9%;
     height: 2.8rem;
@@ -120,7 +147,7 @@
 .users{
   margin-left: auto;
   margin-right: auto;
-  margin-top: 30px;
+  margin-top: 0.5rem;
 }
 
 

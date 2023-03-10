@@ -20,16 +20,24 @@ const AlertAddPost = (props) => {
     const apiURL = 'https://prozaapp.art/api/v1/';
     const publish = () => {
         axios
-            .post(apiURL + 'articlecreate/', {
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: 'Bearer ' + accessToken
+            .post(
+                apiURL + 'articlecreate/',
+                {
+                    headers: {
+                        Authorization: 'Bearer ' + accessToken,
+                        'Content-Type': 'application/json'
+                    },
+                    title: title,
+                    content: text,
+                    cat: 1,
+                    user: token.user_id
                 },
-                title: title,
-                content: text,
-                cat: 1,
-                user: token.user_id
-            })
+                {
+                    headers: {
+                        Authorization: 'Bearer ' + accessToken
+                    }
+                }
+            )
             .then(function (response) {
                 console.log(response);
             })

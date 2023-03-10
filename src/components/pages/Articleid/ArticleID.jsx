@@ -27,7 +27,7 @@ const ArticleID = () => {
             });
         };
         getData();
-    }, []);
+    }, [id]);
 
     const isMobile = useResizer();
     const [active, setActive] = useState(false);
@@ -60,6 +60,8 @@ const ArticleID = () => {
                         <div className='verse-smallArticle'>
                             <div className='verse'>
                                 <Posts
+                                    setAuthor={setAuthor}
+                                    user={state.user}
                                     tittle={state.title}
                                     content={state.content}
                                     id={state.id}></Posts>

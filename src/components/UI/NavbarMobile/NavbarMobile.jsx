@@ -1,12 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './NavbarMobile.scss';
-import burger from '../../../assets/images/navbar/burger.png';
 import verse from '../../../assets/images/navbar/verse.png';
 import recommendation from '../../../assets/images/navbar/recommendation.png';
 import profile from '../../../assets/images/navbar/profile.png';
-import settings from '../../../assets/images/navbar/settings.png';
+import categories from '../../../assets/images/navbar/categories.png';
+import saves from '../../../assets/images/navbar/saves.png';
+import { useAuthContext } from '../../../contexts/AuthContext';
 const Navbar = () => {
+    const { isAuthentificated } = useAuthContext();
     return (
         <div className={'navbar-mobile'}>
             <nav>
@@ -27,45 +29,27 @@ const Navbar = () => {
                         </Link>
                     </li>
 
-                    <li className={location.pathname === '/profile/' ? 'active' : 'not-active'}>
-                        <Link to='/profile/'>
+                    <li className={location.pathname === '/profile' ? 'active' : 'not-active'}>
+                        <Link to={isAuthentificated ? '/profile' : '/login'}>
                             <img className='icon-mobile' src={profile} alt={'profile'} />
                         </Link>
                     </li>
-
-                    <li className={location.pathname === '/settings' ? 'active' : 'not-active'}>
-                        <Link to='/settings'>
-                            <img className='icon-mobile' src={settings} alt={'settings'} />
+                    <li className={location.pathname === '/categories' ? 'active' : 'not-active'}>
+                        <Link to={isAuthentificated ? '/categories' : '/login'}>
+                            <img className='icon-mobile' src={categories} alt={'categories'} />
                         </Link>
                     </li>
-                    <li className='not-active'>
-                        <a>
-                            <img className='icon-mobile' src={burger} alt={'burger'} />
-                        </a>
-                    </li>
-                    {/*  <li className={location.pathname === '/saves' ? 'active' : 'not-active'}>
-                        <Link to='/saves'>
+                    <li className={location.pathname === '/saves' ? 'active' : 'not-active'}>
+                        <Link to={isAuthentificated ? '/saves' : '/login'}>
                             <img className='icon-mobile' src={saves} alt={'saves'} />
                         </Link>
-                        <li
-                            className={
-                                location.pathname === '/notifications' ? 'active' : 'not-active'
-                            }>
-                            <Link to='/notifications'>
-                                <img
-                                    src={notifications}
-                                    className='icon-mobile'
-                                    alt={'notifications'}
-                                />
-                            </Link>
-                        </li>
+                    </li>
 
-                        <li className={location.pathname === '/likes' ? 'active' : 'not-active'}>
-                            <Link to='/likes'>
-                                <img className='icon-mobile' src={likes} alt={'likes'} />
-                            </Link>
-                        </li>
-                    </li>*/}
+                    <li className={location.pathname === '/profile' ? 'active' : 'not-active'}>
+                        <Link to={isAuthentificated ? '/profile' : '/login'}>
+                            <img className='icon-mobile' src={profile} alt={'profile'} />
+                        </Link>
+                    </li>
                 </ul>
             </nav>
         </div>

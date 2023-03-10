@@ -7,6 +7,12 @@
   background-color: white;
   margin: auto;
   padding: 0;
+  @media only screen and (max-width: 1400px) {
+    zoom: 0.9;
+  }
+  @media only screen and (min-width: 1800px) {
+    zoom: 1.5;
+  }
 }
 .header-mobile {
   display: flex;
@@ -17,6 +23,12 @@
   background-color: white;
   margin: auto;
   padding: 0;
+  @media only screen and (max-width: 1400px) {
+    zoom: 0.9;
+  }
+  @media only screen and (min-width: 1800px) {
+    zoom: 1.5;
+  }
 }
 
 nav .ul-item {
@@ -92,6 +104,9 @@ nav .ul-item.icon li.active:hover {
 }
 
 .logoProza{
-  padding-left: 10px;
+  padding-left: 0.625rem;
   height: 50px;
+}
+.show img{
+  padding-left: 0.625rem;
 }

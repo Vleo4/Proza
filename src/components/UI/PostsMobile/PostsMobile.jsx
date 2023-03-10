@@ -12,6 +12,57 @@ import ShowMoreText from 'react-show-more-text';
 import AlertMobile from '../AlertMobile/AlertMobile';
 
 const PostsMobile = (props) => {
+    const moreRead = () => {
+        const a = Math.round((window.innerHeight / window.innerWidth) * 10) / 10;
+        switch (a) {
+            case 0.3:
+                return parseInt(window.innerHeight / 60 + 2);
+            case 0.4:
+                return parseInt(window.innerHeight / 60 + 1);
+            case 0.5:
+                return parseInt(window.innerHeight / 60);
+            case 0.6:
+                return parseInt(window.innerHeight / 59 + 1);
+            case 0.7:
+                return parseInt(window.innerHeight / 59 + 1);
+            case 0.8:
+                return parseInt(window.innerHeight / 59 + 1);
+            case 0.9:
+                return parseInt(window.innerHeight / 50);
+            case 1:
+                return parseInt(window.innerHeight / 50);
+            case 1.1:
+                return parseInt(window.innerHeight / 50);
+            case 1.2:
+                return parseInt(window.innerHeight / 60);
+            case 1.3:
+                return parseInt(window.innerHeight / 50);
+            case 1.4:
+                return parseInt(window.innerHeight / 50);
+            case 1.5:
+                return parseInt(window.innerHeight / 50);
+            case 1.6:
+                return parseInt(window.innerHeight / 55);
+            case 1.7:
+                return parseInt(window.innerHeight / 55);
+            case 1.8:
+                return parseInt(window.innerHeight / 55);
+            case 1.9:
+                return parseInt(window.innerHeight / 55);
+            case 2:
+                return parseInt(window.innerHeight / 60);
+            case 2.1:
+                return parseInt(window.innerHeight / 55);
+            case 2.2:
+                return parseInt(window.innerHeight / 52);
+            case 2.3:
+                return parseInt(window.innerHeight / 52);
+            case 2.4:
+                return parseInt(window.innerHeight / 55);
+            case 2.5:
+                return parseInt(window.innerHeight / 55);
+        }
+    };
     const [state, setState] = useState({ showAlert: false });
     const toggleAlert = () => {
         setState({ showAlert: !state.showAlert });
@@ -47,20 +98,17 @@ const PostsMobile = (props) => {
             <div className='postsMobile'>
                 <div className='header-postMobile'>
                     <img src={model} className='avatarMobile' alt='avatar' />
-                    <a>{props.user}</a>
+                    <a>{props.author}</a>
                     <img src={dots} className='dots' onClick={alertMessage} alt='dots'></img>
                 </div>
                 <div>
                     {
                         <ShowMoreText
+                            truncatedEndingComponent=''
                             className='textMobile'
                             id='element-id'
                             width={300}
-                            lines={
-                                window.innerHeight / window.innerWidth > 1.7
-                                    ? parseInt((window.innerHeight / window.innerWidth) * 7.5)
-                                    : parseInt((window.innerHeight / window.innerWidth) * 5.5)
-                            }
+                            lines={moreRead()}
                             more='Читати далі'
                             keepNewLines={true}
                             anchorClass='textNext'

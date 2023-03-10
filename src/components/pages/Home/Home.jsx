@@ -5,9 +5,11 @@ import Verse from '../Verse/Verse';
 const Home = () => {
     const [infinite, setInfinite] = useState({ items: [] });
     const [state, setState] = useState(null);
+    const [author, setAuthor] = useState(null);
     const apiURL = 'https://prozaapp.art/api/v1/';
     React.useEffect(() => {
         axios.get(apiURL + 'article/?format=json').then((response) => {
+            setAuthor(response.data[0].user);
             setState({ items: response.data });
             setInfinite({ items: [response.data[0], response.data[1]] });
         });
@@ -20,7 +22,13 @@ const Home = () => {
         if (indexCount === state.items.length - 1) setHasMore(false);
     };
     return (
-        <Verse state={state} infinite={infinite} fetchMoreData={fetchMoreData} hasMore={hasMore} />
+        <Verse
+            state={state}
+            infinite={infinite}
+            author={author}
+            fetchMoreData={fetchMoreData}
+            hasMore={hasMore}
+        />
     );
 };
 
