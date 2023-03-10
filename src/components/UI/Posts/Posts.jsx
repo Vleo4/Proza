@@ -22,7 +22,6 @@ const Posts = (props) => {
     const { isAuthentificated } = useAuthContext();
     const navigate = useNavigate();
     const accessToken = getFromSessionStorage(ACCESS_TOKEN) ?? getFromLocalStorage(ACCESS_TOKEN);
-    const token = jwtDecode(accessToken);
     let { id } = useParams();
     const [state, setState] = useState({
         showAlert: false,
@@ -64,30 +63,33 @@ const Posts = (props) => {
         setText(event.target.value);
     };
     const publishReview = () => {
-        axios
-            .post(
-                apiURL + 'reviewcreate/',
-                {
-                    headers: {
-                        Authorization: 'Bearer ' + accessToken,
-                        'Content-Type': 'application/json'
+        if (isAuthentificated) {
+            const token = jwtDecode(accessToken);
+            axios
+                .post(
+                    apiURL + 'reviewcreate/',
+                    {
+                        headers: {
+                            Authorization: 'Bearer ' + accessToken,
+                            'Content-Type': 'application/json'
+                        },
+                        user: token.user_id,
+                        content: text,
+                        article: props.id
                     },
-                    user: token.user_id,
-                    content: text,
-                    article: props.id
-                },
-                {
-                    headers: {
-                        Authorization: 'Bearer ' + accessToken
+                    {
+                        headers: {
+                            Authorization: 'Bearer ' + accessToken
+                        }
                     }
-                }
-            )
-            .then(function (response) {
-                console.log(response);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+                )
+                .then(function (response) {
+                    console.log(response);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        }
     };
     const [isLike, setIsLike] = useState(false);
     const [comment, setComment] = useState(false);
@@ -190,6 +192,7 @@ const Posts = (props) => {
                 state={state}
                 toggleComplaintAlert={toggleComplaintAlert}
                 className='complaintAlert'
+                id={props.id}
             />
             <AlertPost
                 state={state}
@@ -236,7 +239,11 @@ const Posts = (props) => {
                         className='next'
                         alt='comments'
                         onClick={() => {
-                            setComment(!comment);
+                            if (isAuthentificated) {
+                                setComment(!comment);
+                            } else {
+                                navigate('/login');
+                            }
                         }}></img>
                     <img
                         src={isSave ? saves : noSaves}

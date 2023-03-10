@@ -9,11 +9,15 @@ import NavbarMobile from '../../UI/NavbarMobile/NavbarMobile';
 import PostsMobile from '../../UI/PostsMobile/PostsMobile';
 import HeaderMobile from '../../UI/HeaderMobile/HeaderMobile';
 import { useAuthContext } from '../../../contexts/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import AlertAddPost from '../../UI/AlertAddPost/AlertAddPost';
 import addPost from '../../../assets/images/Posts/addPost.png';
+import Search from '../../UI/Search/Search';
+import RightTop from '../../UI/RightTop/RightTop';
+import ProfileHeader from '../../UI/ProfileHeader/ProfileHeader';
 
 const Verse = (props) => {
+    let { id } = useParams();
     const navigate = useNavigate();
     const { isAuthentificated } = useAuthContext();
     const isMobile = useResizer();
@@ -73,23 +77,28 @@ const Verse = (props) => {
                                     height={'100vh'}
                                     dataLength={props.infinite.items.length}
                                     endMessage={<p>LAST</p>}>
-                                    {location.pathname === '/profile' ? (
+                                    {location.pathname === '/profile' ||
+                                    location.pathname === '/profile/' + id ? (
                                         <>
-                                            {' '}
+                                            <ProfileHeader author={author} />
                                             <AlertAddPost
                                                 toggleAlert={toggleAlert}
                                                 alert={alert}
                                                 className='complaintAlert'
                                             />
-                                            <div className='postsAdd'>
-                                                <div className='text-parent'>
-                                                    <img
-                                                        src={addPost}
-                                                        className='addPostSmall'
-                                                        onClick={toggleAlert}
-                                                    />
+                                            {location.pathname === '/profile' ? (
+                                                <div className='postsAdd'>
+                                                    <div className='text-parent'>
+                                                        <img
+                                                            src={addPost}
+                                                            className='addPostSmall'
+                                                            onClick={toggleAlert}
+                                                        />
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            ) : (
+                                                <></>
+                                            )}
                                         </>
                                     ) : (
                                         ''
@@ -128,12 +137,18 @@ const Verse = (props) => {
                             ''
                         )}
                         <div className='right-small'>
-                            <Users
-                                className='users'
-                                author={author}
-                                verseOne={''}
-                                verseSecond={''}
-                            />
+                            {location.pathname === '/profile' ||
+                            location.pathname === '/profile/' + id ? (
+                                <>
+                                    <Search />
+                                    <RightTop className='users' />
+                                </>
+                            ) : (
+                                <>
+                                    <Search />
+                                    <Users className='users' author={author} />
+                                </>
+                            )}
                         </div>
                     </div>
                 </>
@@ -153,23 +168,28 @@ const Verse = (props) => {
                                 height={'100vh'}
                                 dataLength={props.infinite.items.length}
                                 endMessage={<p>LAST</p>}>
-                                {location.pathname === '/profile' ? (
+                                {location.pathname === '/profile' ||
+                                location.pathname === '/profile/' + id ? (
                                     <>
-                                        {' '}
+                                        <ProfileHeader author={author} />
                                         <AlertAddPost
                                             toggleAlert={toggleAlert}
                                             alert={alert}
                                             className='complaintAlert'
                                         />
-                                        <div className='postsAdd'>
-                                            <div className='text-parent'>
-                                                <img
-                                                    src={addPost}
-                                                    className='addPostSmall'
-                                                    onClick={toggleAlert}
-                                                />
+                                        {location.pathname === '/profile' ? (
+                                            <div className='postsAdd'>
+                                                <div className='text-parent'>
+                                                    <img
+                                                        src={addPost}
+                                                        className='addPostSmall'
+                                                        onClick={toggleAlert}
+                                                    />
+                                                </div>
                                             </div>
-                                        </div>
+                                        ) : (
+                                            <></>
+                                        )}
                                     </>
                                 ) : (
                                     ''
@@ -207,12 +227,18 @@ const Verse = (props) => {
                             ''
                         )}
                         <div className='right'>
-                            <Users
-                                className='users'
-                                author={author}
-                                verseOne={''}
-                                verseSecond={''}
-                            />
+                            {location.pathname === '/profile' ||
+                            location.pathname === '/profile/' + id ? (
+                                <>
+                                    <Search />
+                                    <RightTop className='users' />
+                                </>
+                            ) : (
+                                <>
+                                    <Search />
+                                    <Users className='users' author={author} />
+                                </>
+                            )}
                         </div>
                     </div>
                 </>

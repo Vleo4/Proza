@@ -231,7 +231,6 @@
 }
 .complaintAlert{
  top:0;
- padding-top: 5%;
  position: fixed;
  left: 0;
  width: 100%;
@@ -239,13 +238,11 @@
  background-color: rgba(0, 0, 0, 0.5);
  z-index: 99;
  backdrop-filter: blur(8px);
- padding-bottom: 5%;
-
  .postsA{
+  top: 20%;
   background-color: #ffffff;
   border: 3px solid #FFE3FF;
   border-radius: 15px;
-  height: 100%;
   margin-left: auto;
   margin-right: auto;
   width: 36.6%;
@@ -291,16 +288,21 @@ overflow: auto;
   }
  }
 }
+
+
+
 .expandedBlock{
  margin-top: 3%;
  margin-left: 15%;
+
 }
 .inputExpandable{
  border: 1px solid #000000;
  border-radius: 10px;
  height: 15vh;
- width:80%;
+ width:82%;
  margin-left: 0;
+ resize:none;
 }
 .sentImg{
  width: 1.7rem;
@@ -309,10 +311,10 @@ overflow: auto;
  margin-right: 1rem;
 }
 .expandedArrow{
-width: 1rem;
+ width: 1rem;
  float: right;
-margin-right: 1rem;
- margin-top:0.5rem;
+ margin-right: 1rem;
+ margin-top:4%;
 }
 .textA{
  white-space: pre-line;
@@ -355,13 +357,13 @@ margin-right: 1rem;
  border: 3px solid #FFE3FF;
  border-radius: 15px;
  min-height: 85vh ;
- height: 90%;
  width: 82%;
  position:relative;
  padding-bottom:50px;
  margin-left: auto;
  margin-right: auto;
  margin-top: 1.65rem;
+ height: 100%;
  .header-post{
   font-family: 'Inter', system-ui;
   font-style: normal;
@@ -457,7 +459,7 @@ margin-right: 1rem;
    resize: none;
    outline:none;
    height: 3rem;
-   width: 95%;
+   width: 92%;
    border: 1px solid black;
    border-radius: 15px;
   }
@@ -466,5 +468,105 @@ margin-right: 1rem;
    font-size: 0.4rem;
    line-height: 0.4rem;
   }
+ }
+}
+
+.profileHeader{
+ background-color: #ffffff;
+ box-sizing: border-box;
+ border: 3px solid #FFE3FF;
+ border-radius: 15px;
+ height: 35vh ;
+ width: 82%;
+ position:relative;
+ padding-bottom:50px;
+ margin-left: auto;
+ margin-right: auto;
+ margin-top: 2.5rem;
+ .avatar{
+  display: block;
+  .avatarImage {
+   display: inline-block;
+   margin-left: 5%;
+   position: relative;
+   border-radius: 50%;
+  }
+ }
+
+ .block{
+  margin-left: 10rem;
+ }
+ .slug{
+  font-family: 'Inter',system-ui;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  margin-top: 0.25rem;
+
+ }
+ .textAchievement{
+  font-family: 'Inter',system-ui;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  color: rgba(0, 0, 0, 0.6);
+  margin-top: 0.25rem;
+
+ }
+  img {
+   margin-left: 1.25rem;
+   margin-top: 1rem;
+   height: 7.5rem;
+   width: 7.5rem;
+   float: left;
+   display: inline-block;
+   border-radius: 50%;
+  }
+ .header{
+  position: static;
+  margin-top: 7%;
+  font-family: 'Inter',system-ui;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 18px;
+  color: #000000;
+
+ }
+ .text {
+  margin-top: 2%;
+  white-space: pre-line;
+  display: block;
+  font-family: 'Inter', system-ui;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  color: #000000;
+  @media only screen and (min-width: 1800px) {
+   font-size: 26px;
+   line-height: 30px;
+  }
+ }
+  .allRows{
+   white-space: nowrap;
+   text-align: center;
+   margin-top: 5%;
+   display: flex;
+   justify-content: space-between;
+   width: 100%;
+  }
+
+ .textRow{
+   text-align: center;
+   width: 30%;
+   font-family: 'Inter', system-ui;
+   font-style: normal;
+   font-weight: 400;
+   font-size: 14px;
+   line-height: 17px;
+   margin-right: 1%;
  }
 }
