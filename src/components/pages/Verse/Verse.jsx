@@ -14,6 +14,7 @@ import AlertAddPost from '../../UI/AlertAddPost/AlertAddPost';
 import addPost from '../../../assets/images/Posts/addPost.png';
 import Search from '../../UI/Search/Search';
 import RightTop from '../../UI/RightTop/RightTop';
+import ProfileHeader from '../../UI/ProfileHeader/ProfileHeader';
 
 const Verse = (props) => {
     let { id } = useParams();
@@ -34,11 +35,43 @@ const Verse = (props) => {
                         scrollableTarget='scrollableDiv'
                         next={props.fetchMoreData}
                         hasMore={props.hasMore}
-                        loader={<h4>Loading..</h4>}
+                        loader={<h4></h4>}
                         height={'95vh'}
                         dataLength={props.infinite.items.length}
                         endMessage={<p></p>}
                         className='infiniteMobile'>
+                        {location.pathname === '/profile' ||
+                        location.pathname === '/profile/' + id ? (
+                            <>
+                                <AlertAddPost
+                                    toggleAlert={toggleAlert}
+                                    alert={alert}
+                                    className='complaintAlert'
+                                />
+                                <div className='infiniteMobile'>
+                                    <div className='verseMobileBlock'>
+                                        <ProfileHeader author={props.author} />
+                                    </div>
+                                    {location.pathname === '/profile' ? (
+                                        <div className='verseMobileBlock'>
+                                            <div className='postsAddMobile'>
+                                                <div className='text-parent'>
+                                                    <img
+                                                        src={addPost}
+                                                        className='addPostSmallMobile'
+                                                        onClick={toggleAlert}
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        <></>
+                                    )}
+                                </div>
+                            </>
+                        ) : (
+                            <></>
+                        )}
                         {props.infinite.items.map((p, index) => (
                             <div className='verseMobileBlock' key={index}>
                                 <PostsMobile
@@ -135,11 +168,11 @@ const Verse = (props) => {
                             {location.pathname === '/profile' ||
                             location.pathname === '/profile/' + id ? (
                                 <>
-                                    <RightTop className='users' />
+                                    <Users className='users' author={props.author} />
                                 </>
                             ) : (
                                 <>
-                                    <Users className='users' author={props.author} />
+                                    <RightTop className='users' />
                                 </>
                             )}
                         </div>

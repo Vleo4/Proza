@@ -197,6 +197,7 @@
 
 
 .mobile-verse{
+  overflow: hidden;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -208,6 +209,7 @@
   min-height: 100%;
   top: 3.125rem;
   .mobileMiddle {
+    overflow: hidden;
     position: fixed;
     width: 100%;
     .infiniteMobile {
@@ -244,6 +246,26 @@
   margin-top: 2rem;
   padding-bottom:2rem;
   .addPostSmall{
+    top:0.15rem;
+    width:2.5rem;
+    position: absolute;
+    left: 45%;
+    cursor: pointer;
+  }
+}
+
+.postsAddMobile{
+  background-color: #ffffff;
+  box-sizing: border-box;
+  border: 3px solid #FFE3FF;
+  border-radius: 15px;
+  min-height: 3rem ;
+  margin-left: 4%;
+  width: 92%;
+  position:relative;
+  margin-top: 1rem;
+  margin-bottom:1rem;
+  .addPostSmallMobile{
     top:0.15rem;
     width:2.5rem;
     position: absolute;

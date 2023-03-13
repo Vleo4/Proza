@@ -14,6 +14,8 @@ import RightTop from '../../UI/RightTop/RightTop';
 import { useAuthContext } from '../../../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import Search from '../../UI/Search/Search';
+import CategoriesMiddleMobile from '../../UI/CategoriesMiddleMobile/CategoriesMiddleMobile';
+import PostsMobile from '../../UI/PostsMobile/PostsMobile';
 
 const Categories = () => {
     const { isAuthentificated, isLoading: isAuthLoading } = useAuthContext();
@@ -65,7 +67,36 @@ const Categories = () => {
         return (
             <div className='mobile-verse'>
                 <HeaderMobile />
-                <div className='mobileMiddle'></div>
+                <div className='mobileMiddle'>
+                    <InfiniteScroll
+                        scrollableTarget='scrollableDiv'
+                        next={fetchMoreData}
+                        hasMore={hasMore}
+                        loader={<h4></h4>}
+                        height={'95vh'}
+                        dataLength={infinite.items.length}
+                        endMessage={<p></p>}
+                        className='infiniteMobile'>
+                        <div className='infiniteMobile'>
+                            <div className='verseMobileBlock'>
+                                <CategoriesMiddleMobile
+                                    category={category}
+                                    setCategory={setCategory}
+                                />
+                            </div>
+                        </div>
+                        {infinite.items.map((p, index) => (
+                            <div className='verseMobileBlock' key={index}>
+                                <PostsMobile
+                                    author={p.user}
+                                    tittle={p.title}
+                                    content={p.content}
+                                    id={p.id}
+                                    key={index}></PostsMobile>
+                            </div>
+                        ))}
+                    </InfiniteScroll>
+                </div>
                 <footer className='footerMobile-verse'>
                     <NavbarMobile />
                 </footer>

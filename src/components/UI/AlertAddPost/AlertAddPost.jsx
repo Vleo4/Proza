@@ -40,11 +40,12 @@ const AlertAddPost = (props) => {
             )
             .then(function (response) {
                 console.log(response);
+                window.location.href = '/profile';
+                props.toggleAlert();
             })
             .catch(function (error) {
                 console.log(error);
             });
-        props.toggleAlert();
     };
     return (
         <Alert show={props.alert} className={'AlertAddPost'}>
@@ -57,7 +58,7 @@ const AlertAddPost = (props) => {
                             className='header-input'
                             onChange={handleTitleChange}
                             type='text'
-                            placeholder='NAME'
+                            placeholder='Назва вірша'
                         />
                     </div>
                     <div className='text'>

@@ -2,7 +2,6 @@ import './Users.scss';
 import React, { useState } from 'react';
 import subscribe from '../../../assets/images/Users/subscribe.png';
 import noSubscribe from '../../../assets/images/Users/noSubscribe.png';
-import model from '../../../assets/images/Users/model.png';
 import axios from 'axios';
 import { getFromLocalStorage, getFromSessionStorage } from '../../../utils/storage';
 import { ACCESS_TOKEN } from '../../../constants/localStorageKeys';
@@ -19,13 +18,16 @@ const Users = (props) => {
     const navigate = useNavigate();
     const [length, setLength] = useState(0);
     React.useEffect(() => {
-        axios.get(apiURL + 'getuserarticles/' + props.author + '/?format=json').then((response) => {
-            if (response.data.length !== 842) {
-                setLength(response.data.length);
-            }
-            setState({ items: response.data });
-        });
+        if (props.author) {
+            axios
+                .get(apiURL + 'getuserarticles/' + props.author + '/?format=json')
+                .then((response) => {
+                    setLength(response.data.length);
+                    setState({ items: response.data });
+                });
+        }
     }, [props.author]);
+
     const onSubscribe = () => {
         if (isAuthentificated && location.pathname !== '/profile') {
             axios
@@ -94,6 +96,26 @@ const Users = (props) => {
                 });
         }
     }, [props.author]);
+    const [imageData, setImageData] = useState(null);
+    React.useEffect(() => {
+        axios
+            .get(
+                'https://cookbook.brainstormingapplication.com/media/photos/2023/03/08/WIN_20221018_20_12_28_Pro.jpg',
+                { responseType: 'arraybuffer' }
+            )
+            .then((response) => {
+                const base64 = btoa(
+                    new Uint8Array(response.data).reduce(
+                        (data, byte) => data + String.fromCharCode(byte),
+                        ''
+                    )
+                );
+                setImageData(`data:image/jpeg;base64,${base64}`);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, []);
     return (
         <div className='user'>
             <div className='header-user'>
@@ -104,7 +126,7 @@ const Users = (props) => {
                                 ? 'avatarImage'
                                 : 'avatarImageProfile'
                         }
-                        src={model}
+                        src={imageData}
                         alt='avatar'
                     />
                     {location.pathname !== '/profile' && props.author !== current ? (

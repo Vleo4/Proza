@@ -31,9 +31,11 @@ margin-right: auto;
     border: 3px solid #FFE3FF;
     border-radius: 15px;
     height: 85vh ;
-margin-top: 7%;
+    margin-top: 7%;
     width: 85%;
     .header-post{
+      border: 0;
+      margin-left: 3rem;
       font-family: 'Inter', system-ui;
       font-style: normal;
       font-weight: 700;
@@ -41,11 +43,7 @@ margin-top: 7%;
       line-height: 16px;
       width: 100%;
       display: block;
-      margin-left: 2rem;
-      padding-top: 1rem;
-
       .header-input{
-      padding-right: 1rem;
         width: 92%;
         line-height: 2rem;
         border: 0;

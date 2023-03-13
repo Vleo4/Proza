@@ -141,15 +141,16 @@ const ProfileHeader = (props) => {
                     </div>
                 </div>
                 <div className='allRows'>
-                    <div className='textRow'>
-                        Публікації {'   '} {articles}
-                    </div>
-                    <div className='textRow'>
-                        Підписники {'   '} {subscribers.length}
-                    </div>
-                    <div className='textRow'>
-                        Підписки{'   '} {follows.length}
-                    </div>
+                    <div className='textRow'>Публікації</div>
+                    <div className='number'> {articles}</div>
+                </div>
+                <div className='allRows'>
+                    <div className='textRow'>Підписники</div>
+                    <div className='number'> {subscribers.length}</div>
+                </div>
+                <div className='allRows'>
+                    <div className='textRow'> Підписки</div>
+                    <div className='number'>{follows.length}</div>
                 </div>
             </div>
         </>

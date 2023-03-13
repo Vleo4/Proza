@@ -164,6 +164,21 @@
  }
 }
 .fullAlert {
+
+ ::-webkit-scrollbar {
+  display: none;
+ }
+
+ ::-webkit-scrollbar-track {
+  display: none;
+ }
+
+ ::-webkit-scrollbar-thumb {
+  ::-webkit-scrollbar-thumb:hover {
+   background-color: #555;
+   display: none;
+  }
+ }
  top:0;
  position: fixed;
  left: 0;
@@ -172,34 +187,37 @@
  background-color: rgba(0, 0, 0, 0.5);
  z-index: 99;
  backdrop-filter: blur(8px);
- overflow-x: hidden;
  .posts{
   background-color: #ffffff;
   box-sizing: border-box;
   border: 3px solid #FFE3FF;
   border-radius: 15px;
-  height: 90vh ;
+  height: 90vh;
   width: 40%;
   position:relative;
   padding-bottom: 1rem;
-  padding-top: 1rem;
   overflow: hidden;
   .header-post{
-   border-bottom: 1px solid #727373;
-  transform: translateX(-1rem);
-
    font-family: 'Inter', system-ui;
    font-style: normal;
    font-weight: 700;
    font-size: 16px;
    line-height: 16px;
-   width: 97%;
-   display: flex;
-   margin-left: 1rem;
+   width: 100%;
+   display: block;
+   padding-left: 1rem;
+   padding-bottom: 1rem;
+   img{
+    cursor: pointer;
+    margin-right: 1rem;
+    width: 22px;
+    float:right;
+    display: inline-block;
+   }
   }
   .text{
    margin-top: 1rem;
-   margin-left: 1rem;
+   padding-left: 1rem;
    white-space: pre-line;
    display: block;
    font-family: 'Inter', system-ui;
@@ -216,6 +234,7 @@
     font-weight: 400;
     font-size: 11px;
     line-height: 13.31px;
+    overflow-x: hidden;
    }
   }
  }
@@ -433,7 +452,7 @@ overflow: auto;
    margin-right: 1rem;
   }
  }
- .comments{
+ .commentsSolo{
   width: 100%;
   position:absolute;
   bottom: 1rem;
@@ -450,6 +469,42 @@ overflow: auto;
    width: 92%;
    border: 1px solid black;
    border-radius: 15px;
+   font-family: 'Inter', system-ui;
+   font-style: normal;
+   font-weight: 400;
+   font-size: 15px;
+   line-height: 22px;
+   padding-left: 0.75rem;
+  }
+  .mini{
+   margin-left: 0.2rem;
+   font-size: 0.4rem;
+   line-height: 0.4rem;
+  }
+ }
+ .comments{
+  width: 100%;
+  position:absolute;
+  bottom: 0;
+  margin-left: 1rem;
+  font-family: 'Inter', system-ui;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1rem;
+  .text-input{
+   resize: none;
+   outline:none;
+   height: 3rem;
+   width: 92%;
+   border: 1px solid black;
+   border-radius: 15px;
+   font-family: 'Inter', system-ui;
+   font-style: normal;
+   font-weight: 400;
+   font-size: 15px;
+   line-height: 22px;
+   padding-left: 0.75rem;
   }
   .mini{
    margin-left: 0.2rem;
@@ -464,25 +519,34 @@ overflow: auto;
  box-sizing: border-box;
  border: 3px solid #FFE3FF;
  border-radius: 15px;
- height: 35vh ;
- width: 82%;
+ min-height: 25vh;
+ width: 95%;
  position:relative;
- padding-bottom:50px;
- margin-left: auto;
- margin-right: auto;
- margin-top: 2.5rem;
+ padding-bottom:1rem;
+ margin: 1rem auto;
+
  .avatar{
   display: block;
   .avatarImage {
+   width: 70px;
+   height: 70px;
    display: inline-block;
    margin-left: 5%;
+   position: relative;
+   border-radius: 50%;
+  }
+  .avatarImageProfile {
+   margin-left: 0.5rem;
+   height: 70px;
+   width: 70px;
+   display: inline-block;
    position: relative;
    border-radius: 50%;
   }
  }
 
  .block{
-  margin-left: 10rem;
+  margin-left: 5rem;
  }
  .slug{
   font-family: 'Inter',system-ui;
@@ -521,7 +585,6 @@ overflow: auto;
   font-size: 15px;
   line-height: 18px;
   color: #000000;
-
  }
  .text {
   margin-top: 2%;
@@ -541,15 +604,31 @@ overflow: auto;
   .allRows{
    white-space: nowrap;
    text-align: center;
-   margin-top: 5%;
+   margin-top: 3%;
    display: flex;
    justify-content: space-between;
-   width: 100%;
+   width: 60%;
+   font-family: 'Inter', system-ui;
+   font-style: normal;
+   font-weight: 400;
+   font-size: 14px;
+   line-height: 17px;
+   margin-left: 1rem;
   }
-
+ .number{
+  text-align: center;
+  width: 1vh;
+  font-family: 'Inter', system-ui;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  margin-left: 1%;
+  flex:1
+ }
  .textRow{
    text-align: center;
-   width: 30%;
+   width: 0;
    font-family: 'Inter', system-ui;
    font-style: normal;
    font-weight: 400;
@@ -571,6 +650,24 @@ overflow: auto;
  margin-left: auto;
  margin-right: auto;
  margin-top: 4%;
+}
+.postsAddJsxMobile {
+ background-color: #ffffff;
+ box-sizing: border-box;
+ border: 3px solid #FFE3FF;
+ border-radius: 15px;
+ min-height: 40vh;
+ width: 92%;
+ position: relative;
+ padding-bottom:50px;
+ margin: 4% auto;
+ .addPost{
+  position: absolute;
+  width:3rem;
+  cursor: pointer;
+  top:40%;
+  left:42.5%;
+ }
 }
 .header-two {
  font-family: 'Inter', system-ui;
@@ -612,4 +709,67 @@ overflow: auto;
  height: 2.5rem;
  position: relative;
  top: -0.4rem;
+}
+
+
+
+.signAlert{
+ top:0;
+ position: fixed;
+ left: 0;
+ width: 100%;
+ height: 100%;
+ background-color: rgba(0, 0, 0, 0.5);
+ z-index: 99;
+ backdrop-filter: blur(2px);
+ .posts{
+  background: #FFFFFF;
+  border: 1px solid #000000;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  margin-left: auto;
+  margin-right: auto;
+  height: 102vh;
+  width: 56%;
+  position:relative;
+  padding-bottom: 1rem;
+  padding-top: 1rem;
+  overflow: auto;
+  margin-top: -1%;
+  border-radius: 0;
+  .signPost{
+   margin-top: 5%;
+   width: 80%;
+   margin-left: auto;
+   margin-right: auto;
+   border: 3px solid #FFE3FF;
+   border-radius: 15px;
+   height: 90%;
+  }
+  .headerSign{
+   margin-top: 2.5%;
+   font-family: 'Inter',system-ui;
+   font-style: normal;
+   font-weight: 400;
+   font-size: 30px;
+   line-height: 36px;
+   display: flex;
+   align-items: center;
+   text-align: center;
+   padding-left: 30%;
+  }
+
+ }
+}
+
+.textSignup{
+ margin-top: 2.5%;
+ font-family: 'Inter',system-ui;
+ font-style: normal;
+ font-weight: 400;
+ font-size: 15px;
+ line-height: 18px;
+ align-items: center;
+ color: #000000;
+ padding-left: 7.5%;
+ display: flex;
 }

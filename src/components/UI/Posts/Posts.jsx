@@ -213,6 +213,20 @@ const Posts = (props) => {
         }
     };
 
+    const [reviews, setReviews] = useState({ items: [] });
+    const getReview = () => {
+        axios
+            .get(apiURL + 'getarticlereviews/' + props.id + '/?format=json', {
+                headers: {
+                    Authorization: 'Bearer ' + accessToken
+                }
+            })
+            .then((response) => {
+                console.log(response.data);
+                setReviews({ items: response.data });
+            });
+    };
+
     return (
         <>
             <AlertCopy toggleCopyAlert={toggleCopyAlert} state={state} className='copyAlert' />
@@ -270,6 +284,7 @@ const Posts = (props) => {
                         alt='comments'
                         onClick={() => {
                             if (isAuthentificated) {
+                                getReview();
                                 setComment(!comment);
                             } else {
                                 navigate('/login');
@@ -283,18 +298,27 @@ const Posts = (props) => {
                     <img src={share} className='last' onClick={onShare} alt='share'></img>
                 </div>
                 {comment ? (
-                    <div className='comments'>
+                    <div className={reviews.items[0] ? 'comments' : 'commentsSolo'}>
                         <textarea
                             className='text-input'
                             onChange={handleTextChange}
                             onKeyDown={(event) => {
                                 if (event.key === 'Enter' && !event.shiftKey) {
+                                    event.preventDefault();
                                     publishReview();
                                     event.target.value = '';
                                 }
                             }}
                             placeholder='Напишіть коментар'></textarea>
                         <div className='mini'>Натисніть Enter, щоб опублікувати.</div>
+                        {reviews.items[0] ? (
+                            <div>
+                                {reviews.items[0].user}
+                                {reviews.items[0].content}
+                            </div>
+                        ) : (
+                            <></>
+                        )}
                     </div>
                 ) : (
                     <></>

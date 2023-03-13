@@ -7,6 +7,7 @@ import NavbarMobile from '../../UI/NavbarMobile/NavbarMobile';
 import HeaderMobile from '../../UI/HeaderMobile/HeaderMobile';
 import PostsAdd from '../../UI/PostsAdd/PostsAdd';
 import Search from '../../UI/Search/Search';
+import ProfileHeader from '../../UI/ProfileHeader/ProfileHeader';
 
 const VerseAdd = (props) => {
     const isMobile = useResizer();
@@ -15,7 +16,16 @@ const VerseAdd = (props) => {
         return (
             <div className='mobile-verse'>
                 <HeaderMobile />
-                <div className='mobileMiddle'></div>
+                <div className='mobileMiddle'>
+                    <div className='infiniteMobile'>
+                        <div className='verseMobileBlock'>
+                            <ProfileHeader author={props.author} />
+                        </div>
+                        <div className='verseMobileBlock'>
+                            <PostsAdd />
+                        </div>
+                    </div>
+                </div>
                 <footer className='footerMobile-verse'>
                     <NavbarMobile />
                 </footer>
