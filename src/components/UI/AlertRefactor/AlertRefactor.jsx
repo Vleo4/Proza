@@ -7,7 +7,7 @@ import { ACCESS_TOKEN } from '../../../constants/localStorageKeys';
 import jwtDecode from 'jwt-decode';
 import axios from 'axios';
 import useResizer from '../../../utils/utils';
-const AlertSignup = (props) => {
+const AlertRefactor = (props) => {
     const [categories, setCategories] = React.useState({ items: [] });
     const setCategory = (value) => {
         if (categories.items.includes(value)) {
@@ -80,7 +80,7 @@ const AlertSignup = (props) => {
             {isMobile ? (
                 <div className='postsMobile'>
                     <div className='signPostMobile'>
-                        <div className='headerSignMobile'>Вітаємо у PROZA!</div>
+                        <div className='headerSignMobile'>Редагування профілю</div>
                         <input
                             className='inputSignup'
                             onChange={handleTextChange}
@@ -88,7 +88,7 @@ const AlertSignup = (props) => {
                         <div className='miniSignupMobile'>Наявність опису не є обов’язковою.</div>
                         <span className='textSignupMobile'>
                             Для кращого підбору цікавої вам літератури вкажіть, будь ласка, свої
-                            вподобання. {'\n'}(Виберіть хочаб одну категорію)
+                            вподобання.
                         </span>
                         <div className='lyric'>
                             <div className='txt'>Обрати вид лірики</div>
@@ -276,7 +276,7 @@ const AlertSignup = (props) => {
             ) : (
                 <div className='posts'>
                     <div className='signPost'>
-                        <div className='headerSign'>Вітаємо у PROZA!</div>
+                        <div className='headerSign'>Редагування профілю</div>
                         <input
                             className='inputSignup'
                             onChange={handleTextChange}
@@ -284,7 +284,7 @@ const AlertSignup = (props) => {
                         <div className='miniSignup'>Наявність опису не є обов’язковою.</div>
                         <span className='textSignup'>
                             Для кращого підбору цікавої вам літератури вкажіть, будь ласка, свої
-                            вподобання. {'\n'}(Виберіть хочаб одну категорію)
+                            вподобання.
                         </span>
                         <div className='lyric'>
                             <div className='txt'>Обрати вид лірики</div>
@@ -457,12 +457,13 @@ const AlertSignup = (props) => {
                                 </div>
                             </div>
                         </div>
-                        <input type='file' accept='image/*' onChange={handleFileChange} />
                         <div className='clear' onClick={clearCategory}>
                             Очистити вибір
                         </div>{' '}
+                        <img src={props.imageData} style={{ width: '3rem', height: '3rem' }} />
+                        <input type='file' accept='image/*' onChange={handleFileChange} />
                         <div className='end' onClick={refactor}>
-                            Завершити реєстрацію
+                            Завершити редагування
                         </div>
                     </div>
                 </div>
@@ -470,4 +471,4 @@ const AlertSignup = (props) => {
         </Alert>
     );
 };
-export default AlertSignup;
+export default AlertRefactor;

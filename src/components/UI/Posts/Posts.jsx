@@ -84,9 +84,7 @@ const Posts = (props) => {
                         }
                     }
                 )
-                .then(function (response) {
-                    console.log(response);
-                })
+                .then(function () {})
                 .catch(function (error) {
                     console.log(error);
                 });
@@ -222,7 +220,6 @@ const Posts = (props) => {
                 }
             })
             .then((response) => {
-                console.log(response.data);
                 setReviews({ items: response.data });
             });
     };
@@ -286,6 +283,9 @@ const Posts = (props) => {
                             if (isAuthentificated) {
                                 getReview();
                                 setComment(!comment);
+                                if (props.setComment) {
+                                    props.setComment();
+                                }
                             } else {
                                 navigate('/login');
                             }
@@ -308,14 +308,19 @@ const Posts = (props) => {
                                     publishReview();
                                     event.target.value = '';
                                 }
+                                getReview();
                             }}
                             placeholder='Напишіть коментар'></textarea>
                         <div className='mini'>Натисніть Enter, щоб опублікувати.</div>
-                        {reviews.items[0] ? (
-                            <div>
-                                {reviews.items[0].user}
-                                {reviews.items[0].content}
-                            </div>
+                        {reviews ? (
+                            reviews.items.map((p, index) => (
+                                <div key={index} className='fullComment'>
+                                    <div className='fullUser'>
+                                        {p.user}:{'  '}
+                                    </div>
+                                    <div className='fullTxt'>{p.content}</div>
+                                </div>
+                            ))
                         ) : (
                             <></>
                         )}

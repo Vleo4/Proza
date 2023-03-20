@@ -2,7 +2,7 @@ import React from 'react';
 import { BsArrowLeft } from 'react-icons/bs';
 import logo from '../../assets/images/logo.png';
 import mobileLogo from '../../assets/images/auth/mobile-logo.svg';
-import Button from 'components/UI/Button';
+import Button from 'components/UI/Button/Button';
 import './AuthLayout.scss';
 import { useLocation } from 'react-router-dom';
 

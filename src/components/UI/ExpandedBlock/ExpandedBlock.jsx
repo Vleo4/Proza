@@ -37,9 +37,7 @@ const ExpandableBlock = (props) => {
                     }
                 }
             )
-            .then(function (response) {
-                console.log(response);
-            })
+            .then(function () {})
             .catch(function (error) {
                 console.log(error);
             });

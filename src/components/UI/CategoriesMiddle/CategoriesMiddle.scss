@@ -87,7 +87,7 @@ float: right;
 }
 .categoryActive{
  height: 1.6rem;
- width: 30%;
+ width: 45%;
  position: static;
  margin-left: 2.5%;
  margin-right: 2.5%;
@@ -120,4 +120,29 @@ float: right;
  background: #FFF3FF;
  border: 2px solid #C0777F;
  box-shadow: inset 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+.end{
+ display: inline-block;
+ white-space: nowrap;
+ border-radius: 10px;
+ position: relative;
+ margin-top: 3rem;
+ width: auto;
+ font-family: 'Inter',system-ui;
+ font-style: normal;
+ font-weight: 400;
+ font-size: 16px;
+ line-height: 28px;
+ padding-left: 0.2rem;
+ padding-right: 0.2rem;
+ cursor: pointer;
+ height: 2rem;
+ background: white;
+ border: 2px solid #C0777F;
+ float: right;
+ margin-right: -6.5rem;
+ vertical-align: middle;
+ @media only screen and (max-width: 1400px) {
+  margin-top: 2.5rem;
+ }
 }

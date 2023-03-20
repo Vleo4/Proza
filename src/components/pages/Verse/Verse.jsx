@@ -26,68 +26,86 @@ const Verse = (props) => {
     const toggleAlert = () => {
         setAlert(!alert);
     };
+    const [comment, setComment] = React.useState([false, false]);
+    const toggleComment = (p) => {
+        setComment((prevComment) => ({
+            ...prevComment,
+            [p]: !prevComment[p]
+        }));
+    };
     if (isMobile) {
         return (
-            <div className='mobile-verse'>
-                <HeaderMobile />
-                <div className='mobileMiddle'>
-                    <InfiniteScroll
-                        scrollableTarget='scrollableDiv'
-                        next={props.fetchMoreData}
-                        hasMore={props.hasMore}
-                        loader={<h4></h4>}
-                        height={'95vh'}
-                        dataLength={props.infinite.items.length}
-                        endMessage={<p></p>}
-                        className='infiniteMobile'>
-                        {location.pathname === '/profile' ||
-                        location.pathname === '/profile/' + id ? (
-                            <>
-                                <AlertAddPost
-                                    toggleAlert={toggleAlert}
-                                    alert={alert}
-                                    className='complaintAlert'
-                                />
-                                <div className='infiniteMobile'>
-                                    <div className='verseMobileBlock'>
-                                        <ProfileHeader author={props.author} />
-                                    </div>
-                                    {location.pathname === '/profile' ? (
-                                        <div className='verseMobileBlock'>
-                                            <div className='postsAddMobile'>
-                                                <div className='text-parent'>
-                                                    <img
-                                                        src={addPost}
-                                                        className='addPostSmallMobile'
-                                                        onClick={toggleAlert}
-                                                    />
+            <>
+                <div className='mobile-verse'>
+                    <HeaderMobile />
+                    <div className='mobileMiddle'>
+                        <InfiniteScroll
+                            scrollableTarget='scrollableDiv'
+                            next={props.fetchMoreData}
+                            hasMore={props.hasMore}
+                            loader={<h4></h4>}
+                            height={'95vh'}
+                            dataLength={props.infinite.items.length}
+                            endMessage={<p></p>}
+                            className='infiniteMobile'>
+                            {location.pathname === '/profile' ||
+                            location.pathname === '/profile/' + id ? (
+                                <>
+                                    <AlertAddPost
+                                        toggleAlert={toggleAlert}
+                                        alert={alert}
+                                        className='complaintAlert'
+                                    />
+                                    <div className='infiniteMobile'>
+                                        <div className='verseHeaderMobileBlock'>
+                                            <ProfileHeader author={props.author} />
+                                        </div>
+                                        {location.pathname === '/profile' ? (
+                                            <div className='verseAddSmallMobileBlock'>
+                                                <div className='postsAddMobile'>
+                                                    <div className='text-parent'>
+                                                        <img
+                                                            src={addPost}
+                                                            className='addPostSmallMobile'
+                                                            onClick={toggleAlert}
+                                                        />
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    ) : (
-                                        <></>
-                                    )}
+                                        ) : (
+                                            <></>
+                                        )}
+                                    </div>
+                                </>
+                            ) : (
+                                <></>
+                            )}
+                            {props.infinite.items.map((p, index) => (
+                                <div
+                                    className={
+                                        comment[index]
+                                            ? 'verseMobileBlockComment'
+                                            : 'verseMobileBlock'
+                                    }
+                                    key={index}>
+                                    <PostsMobile
+                                        comment={comment[index]}
+                                        setComment={toggleComment}
+                                        author={p.user}
+                                        tittle={p.title}
+                                        content={p.content}
+                                        id={p.id}
+                                        index={index}
+                                        key={index}></PostsMobile>
                                 </div>
-                            </>
-                        ) : (
-                            <></>
-                        )}
-                        {props.infinite.items.map((p, index) => (
-                            <div className='verseMobileBlock' key={index}>
-                                <PostsMobile
-                                    author={p.user}
-                                    tittle={p.title}
-                                    content={p.content}
-                                    id={p.id}
-                                    key={index}></PostsMobile>
-                            </div>
-                        ))}
-                    </InfiniteScroll>
+                            ))}
+                        </InfiniteScroll>
+                    </div>
+                    <footer className='footerMobile-verse'>
+                        <NavbarMobile />
+                    </footer>
                 </div>
-                <footer className='footerMobile-verse'>
-                    <NavbarMobile />
-                </footer>
-            </div>
+            </>
         );
     } else {
         if (active) {

@@ -9,6 +9,14 @@
   @media only screen and (max-width: 1400px) {
     zoom: 0.98;
   }
+  .refactor{
+    position: absolute;
+    display: inline-block;
+    left: 89%;
+    width: 1rem;
+    top:3%;
+    cursor: pointer;
+  }
   .header-user {
     @media only screen and (max-width: 1400px) {
       zoom: 0.9;
@@ -62,6 +70,7 @@
         margin-left: auto;
         margin-right: auto;
         width:125px;
+        height:125px;
         display: inline-block;
         left: 1rem;
         position: relative;
@@ -110,7 +119,17 @@
     }
   }
 }
-
+.partDesc{
+  display: block;
+  font-family: 'Inter', system-ui;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 18px;
+  width: 80%;
+  margin-right: auto;
+  margin-left: auto;
+}
 .partTopUser{
   display: flex;
   flex-direction: row;
@@ -130,7 +149,6 @@
     position: fixed;
     flex:1;
     padding-left: 3%;
-
   }
   .commentTopUser{
     position: fixed;

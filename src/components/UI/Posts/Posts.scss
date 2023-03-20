@@ -13,7 +13,6 @@
  .header-post{
   border-bottom: 1px solid #727373;
   transform: translateX(-1rem);
-
   font-family: 'Inter', system-ui;
   font-style: normal;
   font-weight: 700;
@@ -369,14 +368,13 @@ overflow: auto;
  box-sizing: border-box;
  border: 3px solid #FFE3FF;
  border-radius: 15px;
- min-height: 85vh ;
+ min-height: auto ;
  width: 82%;
  position:relative;
  padding-bottom:50px;
  margin-left: auto;
  margin-right: auto;
  margin-top: 1.65rem;
- height: 100%;
  .header-post{
   border-bottom: 1px solid #727373;
   font-family: 'Inter', system-ui;
@@ -393,6 +391,7 @@ overflow: auto;
   }
  }
  .text{
+  min-height: 50vh ;
   margin-top: 0.3rem;
   margin-left: 0.5rem;
   white-space: pre-line;
@@ -434,7 +433,6 @@ overflow: auto;
   width: 100%;
   display: block;
   position:absolute;
-  bottom: 5rem;
   img{
    margin-top: 1rem;
    width: 5%;
@@ -454,14 +452,14 @@ overflow: auto;
  }
  .commentsSolo{
   width: 100%;
-  position:absolute;
-  bottom: 1rem;
   margin-left: 1rem;
   font-family: 'Inter', system-ui;
   font-style: normal;
   font-weight: 400;
   font-size: 1rem;
   line-height: 1rem;
+  padding-top: 3rem;
+  margin-bottom: -1.5rem;
   .text-input{
    resize: none;
    outline:none;
@@ -483,8 +481,8 @@ overflow: auto;
   }
  }
  .comments{
+  display: block;
   width: 100%;
-  position:absolute;
   bottom: 0;
   margin-left: 1rem;
   font-family: 'Inter', system-ui;
@@ -492,6 +490,8 @@ overflow: auto;
   font-weight: 400;
   font-size: 1rem;
   line-height: 1rem;
+  padding-top: 3rem;
+  margin-bottom: -1.5rem;
   .text-input{
    resize: none;
    outline:none;
@@ -513,6 +513,36 @@ overflow: auto;
   }
  }
 }
+ .fullComment{
+  text-align: center;
+  margin-top: 3%;
+  display: flex;
+  width: 95%;
+  font-family: 'Inter', system-ui;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 22px;
+ }
+ .fullUser{
+  text-align: center;
+  font-family: 'Inter', system-ui;
+  font-style: normal;
+  font-weight: 600;
+  flex-grow:0;
+  display: inline-block;
+  white-space: pre;
+ }
+ .fullTxt{
+  text-align: start;
+  font-family: 'Inter', system-ui;
+  font-style: normal;
+  font-weight: 400;
+  display: inline-block;
+  word-break: break-all;
+ }
+
+
 
 .profileHeader{
  background-color: #ffffff;
@@ -520,11 +550,18 @@ overflow: auto;
  border: 3px solid #FFE3FF;
  border-radius: 15px;
  min-height: 25vh;
+ max-height: 35vh;
  width: 95%;
  position:relative;
  padding-bottom:1rem;
  margin: 1rem auto;
-
+.refactor{
+ width: 1rem;
+ height: 1rem;
+ float: right;
+ margin-right: 2%;
+ border-radius: 0;
+}
  .avatar{
   display: block;
   .avatarImage {
@@ -722,6 +759,7 @@ overflow: auto;
  background-color: rgba(0, 0, 0, 0.5);
  z-index: 99;
  backdrop-filter: blur(2px);
+
  .posts{
   background: #FFFFFF;
   border: 1px solid #000000;
@@ -736,7 +774,14 @@ overflow: auto;
   overflow: auto;
   margin-top: -1%;
   border-radius: 0;
+  @media only screen and (max-width: 1400px) {
+   overflow: hidden;
+  }
   .signPost{
+   @media only screen and (max-width: 1400px) {
+    zoom: 0.88;
+    height: 95%;
+   }
    margin-top: 5%;
    width: 80%;
    margin-left: auto;
@@ -762,7 +807,7 @@ overflow: auto;
 }
 
 .textSignup{
- margin-top: 2.5%;
+ margin-top: 5%;
  font-family: 'Inter',system-ui;
  font-style: normal;
  font-weight: 400;
@@ -770,6 +815,107 @@ overflow: auto;
  line-height: 18px;
  align-items: center;
  color: #000000;
- padding-left: 7.5%;
+ padding-left: 2rem;
  display: flex;
+ text-align: center;
+ white-space: pre-wrap;
+}
+.miniSignup{
+ font-family: 'Inter',system-ui;
+ font-style: normal;
+ font-weight: 400;
+ font-size: 13px;
+ line-height: 16px;
+ float: right;
+ display: flex;
+ align-items: center;
+ margin-right: 5%;
+}
+.inputSignup{
+
+ margin-top: 1rem;
+ background: #FFFFFF;
+ border: 1px solid rgba(0, 0, 0, 0.5);
+ border-radius: 10px;
+ font-family: 'Inter', system-ui;
+ font-style: normal;
+ font-weight: 400;
+ font-size: 16px;
+ line-height: 19px;
+ display: flex;
+ align-items: center;
+ width: 90%;
+ margin-left: auto;
+ margin-right: auto;
+ height: 2.5rem;
+ @media only screen and (max-width: 1400px) {
+  height: 2rem;
+ }
+}
+.signAlertMobile {
+ top: 0;
+ position: absolute;
+ left: 0;
+ width: 100%;
+ height: 90%;
+ background-color: rgba(0, 0, 0, 0.5);
+ z-index: 99;
+ .postsMobile {
+  background-color: #ffffff;
+  box-sizing: border-box;
+  height: 90vh;
+  width: 100%;
+  position:absolute;
+  border: 0;
+  border-radius: 0;
+  margin: 0;
+  .signPostMobile {
+   width: 80%;
+   border: 3px solid #FFE3FF;
+   border-radius: 15px;
+   height: 80vh;
+   margin: 5% auto;
+  }
+
+  .headerSignMobile {
+   margin-top: 2.5%;
+   font-family: 'Inter', system-ui;
+   font-style: normal;
+   font-weight: 400;
+   font-size: 25px;
+   line-height: 36px;
+   display: block;
+   align-items: center;
+   text-align: center;
+   margin-left: auto;
+   margin-right: auto;
+  }
+ }
+ }
+
+.textSignupMobile{
+ width: 100%;
+ margin-top: 5%;
+ font-family: 'Inter',system-ui;
+ font-style: normal;
+ font-weight: 400;
+ font-size: 15px;
+ line-height: 18px;
+ align-items: center;
+ color: #000000;
+ padding-left: 5%;
+ padding-right: 1rem;
+ display: flex;
+ white-space: pre-line;
+}
+.miniSignupMobile{
+ font-family: 'Inter',system-ui;
+ font-style: normal;
+ font-weight: 400;
+ font-size: 13px;
+ line-height: 16px;
+ float: right;
+ display: flex;
+ align-items: center;
+ margin-right: 5%;
 }

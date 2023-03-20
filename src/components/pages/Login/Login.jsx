@@ -7,8 +7,8 @@ import { saveToLocalStorage, saveToSessionStorage } from 'utils/storage';
 import { ACCESS_TOKEN, REFRESH_TOKEN } from 'constants/localStorageKeys';
 
 import HomeLayout from 'components/layouts/AuthLayout';
-import Button from 'components/UI/Button';
-import Input from 'components/UI/Input';
+import Button from 'components/UI/Button/Button';
+import Input from 'components/UI/Input/Input';
 
 import './Login.scss';
 import { useAuthContext } from 'contexts/AuthContext';

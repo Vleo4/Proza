@@ -38,8 +38,7 @@ const AlertAddPost = (props) => {
                     }
                 }
             )
-            .then(function (response) {
-                console.log(response);
+            .then(function () {
                 window.location.href = '/profile';
                 props.toggleAlert();
             })

@@ -18,10 +18,10 @@ const VerseAdd = (props) => {
                 <HeaderMobile />
                 <div className='mobileMiddle'>
                     <div className='infiniteMobile'>
-                        <div className='verseMobileBlock'>
+                        <div className='verseHeaderMobileBlock'>
                             <ProfileHeader author={props.author} />
                         </div>
-                        <div className='verseMobileBlock'>
+                        <div className='verseAddMobileBlock'>
                             <PostsAdd />
                         </div>
                     </div>

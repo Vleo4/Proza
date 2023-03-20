@@ -9,6 +9,8 @@ import { ACCESS_TOKEN } from '../../../constants/localStorageKeys';
 import { useAuthContext } from '../../../contexts/AuthContext';
 import jwtDecode from 'jwt-decode';
 import { useNavigate } from 'react-router-dom';
+import refactor from '../../../assets/images/Users/refactor.png';
+import AlertRefactor from '../AlertRefactor/AlertRefactor';
 const ProfileHeader = (props) => {
     const { isAuthentificated } = useAuthContext();
     const [isSubscribe, setIsSubscribe] = useState(false);
@@ -106,10 +108,20 @@ const ProfileHeader = (props) => {
                 console.log(error);
             });
     }, []);
+    const [alertRef, toggleAlertRef] = useState(false);
+    const toggleAlertFunc = () => {
+        toggleAlertRef(!alertRef);
+    };
     return (
         <>
+            <AlertRefactor toggleAlert={toggleAlertFunc} alert={alertRef} />
             <AlertAddPost toggleAlert={toggleAlert} alert={alert} className='complaintAlert' />
             <div className='profileHeader'>
+                {location.pathname !== '/profile' && props.author !== current ? (
+                    <></>
+                ) : (
+                    <img onClick={toggleAlertFunc} src={refactor} className='refactor' />
+                )}
                 <div className='avatar'>
                     <img
                         className={

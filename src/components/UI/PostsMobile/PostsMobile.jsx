@@ -10,8 +10,148 @@ import model from '../../../assets/images/Users/model.png';
 import React, { useState } from 'react';
 import ShowMoreText from 'react-show-more-text';
 import AlertMobile from '../AlertMobile/AlertMobile';
+import axios from 'axios';
+import jwtDecode from 'jwt-decode';
+import { useAuthContext } from '../../../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
+import { getFromLocalStorage, getFromSessionStorage } from '../../../utils/storage';
+import { ACCESS_TOKEN } from '../../../constants/localStorageKeys';
+import ComplaintAlert from '../ComplaintAlert/ComplaintAlert';
+import AlertCopy from '../AlertCopy/AlertCopy';
 
 const PostsMobile = (props) => {
+    const { isAuthentificated } = useAuthContext();
+    const navigate = useNavigate();
+    const accessToken = getFromSessionStorage(ACCESS_TOKEN) ?? getFromLocalStorage(ACCESS_TOKEN);
+    const [reviews, setReviews] = useState({ items: [] });
+    const getReview = () => {
+        axios
+            .get(apiURL + 'getarticlereviews/' + props.id + '/?format=json', {
+                headers: {
+                    Authorization: 'Bearer ' + accessToken
+                }
+            })
+            .then((response) => {
+                setReviews({ items: response.data });
+            });
+    };
+    const [text, setText] = useState(null);
+    const handleTextChange = (event) => {
+        setText(event.target.value);
+    };
+    const publishReview = () => {
+        if (isAuthentificated) {
+            const token = jwtDecode(accessToken);
+            axios
+                .post(
+                    apiURL + 'reviewcreate/',
+                    {
+                        headers: {
+                            Authorization: 'Bearer ' + accessToken,
+                            'Content-Type': 'application/json'
+                        },
+                        user: token.user_id,
+                        content: text,
+                        article: props.id
+                    },
+                    {
+                        headers: {
+                            Authorization: 'Bearer ' + accessToken
+                        }
+                    }
+                )
+                .then(function () {})
+                .catch(function (error) {
+                    console.log(error);
+                });
+        }
+    };
+    const [isLike, setIsLike] = useState(false);
+    const apiURL = 'https://prozaapp.art/api/v1/';
+    const onLikes = () => {
+        if (isAuthentificated) {
+            axios
+                .put(
+                    apiURL + 'like/' + props.id + '/',
+                    {},
+                    {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Authorization: 'Bearer ' + accessToken
+                        }
+                    }
+                )
+                .then(function () {
+                    setIsLike(!isLike);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        } else {
+            navigate('/login');
+        }
+    };
+    const [isSave, setIsSave] = useState(false);
+    const onSaves = () => {
+        if (isAuthentificated) {
+            axios
+                .put(
+                    apiURL + 'save/' + props.id + '/',
+                    {},
+                    {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Authorization: 'Bearer ' + accessToken
+                        }
+                    }
+                )
+                .then(function () {
+                    setIsSave(!isSave);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        } else {
+            navigate('/login');
+        }
+    };
+    React.useEffect(() => {
+        if (isAuthentificated) {
+            axios
+                .get(apiURL + 'savedarticles/?format=json', {
+                    headers: {
+                        Authorization: 'Bearer ' + accessToken
+                    }
+                })
+                .then((response) => {
+                    response.data.map((index) => {
+                        if (index.id === props.id) {
+                            setIsSave(true);
+                        }
+                    });
+                });
+        }
+    }, [isSave]);
+    React.useEffect(() => {
+        if (isAuthentificated) {
+            const token = jwtDecode(accessToken);
+            axios
+                .get(apiURL + 'article/' + props.id + '/?format=json', {
+                    headers: {
+                        Authorization: 'Bearer ' + accessToken
+                    }
+                })
+                .then((response) => {
+                    if (response.data.likes) {
+                        response.data.likes.map((index) => {
+                            if (index === token.user_id) {
+                                setIsLike(true);
+                            }
+                        });
+                    }
+                });
+        }
+    }, [isLike]);
     const moreRead = () => {
         const a = Math.round((window.innerHeight / window.innerWidth) * 10) / 10;
         switch (a) {
@@ -63,30 +203,42 @@ const PostsMobile = (props) => {
                 return parseInt(window.innerHeight / 55);
         }
     };
-    const [state, setState] = useState({ showAlert: false });
-    const toggleAlert = () => {
-        setState({ showAlert: !state.showAlert });
-    };
+
     const regex = /\\n|\\r\\n|\\n\\r|\\r/g;
     const content = () => {
         return props.content.replace(regex, '\n');
     };
-    const alertMessage = () => {
-        alert('NO NAME');
+    const [state, setState] = useState({
+        showAlert: false,
+        complaintAlert: false,
+        alertCopy: false
+    });
+    const toggleAlert = () => {
+        setState({ showAlert: !state.showAlert });
     };
-    const [isLike, setIsLike] = useState(false);
-    const onLikes = () => {
-        setIsLike(!isLike);
-    };
-    const [isSave, setIsSave] = useState(false);
-    const onSaves = () => {
-        setIsSave(!isSave);
+    const toggleComplaintAlert = () => {
+        if (isAuthentificated) {
+            setState({ showAlert: false, complaintAlert: !state.complaintAlert, alertCopy: false });
+        } else {
+            navigate('/login');
+        }
     };
     const onShare = () => {
         navigator.clipboard.writeText('https://prozaapp.art/article/' + props.id).then();
+        toggleCopyAlert();
+    };
+    const toggleCopyAlert = () => {
+        setState({ showAlert: false, complaintAlert: false, alertCopy: !state.alertCopy });
     };
     return (
         <>
+            <AlertCopy toggleCopyAlert={toggleCopyAlert} state={state} className='copyAlert' />
+            <ComplaintAlert
+                state={state}
+                toggleComplaintAlert={toggleComplaintAlert}
+                className='complaintAlert'
+                id={props.id}
+            />
             <AlertMobile
                 state={state}
                 useState={useState()}
@@ -95,11 +247,15 @@ const PostsMobile = (props) => {
                 posts={props}
                 className='fullAlert'
             />
-            <div className='postsMobile'>
+            <div className={props.comment ? 'postsMobileComment' : 'postsMobile'}>
                 <div className='header-postMobile'>
                     <img src={model} className='avatarMobile' alt='avatar' />
                     <a>{props.author}</a>
-                    <img src={dots} className='dots' onClick={alertMessage} alt='dots'></img>
+                    <img
+                        src={dots}
+                        className='dots'
+                        onClick={toggleComplaintAlert}
+                        alt='dots'></img>
                 </div>
                 <div>
                     {
@@ -128,7 +284,14 @@ const PostsMobile = (props) => {
                     <img
                         src={comments}
                         className='next'
-                        onClick={alertMessage}
+                        onClick={() => {
+                            if (isAuthentificated) {
+                                getReview();
+                                props.setComment(props.index);
+                            } else {
+                                navigate('/login');
+                            }
+                        }}
                         alt='comments'></img>
                     <img
                         src={isSave ? saves : noSaves}
@@ -137,6 +300,36 @@ const PostsMobile = (props) => {
                         alt='saves'></img>
                     <img src={share} className='last' onClick={onShare} alt='share'></img>
                 </div>
+                {props.comment ? (
+                    <div className={reviews.items[0] ? 'comments' : 'commentsSolo'}>
+                        <textarea
+                            className='text-input'
+                            onChange={handleTextChange}
+                            onKeyDown={(event) => {
+                                if (event.key === 'Enter' && !event.shiftKey) {
+                                    event.preventDefault();
+                                    publishReview();
+                                    event.target.value = '';
+                                }
+                                getReview();
+                            }}
+                            placeholder='Напишіть коментар'></textarea>
+                        {reviews ? (
+                            reviews.items.map((p, index) => (
+                                <div key={index} className='fullComment'>
+                                    <div className='fullUser'>
+                                        {p.user}:{'  '}
+                                    </div>
+                                    <div className='fullTxt'>{p.content}</div>
+                                </div>
+                            ))
+                        ) : (
+                            <></>
+                        )}
+                    </div>
+                ) : (
+                    <></>
+                )}
             </div>
         </>
     );
