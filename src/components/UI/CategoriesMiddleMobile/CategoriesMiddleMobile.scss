@@ -1,15 +1,13 @@
-.middle{
+.middleMobile{
  background-color: #ffffff;
  box-sizing: border-box;
  border: 3px solid #FFE3FF;
  border-radius: 15px;
- height: 65vh ;
+ height: 53vh ;
  width: 82%;
  position:relative;
  padding-bottom:50px;
- margin-left: auto;
- margin-right: auto;
- margin-top: 7%;
+ margin: 7% auto;
 }
 .lyric{
  margin-right: auto;
@@ -25,19 +23,14 @@
   text-align: center;
  }
 }
-.containerCat{
+.containerCatMobile{
  display: flex;
  flex-direction: row;
  margin-top: 5%;
 }
-.containerCatSign{
- display: flex;
- flex-direction: row;
- margin-top: 3.5%;
-}
-.category{
+.categoryMobile{
  height: 1.6rem;
- width: 30%;
+ width: 45%;
  position: static;
  margin-left: 2.5%;
  margin-right: 2.5%;
@@ -53,9 +46,9 @@
  cursor: pointer;
 
 }
-.categorySolo {
+.categorySoloMobile {
  height: 1.6rem;
- width: 28.5%;
+ width: 44%;
  position: static;
  margin-left: 2.5%;
  margin-right: 2.5%;
@@ -67,7 +60,7 @@
  font-style: normal;
  font-weight: 400;
  font-size: 16px;
- line-height: 19px;
+ line-height: 22px;
  cursor: pointer;
 }
 .clear{
@@ -85,7 +78,7 @@ float: right;
  margin-top: 2.5%;
  color: #1D8AE2;
 }
-.categoryActive{
+.categoryActiveMobile{
  height: 1.6rem;
  width: 45%;
  position: static;
@@ -97,70 +90,9 @@ float: right;
  font-style: normal;
  font-weight: 400;
  font-size: 16px;
- line-height: 19px;
+ line-height: 22px;
  cursor: pointer;
  background: #FFF3FF;
  border: 2px solid #C0777F;
  box-shadow: inset 0 4px 4px rgba(0, 0, 0, 0.25);
-}
-.categoryActiveSolo {
- height: 1.6rem;
- width: 28.5%;
- position: static;
- margin-left: 2.5%;
- margin-right: 2.5%;
- text-align: center;
- border-radius: 15px;
- font-family: 'Inter',system-ui;
- font-style: normal;
- font-weight: 400;
- font-size: 16px;
- line-height: 19px;
- cursor: pointer;
- background: #FFF3FF;
- border: 2px solid #C0777F;
- box-shadow: inset 0 4px 4px rgba(0, 0, 0, 0.25);
-}
-.end{
- display: inline-block;
- white-space: nowrap;
- border-radius: 10px;
- position: relative;
- margin-top: 3rem;
- width: auto;
- font-family: 'Inter',system-ui;
- font-style: normal;
- font-weight: 400;
- font-size: 16px;
- line-height: 28px;
- padding-left: 0.2rem;
- padding-right: 0.2rem;
- cursor: pointer;
- height: 2rem;
- background: white;
- border: 2px solid #C0777F;
- float: right;
- margin-right: -6.5rem;
- vertical-align: middle;
- @media only screen and (max-width: 1400px) {
-  margin-top: 2.5rem;
- }
-}
-.show img{
- padding: 0;
-}
-.photoUser{
- margin-top: 1rem;
- width: 3rem;
- border-radius: 50%;
- height: 3rem;
- margin-left: 9.5rem;
- padding-left: 0;
-}
-.pInput{
- width: 7.8rem;
- position: absolute;
- margin-top: 2rem;
- border: 3px solid #FFE3FF;
- margin-left: 1rem;
 }

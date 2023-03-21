@@ -1,0 +1,38 @@
+[33mcommit 923ef09bff3da23694e8e0c610615f101ab9e9f8[m[33m ([m[1;36mHEAD -> [m[1;32mRomanMobileSign[m[33m, [m[1;31morigin/RomanMobileSign[m[33m)[m
+Author: Bozhovskiy <ro910265@gmail.com>
+Date:   Mon Mar 13 15:22:12 2023 +0200
+
+    AlertFix+AlertSign+CategoriesMobile+ProfileMobile+
+
+6	6	build/asset-manifest.json
+1	1	build/index.html
+0	2	build/static/css/main.48229c7f.css
+0	1	build/static/css/main.48229c7f.css.map
+2	0	build/static/css/main.dbf23777.css
+1	0	build/static/css/main.dbf23777.css.map
+3	3	build/static/js/{main.296b2e78.js => main.21897286.js}
+0	0	build/static/js/{main.296b2e78.js.LICENSE.txt => main.21897286.js.LICENSE.txt}
+1	0	build/static/js/main.21897286.js.map
+0	1	build/static/js/main.296b2e78.js.map
+11	1	src/components/UI/Alert/Alert.jsx
+3	2	src/components/UI/AlertAddPostMobile/AlertAddPostMobile.jsx
+3	5	src/components/UI/AlertAddPostMobile/AlertAddPostMobile.scss
+183	0	src/components/UI/AlertSignup/AlertSignup.jsx
+12	12	src/components/UI/AlertCategories/AlertCategories.jsx
+5	0	src/components/UI/AlertCategories/AlertCategories.scss
+171	0	src/components/UI/CategoriesMiddleMobile/CategoriesMiddleMobile.jsx
+98	0	src/components/UI/CategoriesMiddleMobile/CategoriesMiddleMobile.scss
+0	1	src/components/UI/HeaderMobile/HeaderMobile.scss
+25	1	src/components/UI/Posts/Posts.jsx
+183	23	src/components/UI/Posts/Posts.scss
+3	1	src/components/UI/PostsAdd/PostsAdd.jsx
+0	4	src/components/UI/PostsMobile/PostsMobile.scss
+10	9	src/components/UI/ProfileHeader/ProfileHeader.jsx
+30	8	src/components/UI/Users/Users.jsx
+1	0	src/components/UI/Users/Users.scss
+32	1	src/components/pages/Categories/Categories.jsx
+2	2	src/components/pages/Saves/Saves.jsx
+78	71	src/components/pages/Signup/Signup.jsx
+36	3	src/components/pages/Verse/Verse.jsx
+22	0	src/components/pages/Verse/Verse.scss
+11	1	src/components/pages/VerseAdd/VerseAdd.jsx

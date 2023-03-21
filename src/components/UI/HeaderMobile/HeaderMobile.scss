@@ -20,7 +20,6 @@
   .proza{
     width: 3.725rem;
     padding-top: 1rem;
-
   }
   a{
     text-decoration-line: underline;
@@ -38,11 +37,64 @@
   }
   .authorTxt{
     text-decoration-line: none;
+    max-width: 15%;
   }
   .guest{
     width:2rem;
-    padding-top: 0.5625rem;
+    margin-top: 0.5625rem;
     float: right;
     margin-right: 1rem;
+    height: 2rem;
+    border-radius: 50%;
+  }
+}
+
+@import '../../../styles/colors.scss';
+
+.searchMobile {
+  width: 68%;
+  padding-left: 7rem;
+  position: fixed;
+  top: 0.5rem;
+  left: 0;
+  z-index: 2;
+  .search-input {
+    display: flex;
+    align-items: center;
+    height: 1.94rem;
+    padding-left: 1rem;
+    border-radius: 2.19rem;
+    border: 2px solid #727373;
+    width: 100%;
+    font-size: 0.56rem;
+    background: url('../../../assets/images/search.svg') no-repeat calc(100% - 0.94rem) 50%;
+
+    &::placeholder {
+      color: black;
+    }
+  }
+
+  .listMobile{
+    background-color: white;
+    min-height: 2rem;
+    width: 100%;
+    box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
+    position: relative;
+    bottom: 0;
+    z-index: 50;
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    height: 1rem;
+    text-decoration: none;
+    color: black;
+    text-align: center;
+    vertical-align: bottom;
+    line-height: 2rem;
+    .postsSearch{
+      height: 1rem;
+      text-decoration: none;
+      color: black;
+    }
   }
 }

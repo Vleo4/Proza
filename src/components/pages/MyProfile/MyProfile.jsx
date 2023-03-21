@@ -7,7 +7,7 @@ import Verse from '../Verse/Verse';
 import { useAuthContext } from '../../../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 const MyProfile = () => {
-    const [author, setAuthor] = useState('no name');
+    const [author, setAuthor] = useState('');
     const accessToken = getFromSessionStorage(ACCESS_TOKEN) ?? getFromLocalStorage(ACCESS_TOKEN);
     const [infinite, setInfinite] = useState({ items: [] });
     const [state, setState] = useState(null);
@@ -20,6 +20,17 @@ const MyProfile = () => {
             navigate('/login');
         }
     }, [isAuthentificated, isAuthLoading]);
+    React.useEffect(() => {
+        axios
+            .get(apiURL + 'prozauserprofile/?format=json', {
+                headers: {
+                    Authorization: 'Bearer ' + accessToken
+                }
+            })
+            .then((response) => {
+                setAuthor(response.data.user);
+            });
+    }, []);
     React.useEffect(() => {
         axios
             .get(apiURL + 'getcurrentuserarticles/?format=json', {
@@ -43,16 +54,7 @@ const MyProfile = () => {
                     setInfinite({ items: [response.data[0], response.data[1]] });
                 }
             });
-        axios
-            .get(apiURL + 'prozauserprofile/?format=json', {
-                headers: {
-                    Authorization: 'Bearer ' + accessToken
-                }
-            })
-            .then((response) => {
-                setAuthor(response.data.user);
-            });
-    }, []);
+    }, [author]);
     const [indexCount, setIndexCount] = useState(2);
     const fetchMoreData = () => {
         setInfinite({ items: [...infinite.items, state.items[indexCount]] });

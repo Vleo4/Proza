@@ -10,11 +10,12 @@ import AlertAddPost from '../../UI/AlertAddPost/AlertAddPost';
 import addPost from '../../../assets/images/Posts/addPost.png';
 import Posts from '../../UI/Posts/Posts';
 import axios from 'axios';
-import Users from '../../UI/Users/Users';
 import RightTop from '../../UI/RightTop/RightTop';
 import { useAuthContext } from '../../../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import Search from '../../UI/Search/Search';
+import CategoriesMiddleMobile from '../../UI/CategoriesMiddleMobile/CategoriesMiddleMobile';
+import PostsMobile from '../../UI/PostsMobile/PostsMobile';
 
 const Categories = () => {
     const { isAuthentificated, isLoading: isAuthLoading } = useAuthContext();
@@ -25,7 +26,6 @@ const Categories = () => {
         }
     }, [isAuthentificated, isAuthLoading]);
     const [infinite, setInfinite] = useState({ items: [] });
-    const [author, setAuthor] = useState(null);
     const [state, setState] = useState(null);
     const apiURL = 'https://prozaapp.art/api/v1/';
     const [category, setCategory] = useState(null);
@@ -38,16 +38,6 @@ const Categories = () => {
                         setState(response.data[0]);
                         setInfinite({ items: [response.data[0]] });
                     } else if (!response.data.length) {
-                        setState({
-                            id: '',
-                            user: 'NO NAME',
-                            cat: '',
-                            title: ' ',
-                            content: '',
-                            author: '',
-                            count_of_likes: 0,
-                            count_of_reviews: 0
-                        });
                         setInfinite({ items: [] });
                     } else if (response.data.length === 2) {
                         setState({ items: response.data });
@@ -77,7 +67,36 @@ const Categories = () => {
         return (
             <div className='mobile-verse'>
                 <HeaderMobile />
-                <div className='mobileMiddle'></div>
+                <div className='mobileMiddle'>
+                    <InfiniteScroll
+                        scrollableTarget='scrollableDiv'
+                        next={fetchMoreData}
+                        hasMore={hasMore}
+                        loader={<h4></h4>}
+                        height={'95vh'}
+                        dataLength={infinite.items.length}
+                        endMessage={<p></p>}
+                        className='infiniteMobile'>
+                        <div className='infiniteMobile'>
+                            <div className='verseMobileBlock'>
+                                <CategoriesMiddleMobile
+                                    category={category}
+                                    setCategory={setCategory}
+                                />
+                            </div>
+                        </div>
+                        {infinite.items.map((p, index) => (
+                            <div className='verseMobileBlock' key={index}>
+                                <PostsMobile
+                                    author={p.user}
+                                    tittle={p.title}
+                                    content={p.content}
+                                    id={p.id}
+                                    key={index}></PostsMobile>
+                            </div>
+                        ))}
+                    </InfiniteScroll>
+                </div>
                 <footer className='footerMobile-verse'>
                     <NavbarMobile />
                 </footer>
@@ -125,11 +144,10 @@ const Categories = () => {
                                     <CategoriesMiddle
                                         category={category}
                                         setCategory={setCategory}
-                                        setAuthor={setAuthor}
                                     />
                                     {infinite.items.map((p, index) => (
                                         <Posts
-                                            setAuthor={setAuthor}
+                                            author={p.user}
                                             user={p.user}
                                             tittle={p.title}
                                             content={p.content}
@@ -141,19 +159,8 @@ const Categories = () => {
                         </div>
                         <div className='right-small'>
                             <div className='users'>
-                                {author ? (
-                                    <Users
-                                        className='users'
-                                        author={author}
-                                        verseOne={''}
-                                        verseSecond={''}
-                                    />
-                                ) : (
-                                    <>
-                                        <Search />
-                                        <RightTop className='users' />
-                                    </>
-                                )}{' '}
+                                <Search />
+                                <RightTop className='users' />
                             </div>
                         </div>
                     </div>
@@ -200,12 +207,10 @@ const Categories = () => {
                                     <CategoriesMiddle
                                         category={category}
                                         setCategory={setCategory}
-                                        setAuthor={setAuthor}
                                     />
                                     {infinite.items.map((p, index) => (
                                         <Posts
-                                            setAuthor={setAuthor}
-                                            user={p.user}
+                                            author={p.user}
                                             tittle={p.title}
                                             content={p.content}
                                             id={p.id}
@@ -215,22 +220,8 @@ const Categories = () => {
                             </div>
                         </div>
                         <div className='right'>
-                            {author ? (
-                                <>
-                                    <Search />
-                                    <Users
-                                        className='users'
-                                        author={author}
-                                        verseOne={''}
-                                        verseSecond={''}
-                                    />
-                                </>
-                            ) : (
-                                <>
-                                    <Search />
-                                    <RightTop className='users' />
-                                </>
-                            )}{' '}
+                            <Search />
+                            <RightTop className='users' />
                         </div>
                     </div>
                 </>

@@ -1,4 +1,4 @@
-@import '../../styles/colors.scss';
+@import '../../../styles/colors';
 
 .button {
     min-width: auto;
@@ -31,7 +31,7 @@
 
 .default {
     background-color: $BUTTON_BG;
-    
+
     &:hover:not(.disabled) {
         opacity: 0.95;
         box-shadow: 0rem 0.25rem 0.25rem rgba(0, 0, 0, 0.25);

@@ -8,10 +8,13 @@
     .left-cotainer {
         display: none;
         @media only screen and (max-width: 1400px) {
-            zoom: 0.9;
+            zoom: 0.45;
+        }
+        @media only screen and (max-width: 1800px) {
+            zoom: 0.5;
         }
         @media only screen and (min-width: 1800px) {
-            zoom: 1.6;
+            zoom: 0.8;
         }
     }
 

@@ -15,6 +15,7 @@ import addPost from '../../../assets/images/Posts/addPost.png';
 import Search from '../../UI/Search/Search';
 import RightTop from '../../UI/RightTop/RightTop';
 import ProfileHeader from '../../UI/ProfileHeader/ProfileHeader';
+import AlertAddPostMobile from '../../UI/AlertAddPostMobile/AlertAddPostMobile';
 
 const Verse = (props) => {
     let { id } = useParams();
@@ -22,44 +23,90 @@ const Verse = (props) => {
     const { isAuthentificated } = useAuthContext();
     const isMobile = useResizer();
     const [active, setActive] = useState(null);
-    const [author, setAuthor] = useState(null);
-    React.useEffect(() => {
-        setAuthor(props.author);
-    }, [props.author]);
     const [alert, setAlert] = useState(false);
     const toggleAlert = () => {
         setAlert(!alert);
     };
+    const [comment, setComment] = React.useState([false, false]);
+    const toggleComment = (p) => {
+        setComment((prevComment) => ({
+            ...prevComment,
+            [p]: !prevComment[p]
+        }));
+    };
     if (isMobile) {
         return (
-            <div className='mobile-verse'>
-                <HeaderMobile />
-                <div className='mobileMiddle'>
-                    <InfiniteScroll
-                        scrollableTarget='scrollableDiv'
-                        next={props.fetchMoreData}
-                        hasMore={props.hasMore}
-                        loader={<h4>Loading..</h4>}
-                        height={'95vh'}
-                        dataLength={props.infinite.items.length}
-                        endMessage={<p></p>}
-                        className='infiniteMobile'>
-                        {props.infinite.items.map((p, index) => (
-                            <div className='verseMobileBlock' key={index}>
-                                <PostsMobile
-                                    author={p.user}
-                                    tittle={p.title}
-                                    content={p.content}
-                                    id={p.id}
-                                    key={index}></PostsMobile>
-                            </div>
-                        ))}
-                    </InfiniteScroll>
+            <>
+                <div className='mobile-verse' style={{ overflow: 'hidden' }}>
+                    <HeaderMobile />
+                    <div className='mobileMiddle' style={{ overflow: 'hidden' }}>
+                        <InfiniteScroll
+                            scrollableTarget='scrollableDiv'
+                            next={props.fetchMoreData}
+                            hasMore={props.hasMore}
+                            loader={<h4></h4>}
+                            height={'95vh'}
+                            dataLength={props.infinite.items.length}
+                            endMessage={<p></p>}
+                            className='infiniteMobile'>
+                            {location.pathname === '/profile' ||
+                            location.pathname === '/profile/' + id ? (
+                                <>
+                                    <AlertAddPostMobile
+                                        toggleAlert={toggleAlert}
+                                        alert={alert}
+                                        className='complaintAlert'
+                                    />
+                                    <div className='infiniteMobile'>
+                                        <div className='verseHeaderMobileBlock'>
+                                            <ProfileHeader author={props.author} />
+                                        </div>
+                                        {location.pathname === '/profile' ? (
+                                            <div className='verseAddSmallMobileBlock'>
+                                                <div className='postsAddMobile'>
+                                                    <div className='text-parent'>
+                                                        <img
+                                                            src={addPost}
+                                                            className='addPostSmallMobile'
+                                                            onClick={toggleAlert}
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ) : (
+                                            <></>
+                                        )}
+                                    </div>
+                                </>
+                            ) : (
+                                <></>
+                            )}
+                            {props.infinite.items.map((p, index) => (
+                                <div
+                                    className={
+                                        comment[index]
+                                            ? 'verseMobileBlockComment'
+                                            : 'verseMobileBlock'
+                                    }
+                                    key={index}>
+                                    <PostsMobile
+                                        comment={comment[index]}
+                                        setComment={toggleComment}
+                                        author={p.user}
+                                        tittle={p.title}
+                                        content={p.content}
+                                        id={p.id}
+                                        index={index}
+                                        key={index}></PostsMobile>
+                                </div>
+                            ))}
+                        </InfiniteScroll>
+                    </div>
+                    <footer className='footerMobile-verse'>
+                        <NavbarMobile />
+                    </footer>
                 </div>
-                <footer className='footerMobile-verse'>
-                    <NavbarMobile />
-                </footer>
-            </div>
+            </>
         );
     } else {
         if (active) {
@@ -80,7 +127,6 @@ const Verse = (props) => {
                                     {location.pathname === '/profile' ||
                                     location.pathname === '/profile/' + id ? (
                                         <>
-                                            <ProfileHeader author={author} />
                                             <AlertAddPost
                                                 toggleAlert={toggleAlert}
                                                 alert={alert}
@@ -105,7 +151,7 @@ const Verse = (props) => {
                                     )}{' '}
                                     {props.infinite.items.map((p, index) => (
                                         <Posts
-                                            setAuthor={setAuthor}
+                                            author={p.user}
                                             user={p.user}
                                             tittle={p.title}
                                             content={p.content}
@@ -137,16 +183,15 @@ const Verse = (props) => {
                             ''
                         )}
                         <div className='right-small'>
+                            <Search />
                             {location.pathname === '/profile' ||
                             location.pathname === '/profile/' + id ? (
                                 <>
-                                    <Search />
-                                    <RightTop className='users' />
+                                    <Users className='users' author={props.author} />
                                 </>
                             ) : (
                                 <>
-                                    <Search />
-                                    <Users className='users' author={author} />
+                                    <RightTop className='users' />
                                 </>
                             )}
                         </div>
@@ -171,7 +216,6 @@ const Verse = (props) => {
                                 {location.pathname === '/profile' ||
                                 location.pathname === '/profile/' + id ? (
                                     <>
-                                        <ProfileHeader author={author} />
                                         <AlertAddPost
                                             toggleAlert={toggleAlert}
                                             alert={alert}
@@ -196,7 +240,7 @@ const Verse = (props) => {
                                 )}{' '}
                                 {props.infinite.items.map((p, index) => (
                                     <Posts
-                                        setAuthor={setAuthor}
+                                        author={p.user}
                                         user={p.user}
                                         tittle={p.title}
                                         content={p.content}
@@ -227,16 +271,15 @@ const Verse = (props) => {
                             ''
                         )}
                         <div className='right'>
+                            <Search />
                             {location.pathname === '/profile' ||
                             location.pathname === '/profile/' + id ? (
                                 <>
-                                    <Search />
-                                    <RightTop className='users' />
+                                    <Users className='users' author={props.author} />
                                 </>
                             ) : (
                                 <>
-                                    <Search />
-                                    <Users className='users' author={author} />
+                                    <RightTop className='users' />
                                 </>
                             )}
                         </div>

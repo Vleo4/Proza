@@ -11,25 +11,21 @@
  margin-right: auto;
  margin-top: 3%;
  .header-post{
+  border-bottom: 1px solid #727373;
+  transform: translateX(-1rem);
   font-family: 'Inter', system-ui;
   font-style: normal;
   font-weight: 700;
   font-size: 13px;
   line-height: 16px;
   width: 100%;
-  display: block;
+  display: flex;
   margin-top: 1rem;
   margin-left: 1rem;
-  img{
-   margin-right: 2rem;
-   width: 22px;
-   float:right;
-   display: inline-block;
-  }
  }
  .text{
-  margin-top: 1rem;
-  margin-left: 1rem;
+  margin-top: 0.3rem;
+  margin-left: 0.5rem;
   white-space: pre-line;
   display: block;
   font-family: 'Inter', system-ui;
@@ -82,35 +78,31 @@
  box-sizing: border-box;
  border: 3px solid #FFE3FF;
  border-radius: 15px;
- min-height: 85vh ;
+ min-height: 80vh ;
  width: 82%;
  position:relative;
  padding-bottom:50px;
 
  .header-post{
-   font-family: 'Inter', system-ui;
+  border-bottom: 1px solid #727373;
+  transform: translateX(-1rem);
+  font-family: 'Inter', system-ui;
   font-style: normal;
   font-weight: 700;
   font-size: 13px;
   line-height: 16px;
   width: 100%;
-  display: block;
+  display: flex;
   margin-top: 1rem;
   margin-left: 1rem;
   @media only screen and (min-width: 1800px) {
    font-size: 30px;
    line-height: 35px;
   }
-  img{
-   margin-right: 2rem;
-   width: 22px;
-   float:right;
-   display: inline-block;
-  }
  }
  .text{
-  margin-top: 1rem;
-  margin-left: 1rem;
+  margin-top: 0.3rem;
+  margin-left: 0.5rem;
   white-space: pre-line;
    display: block;
    font-family: 'Inter', system-ui;
@@ -170,6 +162,21 @@
  }
 }
 .fullAlert {
+
+ ::-webkit-scrollbar {
+  display: none;
+ }
+
+ ::-webkit-scrollbar-track {
+  display: none;
+ }
+
+ ::-webkit-scrollbar-thumb {
+  ::-webkit-scrollbar-thumb:hover {
+   background-color: #555;
+   display: none;
+  }
+ }
  top:0;
  position: fixed;
  left: 0;
@@ -178,17 +185,15 @@
  background-color: rgba(0, 0, 0, 0.5);
  z-index: 99;
  backdrop-filter: blur(8px);
- overflow-x: hidden;
  .posts{
   background-color: #ffffff;
   box-sizing: border-box;
   border: 3px solid #FFE3FF;
   border-radius: 15px;
-  height: 90vh ;
+  height: 90vh;
   width: 40%;
   position:relative;
   padding-bottom: 1rem;
-  padding-top: 1rem;
   overflow: hidden;
   .header-post{
    font-family: 'Inter', system-ui;
@@ -196,10 +201,12 @@
    font-weight: 700;
    font-size: 16px;
    line-height: 16px;
-   width: 97%;
+   width: 100%;
    display: block;
-   margin-left: 1rem;
+   padding-left: 1rem;
+   padding-bottom: 1rem;
    img{
+    cursor: pointer;
     margin-right: 1rem;
     width: 22px;
     float:right;
@@ -208,7 +215,7 @@
   }
   .text{
    margin-top: 1rem;
-   margin-left: 1rem;
+   padding-left: 1rem;
    white-space: pre-line;
    display: block;
    font-family: 'Inter', system-ui;
@@ -225,6 +232,7 @@
     font-weight: 400;
     font-size: 11px;
     line-height: 13.31px;
+    overflow-x: hidden;
    }
   }
  }
@@ -260,10 +268,12 @@ overflow: auto;
    line-height: 24px;
    text-align: center;
    img{
-    margin-right: 2rem;
-    width: 22px;
+    display:inline-block;
     float:right;
-    display: inline-block;
+    margin-right:1rem;
+    width:22px;
+    margin-top: 0.5rem;
+    cursor: pointer
    }
   }
   .text{
@@ -309,12 +319,14 @@ overflow: auto;
  float: right;
  padding-top:10%;
  margin-right: 1rem;
+ cursor: pointer
 }
 .expandedArrow{
  width: 1rem;
  float: right;
  margin-right: 1rem;
  margin-top:4%;
+ cursor: pointer
 }
 .textA{
  white-space: pre-line;
@@ -324,13 +336,12 @@ overflow: auto;
  font-weight: 400;
  font-size: 18px;
  line-height: 2rem;
- margin-right: 1rem;
  border-bottom: 1px solid #000000;
 }
 .addPost{
- position: fixed;
+ position: absolute;
  width:6rem;
- top: 45%;
+ top: 40%;
  left: 40%;
  cursor: pointer;
 }
@@ -356,38 +367,32 @@ overflow: auto;
  box-sizing: border-box;
  border: 3px solid #FFE3FF;
  border-radius: 15px;
- min-height: 85vh ;
+ min-height: auto ;
  width: 82%;
  position:relative;
  padding-bottom:50px;
  margin-left: auto;
  margin-right: auto;
  margin-top: 1.65rem;
- height: 100%;
  .header-post{
+  border-bottom: 1px solid #727373;
   font-family: 'Inter', system-ui;
   font-style: normal;
   font-weight: 700;
   font-size: 13px;
   line-height: 16px;
   width: 100%;
-  display: block;
+  display: flex;
   margin-top: 1rem;
-  margin-left: 1rem;
   @media only screen and (min-width: 1800px) {
    font-size: 30px;
    line-height: 35px;
   }
-  img{
-   margin-right: 2rem;
-   width: 22px;
-   float:right;
-   display: inline-block;
-  }
  }
  .text{
-  margin-top: 1rem;
-  margin-left: 1rem;
+  min-height: 50vh ;
+  margin-top: 0.3rem;
+  margin-left: 0.5rem;
   white-space: pre-line;
   display: block;
   font-family: 'Inter', system-ui;
@@ -427,7 +432,6 @@ overflow: auto;
   width: 100%;
   display: block;
   position:absolute;
-  bottom: 5rem;
   img{
    margin-top: 1rem;
    width: 5%;
@@ -445,16 +449,16 @@ overflow: auto;
    margin-right: 1rem;
   }
  }
- .comments{
+ .commentsSolo{
   width: 100%;
-  position:absolute;
-  bottom: 1rem;
   margin-left: 1rem;
   font-family: 'Inter', system-ui;
   font-style: normal;
   font-weight: 400;
   font-size: 1rem;
   line-height: 1rem;
+  padding-top: 3rem;
+  margin-bottom: -1.5rem;
   .text-input{
    resize: none;
    outline:none;
@@ -462,6 +466,44 @@ overflow: auto;
    width: 92%;
    border: 1px solid black;
    border-radius: 15px;
+   font-family: 'Inter', system-ui;
+   font-style: normal;
+   font-weight: 400;
+   font-size: 15px;
+   line-height: 22px;
+   padding-left: 0.75rem;
+  }
+  .mini{
+   margin-left: 0.2rem;
+   font-size: 0.4rem;
+   line-height: 0.4rem;
+  }
+ }
+ .comments{
+  display: block;
+  width: 100%;
+  bottom: 0;
+  margin-left: 1rem;
+  font-family: 'Inter', system-ui;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1rem;
+  padding-top: 3rem;
+  margin-bottom: -1.5rem;
+  .text-input{
+   resize: none;
+   outline:none;
+   height: 3rem;
+   width: 92%;
+   border: 1px solid black;
+   border-radius: 15px;
+   font-family: 'Inter', system-ui;
+   font-style: normal;
+   font-weight: 400;
+   font-size: 15px;
+   line-height: 22px;
+   padding-left: 0.75rem;
   }
   .mini{
    margin-left: 0.2rem;
@@ -470,31 +512,77 @@ overflow: auto;
   }
  }
 }
+ .fullComment{
+  text-align: center;
+  margin-top: 3%;
+  display: flex;
+  width: 95%;
+  font-family: 'Inter', system-ui;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 22px;
+ }
+ .fullUser{
+  text-align: center;
+  font-family: 'Inter', system-ui;
+  font-style: normal;
+  font-weight: 600;
+  flex-grow:0;
+  display: inline-block;
+  white-space: pre;
+ }
+ .fullTxt{
+  text-align: start;
+  font-family: 'Inter', system-ui;
+  font-style: normal;
+  font-weight: 400;
+  display: inline-block;
+  word-break: break-all;
+ }
+
+
 
 .profileHeader{
  background-color: #ffffff;
  box-sizing: border-box;
  border: 3px solid #FFE3FF;
  border-radius: 15px;
- height: 35vh ;
- width: 82%;
+ min-height: 25vh;
+ max-height: 35vh;
+ width: 95%;
  position:relative;
- padding-bottom:50px;
- margin-left: auto;
- margin-right: auto;
- margin-top: 2.5rem;
+ padding-bottom:1rem;
+ margin: 1rem auto;
+.refactor{
+ width: 1rem;
+ height: 1rem;
+ float: right;
+ margin-right: 2%;
+ border-radius: 0;
+}
  .avatar{
   display: block;
   .avatarImage {
+   width: 70px;
+   height: 70px;
    display: inline-block;
    margin-left: 5%;
+   position: relative;
+   border-radius: 50%;
+  }
+  .avatarImageProfile {
+   margin-left: 0.5rem;
+   height: 70px;
+   width: 70px;
+   display: inline-block;
    position: relative;
    border-radius: 50%;
   }
  }
 
  .block{
-  margin-left: 10rem;
+  margin-left: 5rem;
  }
  .slug{
   font-family: 'Inter',system-ui;
@@ -533,7 +621,6 @@ overflow: auto;
   font-size: 15px;
   line-height: 18px;
   color: #000000;
-
  }
  .text {
   margin-top: 2%;
@@ -553,15 +640,31 @@ overflow: auto;
   .allRows{
    white-space: nowrap;
    text-align: center;
-   margin-top: 5%;
+   margin-top: 3%;
    display: flex;
    justify-content: space-between;
-   width: 100%;
+   width: 60%;
+   font-family: 'Inter', system-ui;
+   font-style: normal;
+   font-weight: 400;
+   font-size: 14px;
+   line-height: 17px;
+   margin-left: 1rem;
   }
-
+ .number{
+  text-align: center;
+  width: 1vh;
+  font-family: 'Inter', system-ui;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  margin-left: 1%;
+  flex:1
+ }
  .textRow{
    text-align: center;
-   width: 30%;
+   width: 0;
    font-family: 'Inter', system-ui;
    font-style: normal;
    font-weight: 400;
@@ -569,4 +672,271 @@ overflow: auto;
    line-height: 17px;
    margin-right: 1%;
  }
+}
+
+.postsAddJsx {
+ background-color: #ffffff;
+ box-sizing: border-box;
+ border: 3px solid #FFE3FF;
+ border-radius: 15px;
+ min-height: 78vh;
+ width: 82%;
+ position: relative;
+ padding-bottom:50px;
+ margin-left: auto;
+ margin-right: auto;
+ margin-top: 4%;
+}
+.postsAddJsxMobile {
+ background-color: #ffffff;
+ box-sizing: border-box;
+ border: 3px solid #FFE3FF;
+ border-radius: 15px;
+ min-height: 40vh;
+ width: 92%;
+ position: relative;
+ padding-bottom:50px;
+ margin: 4% auto;
+ .addPost{
+  position: absolute;
+  width:3rem;
+  cursor: pointer;
+  top:40%;
+  left:42.5%;
+ }
+}
+.header-two {
+ max-width: 51ch;
+ text-overflow: ellipsis;
+ overflow: hidden;
+ font-family: 'Inter', system-ui;
+ font-style: normal;
+ font-weight: 700;
+ font-size: 15px;
+ line-height: 17px;
+ width: 100%;
+ margin-left: 1rem;
+ margin-top: 1.5rem;
+ margin-bottom: 1rem;
+}
+.rowHead{
+ cursor: pointer;
+ font-family: 'Inter', system-ui;
+ font-style: normal;
+ font-weight: 400;
+ font-size: 18px;
+ line-height: 18px;
+ width: 100%;
+ margin-left: 0.5rem;
+ display: inline-block;
+ margin-top: 0.3rem;
+}
+.postsDots{
+ cursor: pointer;
+ margin-right: 1rem;
+ width: 1.6rem;
+ height: 1.6rem;
+ float:right;
+ display: inline-block;
+ position: relative;
+ top: 0;
+}
+.postsAvatar{
+ cursor: pointer;
+ margin-left:0.8rem;
+ display: inline-block;
+ height: 2.5rem;
+ width: 2.5rem;
+ position: relative;
+ top: -0.4rem;
+ border-radius: 50%;
+}
+
+
+
+.signAlert{
+ top:0;
+ position: fixed;
+ left: 0;
+ width: 100%;
+ height: 100%;
+ background-color: rgba(0, 0, 0, 0.5);
+ z-index: 99;
+ backdrop-filter: blur(2px);
+
+ .posts{
+  background: #FFFFFF;
+  border: 1px solid #000000;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  margin-left: auto;
+  margin-right: auto;
+  height: 102vh;
+  width: 56%;
+  position:relative;
+  padding-bottom: 1rem;
+  padding-top: 1rem;
+  overflow: auto;
+  margin-top: -1%;
+  border-radius: 0;
+  @media only screen and (max-width: 1400px) {
+   overflow: hidden;
+  }
+  .signPost{
+   @media only screen and (max-width: 1400px) {
+    zoom: 0.88;
+    height: 95%;
+   }
+   margin-top: 5%;
+   width: 80%;
+   margin-left: auto;
+   margin-right: auto;
+   border: 3px solid #FFE3FF;
+   border-radius: 15px;
+   height: 90%;
+  }
+  .headerSign{
+   margin-top: 2.5%;
+   font-family: 'Inter',system-ui;
+   font-style: normal;
+   font-weight: 400;
+   font-size: 30px;
+   line-height: 36px;
+   display: flex;
+   align-items: center;
+   text-align: center;
+   padding-left: 30%;
+  }
+
+ }
+}
+
+.textSignup{
+ margin-top: 5%;
+ font-family: 'Inter',system-ui;
+ font-style: normal;
+ font-weight: 400;
+ font-size: 15px;
+ line-height: 18px;
+ align-items: center;
+ color: #000000;
+ padding-left: 2rem;
+ display: flex;
+ text-align: center;
+ white-space: pre-wrap;
+}
+.miniSignup{
+ font-family: 'Inter',system-ui;
+ font-style: normal;
+ font-weight: 400;
+ font-size: 13px;
+ line-height: 16px;
+ float: right;
+ display: flex;
+ align-items: center;
+ margin-right: 5%;
+}
+.inputSignup{
+
+ margin-top: 1rem;
+ background: #FFFFFF;
+ border: 1px solid rgba(0, 0, 0, 0.5);
+ border-radius: 10px;
+ font-family: 'Inter', system-ui;
+ font-style: normal;
+ font-weight: 400;
+ font-size: 16px;
+ line-height: 19px;
+ display: flex;
+ align-items: center;
+ width: 90%;
+ margin-left: auto;
+ margin-right: auto;
+ height: 2.5rem;
+ @media only screen and (max-width: 1400px) {
+  height: 2rem;
+ }
+}
+.signAlertMobile {
+ top: 0;
+ position: absolute;
+ left: 0;
+ width: 100%;
+ height: 90%;
+ background-color: rgba(0, 0, 0, 0.5);
+ z-index: 99;
+ .postsMobile {
+  background-color: #ffffff;
+  box-sizing: border-box;
+  height: 90vh;
+  width: 100%;
+  position:absolute;
+  border: 0;
+  border-radius: 0;
+  margin: 0;
+  .signPostMobile {
+   width: 80%;
+   border: 3px solid #FFE3FF;
+   border-radius: 15px;
+   height: 80vh;
+   margin: 5% auto;
+  }
+
+  .headerSignMobile {
+   margin-top: 2.5%;
+   font-family: 'Inter', system-ui;
+   font-style: normal;
+   font-weight: 400;
+   font-size: 25px;
+   line-height: 36px;
+   display: block;
+   align-items: center;
+   text-align: center;
+   margin-left: auto;
+   margin-right: auto;
+  }
+ }
+ }
+
+.textSignupMobile{
+ width: 100%;
+ margin-top: 5%;
+ font-family: 'Inter',system-ui;
+ font-style: normal;
+ font-weight: 400;
+ font-size: 15px;
+ line-height: 18px;
+ align-items: center;
+ color: #000000;
+ padding-left: 5%;
+ padding-right: 1rem;
+ display: flex;
+ white-space: pre-line;
+}
+.miniSignupMobile{
+ font-family: 'Inter',system-ui;
+ font-style: normal;
+ font-weight: 400;
+ font-size: 13px;
+ line-height: 16px;
+ float: right;
+ display: flex;
+ align-items: center;
+ margin-right: 5%;
+}
+.subscribe{
+ height: 1.7rem;
+ width: 45%;
+ position: static;
+ margin-left: 2.5%;
+ margin-right: 2.5%;
+ text-align: center;
+ border: 2px solid #F1B4BB;
+ background: #FFFFFF;
+ border-radius: 15px;
+ font-family: 'Inter',system-ui;
+ font-style: normal;
+ font-weight: 400;
+ font-size: 15px;
+ line-height: 18px;
+ cursor: pointer;
 }

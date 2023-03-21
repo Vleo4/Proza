@@ -2,7 +2,6 @@ import './RightTop.scss';
 import React, { useState } from 'react';
 import axios from 'axios';
 import likes from '../../../assets/images/Right/likes.png';
-import comments from '../../../assets/images/Right/comments.png';
 import { useNavigate } from 'react-router-dom';
 
 const RightTop = () => {
@@ -10,8 +9,9 @@ const RightTop = () => {
     const [state, setState] = useState();
     const apiURL = 'https://prozaapp.art/api/v1/';
     React.useEffect(() => {
-        axios.get(apiURL + 'topaticles/?format=json', {}).then((response) => {
+        axios.get(apiURL + 'toparticles/?format=json', {}).then((response) => {
             setState(response.data);
+            console.log(response);
         });
     }, [apiURL]);
     return (
@@ -28,14 +28,10 @@ const RightTop = () => {
                                 }}>
                                 {state[0].title}
                             </div>
-                            <div className='partTop'>
+                            <div className='partTop2'>
                                 <div className='likeTop'>
                                     <a>{state[0].likes.length + ' '}</a>
                                     <img src={likes} />
-                                </div>
-                                <div className='commentTop'>
-                                    <a>{state[0].likes.length + ' '}</a>
-                                    <img src={comments} />
                                 </div>
                             </div>
                         </div>{' '}
@@ -47,14 +43,10 @@ const RightTop = () => {
                                 }}>
                                 {state[1].title}
                             </div>
-                            <div className='partTop'>
+                            <div className='partTop2'>
                                 <div className='likeTop'>
                                     <a>{state[1].likes.length + ' '}</a>
                                     <img src={likes} />
-                                </div>
-                                <div className='commentTop'>
-                                    <a>{state[1].likes.length + ' '}</a>
-                                    <img src={comments} />
                                 </div>
                             </div>
                         </div>{' '}
@@ -66,14 +58,10 @@ const RightTop = () => {
                                 }}>
                                 {state[2].title}
                             </div>
-                            <div className='partTop'>
+                            <div className='partTop2'>
                                 <div className='likeTop'>
                                     <a>{state[2].likes.length + ' '}</a>
                                     <img src={likes} />
-                                </div>
-                                <div className='commentTop'>
-                                    <a> {state[2].likes.length + ' '}</a>
-                                    <img src={comments} />
                                 </div>
                             </div>
                         </div>
@@ -85,15 +73,11 @@ const RightTop = () => {
                                 }}>
                                 {state[3].title}
                             </div>
-                            <div className='partTop'>
+                            <div className='partTop2'>
                                 <div className='likeTop'>
                                     <a> {state[3].likes.length + ' '}</a>
                                     <img src={likes} />
                                 </div>
-                                <div className='commentTop'>
-                                    <a>{state[3].likes.length + ' '}</a>
-                                    <img src={comments} />
-                                </div>
                             </div>
                         </div>
                         <div className='infoTop'>
@@ -104,14 +88,10 @@ const RightTop = () => {
                                 }}>
                                 {state[4].title}
                             </div>
-                            <div className='partTop'>
+                            <div className='partTop2'>
                                 <div className='likeTop'>
                                     <a>{state[4].likes.length + ' '}</a>
                                     <img src={likes} />
-                                </div>
-                                <div className='commentTop'>
-                                    <a> {state[4].likes.length + ' '}</a>
-                                    <img src={comments} />
                                 </div>
                             </div>
                         </div>
@@ -119,37 +99,29 @@ const RightTop = () => {
                             <div
                                 className='partTop'
                                 onClick={() => {
-                                    navigate('/article/' + state[4].id);
+                                    navigate('/article/' + state[5].id);
                                 }}>
                                 {state[4].title}
                             </div>
-                            <div className='partTop'>
+                            <div className='partTop2'>
                                 <div className='likeTop'>
-                                    <a>{state[4].likes.length + ' '}</a>
+                                    <a>{state[5].likes.length + ' '}</a>
                                     <img src={likes} />
-                                </div>
-                                <div className='commentTop'>
-                                    <a> {state[4].likes.length + ' '}</a>
-                                    <img src={comments} />
                                 </div>
                             </div>
                         </div>
-                        <div className='infoTop'>
+                        <div className='infoTopLast'>
                             <div
                                 className='partTop'
                                 onClick={() => {
-                                    navigate('/article/' + state[4].id);
+                                    navigate('/article/' + state[6].id);
                                 }}>
-                                {state[4].title}
+                                {state[6].title}
                             </div>
-                            <div className='partTop'>
+                            <div className='partTop2'>
                                 <div className='likeTop'>
-                                    <a>{state[4].likes.length + ' '}</a>
+                                    <a>{state[6].likes.length + ' '}</a>
                                     <img src={likes} />
-                                </div>
-                                <div className='commentTop'>
-                                    <a> {state[4].likes.length + ' '}</a>
-                                    <img src={comments} />
                                 </div>
                             </div>
                         </div>

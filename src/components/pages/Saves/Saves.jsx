@@ -103,7 +103,7 @@ const Saves = () => {
                             <div className='verse-smallArticle'>
                                 <div className='verse'>
                                     <div className='postsArticle'>
-                                        <div className='header-post'>У ВАС НЕМАЄ ЗБЕРЕЖЕНИХ</div>
+                                        <div className='header-two'>У ВАС НЕМАЄ ЗБЕРЕЖЕНИХ</div>
                                     </div>
                                 </div>
                             </div>
@@ -125,7 +125,7 @@ const Saves = () => {
                             <div className='verse-blockArticle'>
                                 <div className='verse'>
                                     <div className='postsArticle'>
-                                        <div className='header-post'>У ВАС НЕМАЄ ЗБЕРЕЖЕНИХ</div>
+                                        <div className='header-two'>У ВАС НЕМАЄ ЗБЕРЕЖЕНИХ</div>
                                     </div>
                                 </div>
                             </div>

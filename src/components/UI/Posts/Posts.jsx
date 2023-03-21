@@ -6,6 +6,7 @@ import comments from '../../../assets/images/Posts/comments.png';
 import noSaves from '../../../assets/images/Posts/nosaves.png';
 import saves from '../../../assets/images/Posts/saves.png';
 import share from '../../../assets/images/Posts/share.png';
+import portrait from '../../../assets/images/portrait.svg';
 import ShowMoreText from 'react-show-more-text';
 import React, { useState } from 'react';
 import AlertPost from '../Alert/Alert';
@@ -83,9 +84,7 @@ const Posts = (props) => {
                         }
                     }
                 )
-                .then(function (response) {
-                    console.log(response);
-                })
+                .then(function () {})
                 .catch(function (error) {
                     console.log(error);
                 });
@@ -145,9 +144,6 @@ const Posts = (props) => {
         navigator.clipboard.writeText('https://prozaapp.art/article/' + props.id).then();
         toggleCopyAlert();
     };
-    const handleMouseOver = () => {
-        props.setAuthor(props.user);
-    };
     React.useEffect(() => {
         if (isAuthentificated) {
             axios
@@ -185,6 +181,111 @@ const Posts = (props) => {
                 });
         }
     }, [isLike]);
+    const lines = () => {
+        if (window.innerHeight > 1100) {
+            return 24;
+        } else if (window.innerHeight > 1050) {
+            return 23;
+        } else if (window.innerHeight > 975) {
+            return 21;
+        } else if (window.innerHeight > 900) {
+            return 19;
+        } else if (window.innerHeight > 850) {
+            return 17;
+        } else if (window.innerHeight > 800) {
+            return 15;
+        } else if (window.innerHeight > 750) {
+            return 15;
+        } else if (window.innerHeight > 700) {
+            return 14;
+        } else if (window.innerHeight > 650) {
+            return 12;
+        } else if (window.innerHeight > 600) {
+            return 10;
+        } else if (window.innerHeight > 550) {
+            return 9;
+        } else if (window.innerHeight > 500) {
+            return 8;
+        } else {
+            return 8;
+        }
+    };
+
+    const [reviews, setReviews] = useState({ items: [] });
+    const getReview = () => {
+        axios
+            .get(apiURL + 'getarticlereviews/' + props.id + '/?format=json', {
+                headers: {
+                    Authorization: 'Bearer ' + accessToken
+                }
+            })
+            .then((response) => {
+                setReviews({ items: response.data });
+            });
+    };
+    const [isSubscribe, setIsSubscribe] = useState(false);
+    const onSubscribe = () => {
+        if (isAuthentificated && location.pathname !== '/profile') {
+            axios
+                .put(
+                    apiURL + 'subscription/' + props.author + '/',
+                    {},
+                    {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Authorization: 'Bearer ' + accessToken
+                        }
+                    }
+                )
+                .then(function () {
+                    setIsSubscribe(!isSubscribe);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        } else {
+            navigate('/login');
+        }
+    };
+    const [jpg, setJpg] = useState(null);
+    React.useEffect(() => {
+        if (props.author) {
+            setIsSubscribe(false);
+            axios
+                .get(apiURL + 'prozauserprofile/' + props.author + '/?format=json')
+                .then((response) => {
+                    setJpg(response.data.photo);
+                    if (isAuthentificated && location.pathname !== '/profile') {
+                        const accessToken =
+                            getFromSessionStorage(ACCESS_TOKEN) ??
+                            getFromLocalStorage(ACCESS_TOKEN);
+                        const token = jwtDecode(accessToken);
+                        response.data.subscribers.map((index) => {
+                            if (index === token.user_id) {
+                                setIsSubscribe(true);
+                            }
+                        });
+                    }
+                });
+        }
+    }, [props.author]);
+    const [current, setCurrent] = useState(null);
+    React.useEffect(() => {
+        if (isAuthentificated) {
+            axios
+                .get(apiURL + 'prozauserprofile/?format=json', {
+                    headers: {
+                        Authorization: 'Bearer ' + accessToken
+                    }
+                })
+                .then((response) => {
+                    setCurrent(response.data.user);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+    }, []);
     return (
         <>
             <AlertCopy toggleCopyAlert={toggleCopyAlert} state={state} className='copyAlert' />
@@ -202,22 +303,39 @@ const Posts = (props) => {
                 posts={props}
                 className='fullAlert'
             />
-            <div className={divBig()} onMouseOver={handleMouseOver}>
+            <div className={divBig()}>
                 <div className='header-post'>
-                    {props.tittle}
-                    <img src={dots} onClick={toggleComplaintAlert} alt='dots'></img>
+                    <img src={jpg ? jpg : portrait} className='postsAvatar' />
+                    <div
+                        className='rowHead'
+                        onClick={() => {
+                            isAuthentificated
+                                ? navigate('/profile/' + props.author)
+                                : navigate('/login');
+                        }}>
+                        {props.author}
+                    </div>
+                    {location.pathname === '/profile' || props.author === current ? (
+                        <></>
+                    ) : (
+                        <button className='subscribe' onClick={onSubscribe}>
+                            {isSubscribe ? 'Ви прознуті' : 'Прознутись'}
+                        </button>
+                    )}
+                    <img
+                        src={dots}
+                        className='postsDots'
+                        onClick={toggleComplaintAlert}
+                        alt='dots'></img>
                 </div>
-                <div className='text-parent'>
+                <div className='header-two'>{props.tittle}</div>
+                <div className='text'>
                     {
                         <ShowMoreText
                             truncatedEndingComponent=''
                             className='text'
                             width={300}
-                            lines={
-                                id
-                                    ? parseInt(window.outerHeight / 50)
-                                    : parseInt(window.outerHeight / 45) - 1
-                            }
+                            lines={lines()}
                             more='Читати далі'
                             keepNewLines={true}
                             anchorClass='textNext'
@@ -240,7 +358,11 @@ const Posts = (props) => {
                         alt='comments'
                         onClick={() => {
                             if (isAuthentificated) {
+                                getReview();
                                 setComment(!comment);
+                                if (props.setComment) {
+                                    props.setComment();
+                                }
                             } else {
                                 navigate('/login');
                             }
@@ -253,18 +375,32 @@ const Posts = (props) => {
                     <img src={share} className='last' onClick={onShare} alt='share'></img>
                 </div>
                 {comment ? (
-                    <div className='comments'>
+                    <div className={reviews.items[0] ? 'comments' : 'commentsSolo'}>
                         <textarea
                             className='text-input'
                             onChange={handleTextChange}
                             onKeyDown={(event) => {
                                 if (event.key === 'Enter' && !event.shiftKey) {
+                                    event.preventDefault();
                                     publishReview();
                                     event.target.value = '';
                                 }
+                                getReview();
                             }}
                             placeholder='Напишіть коментар'></textarea>
                         <div className='mini'>Натисніть Enter, щоб опублікувати.</div>
+                        {reviews ? (
+                            reviews.items.map((p, index) => (
+                                <div key={index} className='fullComment'>
+                                    <div className='fullUser'>
+                                        {p.user}:{'  '}
+                                    </div>
+                                    <div className='fullTxt'>{p.content}</div>
+                                </div>
+                            ))
+                        ) : (
+                            <></>
+                        )}
                     </div>
                 ) : (
                     <></>

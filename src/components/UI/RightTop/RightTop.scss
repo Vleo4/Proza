@@ -20,29 +20,56 @@
     width: 100%;
     display: block;
     text-align: center;
-    font-size: 14px;
-    line-height: 17px;
+    font-size: 17px;
+    line-height: 27px;
+    margin-bottom: 1rem;
     @media only screen and (min-width: 1800px) {
       font-size: 24px;
       line-height: 28px;
     }
-
-    .infoTop {
-      height: 9vh;
+    .infoTopLast {
+      height: 10vh;
       padding-top: 0.5rem;
+      display: flex;
       div {
+        overflow: hidden;
+        width: 70%;
+        margin-left: 1rem;
         cursor: pointer;
         font-family: 'Inter', system-ui;
         font-style: normal;
-        font-weight: 400;
+        font-weight: 600;
         font-size: 17px;
         line-height: 17px;
-
+        text-align: left;
         @media only screen and (min-width: 1800px) {
           font-size: 24px;
           line-height: 28px;
         }
       }
+      border-bottom: 0;
+    }
+    .infoTop {
+      height: 10vh;
+      padding-top: 0.5rem;
+      display: flex;
+      div {
+        overflow: hidden;
+        width: 70%;
+        margin-left: 1rem;
+        cursor: pointer;
+        font-family: 'Inter', system-ui;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 17px;
+        line-height: 17px;
+        text-align: left;
+        @media only screen and (min-width: 1800px) {
+          font-size: 24px;
+          line-height: 28px;
+        }
+      }
+      border-bottom: 3px solid #FFE3FF;
     }
 
     img {
@@ -53,21 +80,29 @@
         zoom: 1.5;
       }
       width: 1.2rem;
+      cursor: default;
     }
   }
 }
 .partTop{
   a{
-vertical-align: text-top;  }
-  .likeTop{
-    position: fixed;
-    flex: 1;
-    margin-left: 4%;
-  }
-  .commentTop{
-    flex:3;
-    position: fixed;
-    margin-left: 9%;
+    cursor: default;
+    vertical-align: text-top;
   }
 }
-
+.partTop2{
+    cursor: default;
+    vertical-align: text-top;
+  display: flex;
+  width: 6rem;
+  position: absolute;
+  float: right;
+  right: -40%;
+  a{
+    cursor: default;
+    vertical-align: text-top;
+  }
+  .likeTop{
+    flex:1;
+  }
+}
