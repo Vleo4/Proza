@@ -1,6 +1,7 @@
 import { Alert } from 'react-bootstrap';
 import '../Posts/Posts.scss';
 import '../CategoriesMiddle/CategoriesMiddle.scss';
+import portrait from '../../../assets/images/portrait.svg';
 import React, { useState } from 'react';
 import { getFromLocalStorage, getFromSessionStorage } from '../../../utils/storage';
 import { ACCESS_TOKEN } from '../../../constants/localStorageKeys';
@@ -29,33 +30,22 @@ const AlertSignup = (props) => {
     };
     const isMobile = useResizer();
     const [file, setFile] = useState(null);
-
+    const [photo, setPhoto] = useState(null);
     const handleFileChange = (event) => {
         setFile(event.target.files[0]);
-    };
-
-    const handleUpload = () => {
-        const formData = new FormData();
-        formData.append('photo', file);
-
-        axios
-            .post('https://cookbook.brainstormingapplication.com/api/pic/', formData)
-            .then((response) => {
-                console.log(response.data);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+        const fileUrl = URL.createObjectURL(event.target.files[0]);
+        setPhoto(fileUrl);
     };
     const refactor = () => {
-        handleUpload();
+        const formData = new FormData();
+        formData.append('photo', file);
         const apiURL = 'https://prozaapp.art/api/v1/';
         const accessToken =
             getFromSessionStorage(ACCESS_TOKEN) ?? getFromLocalStorage(ACCESS_TOKEN);
         const token = jwtDecode(accessToken);
         let data;
         if (text && categories.items.length > 0) {
-            data = { fav_category: categories.items, description: text };
+            data = { fav_category: categories.items, description: text, photo: formData };
         } else if (!text) {
             data = { fav_category: categories.items };
         } else if (!categories.items[0]) {
@@ -457,7 +447,13 @@ const AlertSignup = (props) => {
                                 </div>
                             </div>
                         </div>
-                        <input type='file' accept='image/*' onChange={handleFileChange} />
+                        <input
+                            type='file'
+                            accept='image/*'
+                            className='pInput'
+                            onChange={handleFileChange}
+                        />
+                        <img src={file ? photo : portrait} className='photoUser' />{' '}
                         <div className='clear' onClick={clearCategory}>
                             Очистити вибір
                         </div>{' '}

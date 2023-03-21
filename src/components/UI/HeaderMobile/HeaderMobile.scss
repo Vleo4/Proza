@@ -37,12 +37,15 @@
   }
   .authorTxt{
     text-decoration-line: none;
+    max-width: 15%;
   }
   .guest{
     width:2rem;
-    padding-top: 0.5625rem;
+    margin-top: 0.5625rem;
     float: right;
     margin-right: 1rem;
+    height: 2rem;
+    border-radius: 50%;
   }
 }
 
@@ -54,7 +57,7 @@
   position: fixed;
   top: 0.5rem;
   left: 0;
-  z-index: 99;
+  z-index: 2;
   .search-input {
     display: flex;
     align-items: center;

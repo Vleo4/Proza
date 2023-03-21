@@ -2,7 +2,7 @@ import './HeaderMobile.scss';
 import logo from '../../../assets/images/portrait.png';
 import proza from '../../../assets/images/proza.svg';
 import guest from '../../../assets/images/Header/Guest.png';
-import model from '../../../assets/images/Users/model.png';
+import portrait from '../../../assets/images/portrait.svg';
 import { useAuthContext } from '../../../contexts/AuthContext';
 import { Link } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
@@ -41,7 +41,7 @@ const HeaderMobile = () => {
         };
         loadSearch();
     }, [debouncedSearch]);
-
+    const [jpg, setJpg] = useState(null);
     React.useEffect(() => {
         if (isAuthentificated) {
             axios
@@ -52,6 +52,7 @@ const HeaderMobile = () => {
                 })
                 .then((response) => {
                     setAuthor(response.data.user);
+                    setJpg(response.data.photo);
                 });
         }
     });
@@ -96,7 +97,7 @@ const HeaderMobile = () => {
                         <Link to={'/profile'} className='authorTxt'>
                             {author}
                         </Link>
-                        <img src={model} className='guest' alt='guest' />
+                        <img src={jpg ? jpg : portrait} className='guest' alt='guest' />
                     </>
                 )}
             </div>

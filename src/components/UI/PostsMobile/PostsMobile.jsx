@@ -6,7 +6,6 @@ import comments from '../../../assets/images/Posts/comments.png';
 import noSaves from '../../../assets/images/Posts/nosaves.png';
 import saves from '../../../assets/images/Posts/saves.png';
 import share from '../../../assets/images/Posts/share.png';
-import model from '../../../assets/images/Users/model.png';
 import React, { useState } from 'react';
 import ShowMoreText from 'react-show-more-text';
 import AlertMobile from '../AlertMobile/AlertMobile';
@@ -18,6 +17,7 @@ import { getFromLocalStorage, getFromSessionStorage } from '../../../utils/stora
 import { ACCESS_TOKEN } from '../../../constants/localStorageKeys';
 import ComplaintAlert from '../ComplaintAlert/ComplaintAlert';
 import AlertCopy from '../AlertCopy/AlertCopy';
+import portrait from '../../../assets/images/portrait.svg';
 
 const PostsMobile = (props) => {
     const { isAuthentificated } = useAuthContext();
@@ -230,6 +230,69 @@ const PostsMobile = (props) => {
     const toggleCopyAlert = () => {
         setState({ showAlert: false, complaintAlert: false, alertCopy: !state.alertCopy });
     };
+    const [isSubscribe, setIsSubscribe] = useState(false);
+    const onSubscribe = () => {
+        if (isAuthentificated && location.pathname !== '/profile') {
+            axios
+                .put(
+                    apiURL + 'subscription/' + props.author + '/',
+                    {},
+                    {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Authorization: 'Bearer ' + accessToken
+                        }
+                    }
+                )
+                .then(function () {
+                    setIsSubscribe(!isSubscribe);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        } else {
+            navigate('/login');
+        }
+    };
+    const [jpg, setJpg] = useState(null);
+    React.useEffect(() => {
+        if (props.author) {
+            setIsSubscribe(false);
+            axios
+                .get(apiURL + 'prozauserprofile/' + props.author + '/?format=json')
+                .then((response) => {
+                    setJpg(response.data.photo);
+                    if (isAuthentificated && location.pathname !== '/profile') {
+                        const accessToken =
+                            getFromSessionStorage(ACCESS_TOKEN) ??
+                            getFromLocalStorage(ACCESS_TOKEN);
+                        const token = jwtDecode(accessToken);
+                        response.data.subscribers.map((index) => {
+                            if (index === token.user_id) {
+                                setIsSubscribe(true);
+                            }
+                        });
+                    }
+                });
+        }
+    }, []);
+    const [current, setCurrent] = useState(null);
+    React.useEffect(() => {
+        if (isAuthentificated) {
+            axios
+                .get(apiURL + 'prozauserprofile/?format=json', {
+                    headers: {
+                        Authorization: 'Bearer ' + accessToken
+                    }
+                })
+                .then((response) => {
+                    setCurrent(response.data.user);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+    }, []);
     return (
         <>
             <AlertCopy toggleCopyAlert={toggleCopyAlert} state={state} className='copyAlert' />
@@ -249,8 +312,22 @@ const PostsMobile = (props) => {
             />
             <div className={props.comment ? 'postsMobileComment' : 'postsMobile'}>
                 <div className='header-postMobile'>
-                    <img src={model} className='avatarMobile' alt='avatar' />
-                    <a>{props.author}</a>
+                    <img src={jpg ? jpg : portrait} className='avatarMobile' alt='avatar' />
+                    <a
+                        onClick={() => {
+                            isAuthentificated
+                                ? navigate('/profile/' + props.author)
+                                : navigate('/login');
+                        }}>
+                        {props.author}
+                    </a>
+                    {location.pathname === '/profile' || props.author === current ? (
+                        <></>
+                    ) : (
+                        <button className='subscribeMobile' onClick={onSubscribe}>
+                            {isSubscribe ? 'Прознутись' : 'Ви прознуті'}
+                        </button>
+                    )}
                     <img
                         src={dots}
                         className='dots'

@@ -86,7 +86,6 @@
  .header-post{
   border-bottom: 1px solid #727373;
   transform: translateX(-1rem);
-
   font-family: 'Inter', system-ui;
   font-style: normal;
   font-weight: 700;
@@ -707,6 +706,9 @@ overflow: auto;
  }
 }
 .header-two {
+ max-width: 51ch;
+ text-overflow: ellipsis;
+ overflow: hidden;
  font-family: 'Inter', system-ui;
  font-style: normal;
  font-weight: 700;
@@ -744,8 +746,10 @@ overflow: auto;
  margin-left:0.8rem;
  display: inline-block;
  height: 2.5rem;
+ width: 2.5rem;
  position: relative;
  top: -0.4rem;
+ border-radius: 50%;
 }
 
 
@@ -918,4 +922,21 @@ overflow: auto;
  display: flex;
  align-items: center;
  margin-right: 5%;
+}
+.subscribe{
+ height: 1.7rem;
+ width: 45%;
+ position: static;
+ margin-left: 2.5%;
+ margin-right: 2.5%;
+ text-align: center;
+ border: 2px solid #F1B4BB;
+ background: #FFFFFF;
+ border-radius: 15px;
+ font-family: 'Inter',system-ui;
+ font-style: normal;
+ font-weight: 400;
+ font-size: 15px;
+ line-height: 18px;
+ cursor: pointer;
 }

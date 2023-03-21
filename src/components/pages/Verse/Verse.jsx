@@ -15,6 +15,7 @@ import addPost from '../../../assets/images/Posts/addPost.png';
 import Search from '../../UI/Search/Search';
 import RightTop from '../../UI/RightTop/RightTop';
 import ProfileHeader from '../../UI/ProfileHeader/ProfileHeader';
+import AlertAddPostMobile from '../../UI/AlertAddPostMobile/AlertAddPostMobile';
 
 const Verse = (props) => {
     let { id } = useParams();
@@ -36,9 +37,9 @@ const Verse = (props) => {
     if (isMobile) {
         return (
             <>
-                <div className='mobile-verse'>
+                <div className='mobile-verse' style={{ overflow: 'hidden' }}>
                     <HeaderMobile />
-                    <div className='mobileMiddle'>
+                    <div className='mobileMiddle' style={{ overflow: 'hidden' }}>
                         <InfiniteScroll
                             scrollableTarget='scrollableDiv'
                             next={props.fetchMoreData}
@@ -51,7 +52,7 @@ const Verse = (props) => {
                             {location.pathname === '/profile' ||
                             location.pathname === '/profile/' + id ? (
                                 <>
-                                    <AlertAddPost
+                                    <AlertAddPostMobile
                                         toggleAlert={toggleAlert}
                                         alert={alert}
                                         className='complaintAlert'

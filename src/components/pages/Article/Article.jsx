@@ -3,6 +3,8 @@ import axios from 'axios';
 import Verse from '../Verse/Verse';
 import { useAuthContext } from '../../../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { getFromLocalStorage, getFromSessionStorage } from '../../../utils/storage';
+import { ACCESS_TOKEN } from '../../../constants/localStorageKeys';
 const Article = () => {
     const { isAuthentificated, isLoading: isAuthLoading } = useAuthContext();
     const navigate = useNavigate();
@@ -15,10 +17,19 @@ const Article = () => {
     const [state, setState] = useState(null);
     const apiURL = 'https://prozaapp.art/api/v1/';
     React.useEffect(() => {
-        axios.get(apiURL + 'article/?format=json').then((response) => {
-            setState({ items: response.data });
-            setInfinite({ items: [response.data[0], response.data[1]] });
-        });
+        const accessToken =
+            getFromSessionStorage(ACCESS_TOKEN) ?? getFromLocalStorage(ACCESS_TOKEN);
+        axios
+            .get(apiURL + 'article/?format=json', {
+                headers: {
+                    Authorization: 'Bearer ' + accessToken
+                }
+            })
+            .then((response) => {
+                console.log(response.data);
+                setState({ items: response.data });
+                setInfinite({ items: [response.data[0], response.data[1]] });
+            });
     }, []);
     const [indexCount, setIndexCount] = useState(2);
     const [hasMore, setHasMore] = useState(true);

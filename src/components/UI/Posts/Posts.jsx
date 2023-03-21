@@ -6,7 +6,7 @@ import comments from '../../../assets/images/Posts/comments.png';
 import noSaves from '../../../assets/images/Posts/nosaves.png';
 import saves from '../../../assets/images/Posts/saves.png';
 import share from '../../../assets/images/Posts/share.png';
-import model from '../../../assets/images/Users/model.png';
+import portrait from '../../../assets/images/portrait.svg';
 import ShowMoreText from 'react-show-more-text';
 import React, { useState } from 'react';
 import AlertPost from '../Alert/Alert';
@@ -223,7 +223,69 @@ const Posts = (props) => {
                 setReviews({ items: response.data });
             });
     };
-
+    const [isSubscribe, setIsSubscribe] = useState(false);
+    const onSubscribe = () => {
+        if (isAuthentificated && location.pathname !== '/profile') {
+            axios
+                .put(
+                    apiURL + 'subscription/' + props.author + '/',
+                    {},
+                    {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Authorization: 'Bearer ' + accessToken
+                        }
+                    }
+                )
+                .then(function () {
+                    setIsSubscribe(!isSubscribe);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        } else {
+            navigate('/login');
+        }
+    };
+    const [jpg, setJpg] = useState(null);
+    React.useEffect(() => {
+        if (props.author) {
+            setIsSubscribe(false);
+            axios
+                .get(apiURL + 'prozauserprofile/' + props.author + '/?format=json')
+                .then((response) => {
+                    setJpg(response.data.photo);
+                    if (isAuthentificated && location.pathname !== '/profile') {
+                        const accessToken =
+                            getFromSessionStorage(ACCESS_TOKEN) ??
+                            getFromLocalStorage(ACCESS_TOKEN);
+                        const token = jwtDecode(accessToken);
+                        response.data.subscribers.map((index) => {
+                            if (index === token.user_id) {
+                                setIsSubscribe(true);
+                            }
+                        });
+                    }
+                });
+        }
+    }, [props.author]);
+    const [current, setCurrent] = useState(null);
+    React.useEffect(() => {
+        if (isAuthentificated) {
+            axios
+                .get(apiURL + 'prozauserprofile/?format=json', {
+                    headers: {
+                        Authorization: 'Bearer ' + accessToken
+                    }
+                })
+                .then((response) => {
+                    setCurrent(response.data.user);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+    }, []);
     return (
         <>
             <AlertCopy toggleCopyAlert={toggleCopyAlert} state={state} className='copyAlert' />
@@ -243,8 +305,23 @@ const Posts = (props) => {
             />
             <div className={divBig()}>
                 <div className='header-post'>
-                    <img src={model} className='postsAvatar' />
-                    <div className='rowHead'>{props.author}</div>
+                    <img src={jpg ? jpg : portrait} className='postsAvatar' />
+                    <div
+                        className='rowHead'
+                        onClick={() => {
+                            isAuthentificated
+                                ? navigate('/profile/' + props.author)
+                                : navigate('/login');
+                        }}>
+                        {props.author}
+                    </div>
+                    {location.pathname === '/profile' || props.author === current ? (
+                        <></>
+                    ) : (
+                        <button className='subscribe' onClick={onSubscribe}>
+                            {isSubscribe ? 'Ви прознуті' : 'Прознутись'}
+                        </button>
+                    )}
                     <img
                         src={dots}
                         className='postsDots'

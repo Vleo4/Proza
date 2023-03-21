@@ -12,6 +12,7 @@ import likes from '../../../assets/images/Right/likes.png';
 import refactor from '../../../assets/images/Users/refactor.png';
 import comments from '../../../assets/images/Right/comments.png';
 import AlertRefactor from '../AlertRefactor/AlertRefactor';
+import portrait from '../../../assets/images/portrait.svg';
 const Users = (props) => {
     const [state, setState] = useState({ items: [] });
     const { isAuthentificated } = useAuthContext();
@@ -64,6 +65,7 @@ const Users = (props) => {
     const [follows, setFollows] = useState(0);
     const apiURL = 'https://prozaapp.art/api/v1/';
     const [description, setDescription] = useState('');
+    const [jpg, setJpg] = useState(null);
     React.useEffect(() => {
         if (isAuthentificated) {
             axios
@@ -86,6 +88,7 @@ const Users = (props) => {
             axios
                 .get(apiURL + 'prozauserprofile/' + props.author + '/?format=json')
                 .then((response) => {
+                    setJpg(response.data.photo);
                     if (response.data.subscribers) setSubscribers(response.data.subscribers);
                     if (isAuthentificated && location.pathname !== '/profile') {
                         const token = jwtDecode(accessToken);
@@ -148,7 +151,7 @@ const Users = (props) => {
                                     ? 'avatarImage'
                                     : 'avatarImageProfile'
                             }
-                            src={imageData}
+                            src={jpg ? jpg : portrait}
                             alt='avatar'
                         />
                         {location.pathname !== '/profile' && props.author !== current ? (
@@ -207,23 +210,6 @@ const Users = (props) => {
                                     </div>
                                 </div>
                             </>
-                        ) : (
-                            <></>
-                        )}
-                        {length > 1 ? (
-                            <div className='infoTopUser'>
-                                <div className='partTopUser'>{state.items[1].title}</div>
-                                <div className='partTopUser'>
-                                    <div className='likeTopUser'>
-                                        <a>{state.items[1].likes.length + ' '}</a>
-                                        <img src={likes} />
-                                    </div>
-                                    <div className='commentTopUser'>
-                                        <a>{state.items[1].count_of_reviews + ' '}</a>
-                                        <img src={comments} />
-                                    </div>
-                                </div>
-                            </div>
                         ) : (
                             <></>
                         )}

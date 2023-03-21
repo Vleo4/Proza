@@ -29,51 +29,46 @@ const AlertRefactor = (props) => {
     };
     const isMobile = useResizer();
     const [file, setFile] = useState(null);
-
+    const [photo, setPhoto] = useState(null);
     const handleFileChange = (event) => {
         setFile(event.target.files[0]);
+        const fileUrl = URL.createObjectURL(event.target.files[0]);
+        setPhoto(fileUrl);
     };
 
-    const handleUpload = () => {
+    const refactor = () => {
         const formData = new FormData();
         formData.append('photo', file);
-
-        axios
-            .post('https://cookbook.brainstormingapplication.com/api/pic/', formData)
-            .then((response) => {
-                console.log(response.data);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
-    };
-    const refactor = () => {
-        handleUpload();
+        console.log(formData);
         const apiURL = 'https://prozaapp.art/api/v1/';
         const accessToken =
             getFromSessionStorage(ACCESS_TOKEN) ?? getFromLocalStorage(ACCESS_TOKEN);
         const token = jwtDecode(accessToken);
         let data;
         if (text && categories.items.length > 0) {
-            data = { fav_category: categories.items, description: text };
+            data = { fav_category: categories.items, description: text, photo: file };
         } else if (!text) {
             data = { fav_category: categories.items };
         } else if (!categories.items[0]) {
             data = { description: text, fav_category: props.cat };
         }
-        axios
-            .put(apiURL + 'prozauserprofile/update/' + token.user_id + '/', data, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: 'Bearer ' + accessToken
-                }
-            })
-            .then(function () {
-                window.location.href = '/';
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+        console.log(data);
+        if (data.fav_category.length > 0 || data.description) {
+            axios
+                .put(apiURL + 'prozauserprofile/update/' + token.user_id + '/', data, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                        Authorization: 'Bearer ' + accessToken
+                    }
+                })
+                .then(function () {
+                    window.location.href = '/profile';
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        }
+        props.toggleAlert();
     };
     return (
         <Alert show={props.alert} className={isMobile ? 'signAlertMobile' : 'signAlert'}>
@@ -460,8 +455,13 @@ const AlertRefactor = (props) => {
                         <div className='clear' onClick={clearCategory}>
                             Очистити вибір
                         </div>{' '}
-                        <img src={props.imageData} style={{ width: '3rem', height: '3rem' }} />
-                        <input type='file' accept='image/*' onChange={handleFileChange} />
+                        <input
+                            type='file'
+                            accept='image/*'
+                            className='pInput'
+                            onChange={handleFileChange}
+                        />
+                        <img src={file ? photo : props.imageData} className='photoUser' />
                         <div className='end' onClick={refactor}>
                             Завершити редагування
                         </div>

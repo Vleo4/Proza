@@ -1,12 +1,12 @@
 import { Alert } from 'react-bootstrap';
-import './AlertAddPost.scss';
+import './AlertAddPostMobile.scss';
 import Close from '../../../assets/images/Posts/Close.png';
 import React, { useState } from 'react';
 import axios from 'axios';
 import { getFromLocalStorage, getFromSessionStorage } from '../../../utils/storage';
 import { ACCESS_TOKEN } from '../../../constants/localStorageKeys';
 import jwtDecode from 'jwt-decode';
-const AlertAddPost = (props) => {
+const AlertAddPostMobile = (props) => {
     const accessToken = getFromSessionStorage(ACCESS_TOKEN) ?? getFromLocalStorage(ACCESS_TOKEN);
     const token = jwtDecode(accessToken);
     const [text, setText] = useState(null);
@@ -48,15 +48,13 @@ const AlertAddPost = (props) => {
             });
     };
     const [next, setNext] = useState(false);
-
     return (
-        <Alert show={props.alert} className={'AlertAddPost'}>
+        <Alert show={props.alert} className={'AlertAddPostMobile'}>
             {!next ? (
-                <div className='fullPost'>
-                    <img src={Close} onClick={props.toggleAlert} />
-                    <div className='posts'>
-                        <div className='header-post'>
-                            {' '}
+                <div className='fullPostMobile'>
+                    <div className='postsMobile'>
+                        <div className='header-postMobile'>
+                            <img src={Close} onClick={props.toggleAlert} />{' '}
                             <input
                                 className='header-input'
                                 onChange={handleTitleChange}
@@ -71,7 +69,7 @@ const AlertAddPost = (props) => {
                                 placeholder='Ваш вірш'></textarea>
                         </div>
                         <button
-                            className='publish'
+                            className='publishMobile'
                             onClick={() => {
                                 setNext(true);
                             }}>
@@ -81,16 +79,16 @@ const AlertAddPost = (props) => {
                 </div>
             ) : (
                 <>
-                    {' '}
-                    <div className='fullPost'>
-                        <img src={Close} onClick={props.toggleAlert} />
-                        <div className='posts'>
+                    <div className='fullPostMobile'>
+                        <div className='postsMobile'>
                             <div className='lyric'>
                                 <div className='txt'>Обрати вид лірики</div>
-                                <div className='containerCat'>
+                                <div className='containerCatMobile'>
                                     <div
                                         className={
-                                            category === 0 ? 'categoryActive' : 'categoryMobile'
+                                            category === 0
+                                                ? 'categoryActiveMobile'
+                                                : 'categoryMobile'
                                         }
                                         onClick={() => {
                                             setCategory(0);
@@ -99,7 +97,9 @@ const AlertAddPost = (props) => {
                                     </div>
                                     <div
                                         className={
-                                            category === 1 ? 'categoryActive' : 'categoryMobile'
+                                            category === 1
+                                                ? 'categoryActiveMobile'
+                                                : 'categoryMobile'
                                         }
                                         onClick={() => {
                                             setCategory(1);
@@ -107,9 +107,25 @@ const AlertAddPost = (props) => {
                                         {' '}
                                         Громадянська
                                     </div>
+                                </div>
+                                <div className='containerCatMobile'>
                                     <div
                                         className={
-                                            category === 2 ? 'categoryActive' : 'categoryMobile'
+                                            category === 3
+                                                ? 'categoryActiveMobile'
+                                                : 'categoryMobile'
+                                        }
+                                        onClick={() => {
+                                            setCategory(3);
+                                        }}>
+                                        {' '}
+                                        Пейзажна
+                                    </div>
+                                    <div
+                                        className={
+                                            category === 2
+                                                ? 'categoryActiveMobile'
+                                                : 'categoryMobile'
                                         }
                                         onClick={() => {
                                             setCategory(2);
@@ -118,25 +134,15 @@ const AlertAddPost = (props) => {
                                         Філософська
                                     </div>
                                 </div>
-                                <div className='containerCat'>
-                                    <div
-                                        className={
-                                            category === 3 ? 'categoryActiveSolo' : 'categorySolo'
-                                        }
-                                        onClick={() => {
-                                            setCategory(3);
-                                        }}>
-                                        {' '}
-                                        Пейзажна
-                                    </div>
-                                </div>
                             </div>
                             <div className='lyric'>
                                 <div className='txt'>Обрати жанр прози</div>
                                 <div className='containerCat'>
                                     <div
                                         className={
-                                            category === 4 ? 'categoryActive' : 'categoryMobile'
+                                            category === 4
+                                                ? 'categoryActiveMobile'
+                                                : 'categoryMobile'
                                         }
                                         onClick={() => {
                                             setCategory(4);
@@ -146,7 +152,9 @@ const AlertAddPost = (props) => {
                                     </div>
                                     <div
                                         className={
-                                            category === 5 ? 'categoryActive' : 'categoryMobile'
+                                            category === 5
+                                                ? 'categoryActiveMobile'
+                                                : 'categoryMobile'
                                         }
                                         onClick={() => {
                                             setCategory(5);
@@ -154,9 +162,13 @@ const AlertAddPost = (props) => {
                                         {' '}
                                         Детектив
                                     </div>
+                                </div>
+                                <div className='containerCat'>
                                     <div
                                         className={
-                                            category === 6 ? 'categoryActive' : 'categoryMobile'
+                                            category === 6
+                                                ? 'categoryActiveMobile'
+                                                : 'categoryMobile'
                                         }
                                         onClick={() => {
                                             setCategory(6);
@@ -164,11 +176,11 @@ const AlertAddPost = (props) => {
                                         {' '}
                                         Фентезі
                                     </div>
-                                </div>
-                                <div className='containerCat'>
                                     <div
                                         className={
-                                            category === 7 ? 'categoryActive' : 'categoryMobile'
+                                            category === 7
+                                                ? 'categoryActiveMobile'
+                                                : 'categoryMobile'
                                         }
                                         onClick={() => {
                                             setCategory(7);
@@ -176,9 +188,13 @@ const AlertAddPost = (props) => {
                                         {' '}
                                         Фантастика
                                     </div>
+                                </div>
+                                <div className='containerCatMobile'>
                                     <div
                                         className={
-                                            category === 8 ? 'categoryActive' : 'categoryMobile'
+                                            category === 8
+                                                ? 'categoryActiveMobile'
+                                                : 'categoryMobile'
                                         }
                                         onClick={() => {
                                             setCategory(8);
@@ -188,7 +204,9 @@ const AlertAddPost = (props) => {
                                     </div>
                                     <div
                                         className={
-                                            category === 9 ? 'categoryActive' : 'categoryMobile'
+                                            category === 9
+                                                ? 'categoryActiveMobile'
+                                                : 'categoryMobile'
                                         }
                                         onClick={() => {
                                             setCategory(9);
@@ -197,10 +215,12 @@ const AlertAddPost = (props) => {
                                         Містика
                                     </div>
                                 </div>
-                                <div className='containerCat'>
+                                <div className='containerCatMobile'>
                                     <div
                                         className={
-                                            category === 10 ? 'categoryActive' : 'categoryMobile'
+                                            category === 10
+                                                ? 'categoryActiveMobile'
+                                                : 'categoryMobile'
                                         }
                                         onClick={() => {
                                             setCategory(10);
@@ -210,7 +230,9 @@ const AlertAddPost = (props) => {
                                     </div>
                                     <div
                                         className={
-                                            category === 11 ? 'categoryActive' : 'categoryMobile'
+                                            category === 11
+                                                ? 'categoryActiveMobile'
+                                                : 'categoryMobile'
                                         }
                                         onClick={() => {
                                             setCategory(11);
@@ -218,16 +240,18 @@ const AlertAddPost = (props) => {
                                         {' '}
                                         Любовний
                                     </div>
-                                    <div
-                                        className={
-                                            category === 12 ? 'categoryActive' : 'categoryMobile'
-                                        }
-                                        onClick={() => {
-                                            setCategory(12);
-                                        }}>
-                                        {' '}
-                                        Пригоди
-                                    </div>
+                                </div>
+                            </div>
+                            <div className='containerCatMobile'>
+                                <div
+                                    className={
+                                        category === 12 ? 'categoryActiveMobile' : 'categoryMobile'
+                                    }
+                                    onClick={() => {
+                                        setCategory(12);
+                                    }}>
+                                    {' '}
+                                    Пригоди
                                 </div>
                             </div>
                             <div
@@ -237,7 +261,7 @@ const AlertAddPost = (props) => {
                                 }}>
                                 Очистити вибір
                             </div>
-                            <button className='publish2' onClick={publish}>
+                            <button className='publishMobile' onClick={publish}>
                                 Опублікувати
                             </button>
                         </div>
@@ -247,4 +271,4 @@ const AlertAddPost = (props) => {
         </Alert>
     );
 };
-export default AlertAddPost;
+export default AlertAddPostMobile;

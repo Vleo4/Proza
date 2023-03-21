@@ -39,6 +39,8 @@
    margin-bottom: .4rem;
    margin-left: 0.5rem;
    display: inline-block;
+   height: 2.3rem;
+   border-radius: 50%;
   }
  }
  .textMobile{
@@ -123,10 +125,12 @@
   .avatarMobile{
    line-height: 16px;
    width: 2.3rem;
+   height: 2.3rem;
    margin-top: .4rem;
    margin-bottom: .4rem;
    margin-left: 0.5rem;
    display: inline-block;
+   border-radius: 50%;
   }
  }
  .textMobile{
@@ -318,4 +322,21 @@
    }
   }
  }
+}
+.subscribeMobile{
+ height: 1.7rem;
+ top: 0.6rem;
+ right:3rem;
+ margin-left: 25%;
+ position: absolute;
+ text-align: center;
+ border: 2px solid #F1B4BB;
+ background: #FFFFFF;
+ border-radius: 15px;
+ font-family: 'Inter',system-ui;
+ font-style: normal;
+ font-weight: 400;
+ font-size: 15px;
+ line-height: 18px;
+ cursor: pointer;
 }
