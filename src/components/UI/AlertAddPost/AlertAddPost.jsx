@@ -35,7 +35,8 @@ const AlertAddPost = (props) => {
                 },
                 {
                     headers: {
-                        Authorization: 'Bearer ' + accessToken
+                        Authorization: 'Bearer ' + accessToken,
+                        'Content-Type': 'application/json'
                     }
                 }
             )
@@ -73,7 +74,9 @@ const AlertAddPost = (props) => {
                         <button
                             className='publish'
                             onClick={() => {
-                                setNext(true);
+                                if (text && title) {
+                                    setNext(true);
+                                }
                             }}>
                             Продовжити
                         </button>

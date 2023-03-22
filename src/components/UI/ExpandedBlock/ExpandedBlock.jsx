@@ -6,6 +6,7 @@ import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 import { getFromLocalStorage, getFromSessionStorage } from '../../../utils/storage';
 import { ACCESS_TOKEN } from '../../../constants/localStorageKeys';
+import useResizer from '../../../utils/utils';
 
 const ExpandableBlock = (props) => {
     const textareaRef = useRef('');
@@ -37,40 +38,64 @@ const ExpandableBlock = (props) => {
                     }
                 }
             )
-            .then(function () {})
+            .then(function () {
+                props.toggleComplaintAlert();
+            })
             .catch(function (error) {
                 console.log(error);
             });
     };
-
+    const isMobile = useResizer();
+    const deleteV = () => {
+        axios
+            .delete(apiURL + 'articledelete/' + props.id, {
+                headers: {
+                    Authorization: 'Bearer ' + accessToken
+                }
+            })
+            .then(function () {
+                props.toggleComplaintAlert();
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
     return (
-        <div className={'textA'}>
-            {props.message}
-            <img
-                onClick={() => setExpanded(!expanded)}
-                src={expanded ? arrow : right}
-                alt={'arrow'}
-                className='expandedArrow'
-            />
-            {expanded && (
-                <div className='expandedBlock'>
-                    <textarea
-                        className={'inputExpandable'}
-                        onChange={handleTextChange}
-                        ref={textareaRef}
-                    />
+        <>
+            {props.message === 'Видалити' ? (
+                <div className={'textA'} onClick={deleteV} style={{ cursor: 'pointer' }}>
+                    {props.message}
+                </div>
+            ) : (
+                <div className={'textA'}>
+                    {props.message}
                     <img
-                        src={sent}
-                        alt='sent'
-                        className='sentImg'
-                        onClick={() => {
-                            publish();
-                            textareaRef.current.value = '';
-                        }}
+                        onClick={() => setExpanded(!expanded)}
+                        src={expanded ? arrow : right}
+                        alt={'arrow'}
+                        className='expandedArrow'
                     />
+                    {expanded && (
+                        <div className='expandedBlock'>
+                            <textarea
+                                className={'inputExpandable'}
+                                onChange={handleTextChange}
+                                ref={textareaRef}
+                            />
+                            <img
+                                src={sent}
+                                alt='sent'
+                                className={isMobile ? 'sentImgMobile' : 'sentImg'}
+                                onClick={() => {
+                                    publish();
+                                    textareaRef.current.value = '';
+                                }}
+                            />
+                        </div>
+                    )}
                 </div>
             )}
-        </div>
+        </>
     );
 };
 

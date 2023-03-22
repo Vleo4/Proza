@@ -44,12 +44,6 @@ const Navbar = () => {
                             <img className='icon-mobile' src={saves} alt={'saves'} />
                         </Link>
                     </li>
-
-                    <li className={location.pathname === '/profile' ? 'active' : 'not-active'}>
-                        <Link to={isAuthentificated ? '/profile' : '/login'}>
-                            <img className='icon-mobile' src={profile} alt={'profile'} />
-                        </Link>
-                    </li>
                 </ul>
             </nav>
         </div>

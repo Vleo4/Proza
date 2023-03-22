@@ -26,7 +26,6 @@ const Article = () => {
                 }
             })
             .then((response) => {
-                console.log(response.data);
                 setState({ items: response.data });
                 setInfinite({ items: [response.data[0], response.data[1]] });
             });

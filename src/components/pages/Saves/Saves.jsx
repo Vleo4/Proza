@@ -7,7 +7,6 @@ import { getFromLocalStorage, getFromSessionStorage } from '../../../utils/stora
 import { ACCESS_TOKEN } from '../../../constants/localStorageKeys';
 import useResizer from '../../../utils/utils';
 import HeaderMobile from '../../UI/HeaderMobile/HeaderMobile';
-import PostsMobile from '../../UI/PostsMobile/PostsMobile';
 import NavbarMobile from '../../UI/NavbarMobile/NavbarMobile';
 import Navbar from '../../UI/Navbar/Navbar';
 import RightTop from '../../UI/RightTop/RightTop';
@@ -81,11 +80,12 @@ const Saves = () => {
                     <div className='mobile-verse'>
                         <HeaderMobile />
                         <div className='mobileMiddle'>
-                            <div className='verseMobileBlock'>
-                                <PostsMobile
-                                    author={state.author}
-                                    content={state.content}
-                                    id={state.id}></PostsMobile>
+                            <div className='infiniteMobile'>
+                                <div className='verseMobileBlock'>
+                                    <div className='postsMobile'>
+                                        <div className='header-two'>У ВАС НЕМАЄ ЗБЕРЕЖЕНИХ</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <footer className='footerMobile-verse'>

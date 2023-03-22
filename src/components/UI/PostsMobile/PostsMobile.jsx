@@ -15,9 +15,9 @@ import { useAuthContext } from '../../../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { getFromLocalStorage, getFromSessionStorage } from '../../../utils/storage';
 import { ACCESS_TOKEN } from '../../../constants/localStorageKeys';
-import ComplaintAlert from '../ComplaintAlert/ComplaintAlert';
 import AlertCopy from '../AlertCopy/AlertCopy';
 import portrait from '../../../assets/images/portrait.svg';
+import ComplaintAlertMobile from '../ComplaintAlertMobile/ComplaintAlertMobile';
 
 const PostsMobile = (props) => {
     const { isAuthentificated } = useAuthContext();
@@ -296,11 +296,13 @@ const PostsMobile = (props) => {
     return (
         <>
             <AlertCopy toggleCopyAlert={toggleCopyAlert} state={state} className='copyAlert' />
-            <ComplaintAlert
+            <ComplaintAlertMobile
                 state={state}
                 toggleComplaintAlert={toggleComplaintAlert}
                 className='complaintAlert'
                 id={props.id}
+                current={current}
+                author={props.author}
             />
             <AlertMobile
                 state={state}
@@ -325,7 +327,7 @@ const PostsMobile = (props) => {
                         <></>
                     ) : (
                         <button className='subscribeMobile' onClick={onSubscribe}>
-                            {isSubscribe ? 'Прознутись' : 'Ви прознуті'}
+                            {isSubscribe ? 'Ви прознуті' : 'Прознутись'}
                         </button>
                     )}
                     <img
@@ -334,6 +336,7 @@ const PostsMobile = (props) => {
                         onClick={toggleComplaintAlert}
                         alt='dots'></img>
                 </div>
+                <div className={'header-two'}>{props.tittle}</div>
                 <div>
                     {
                         <ShowMoreText

@@ -71,7 +71,9 @@ const AlertAddPostMobile = (props) => {
                         <button
                             className='publishMobile'
                             onClick={() => {
-                                setNext(true);
+                                if (text && title) {
+                                    setNext(true);
+                                }
                             }}>
                             Продовжити
                         </button>
