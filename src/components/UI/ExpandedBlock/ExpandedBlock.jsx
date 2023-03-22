@@ -48,7 +48,7 @@ const ExpandableBlock = (props) => {
     const isMobile = useResizer();
     const deleteV = () => {
         axios
-            .delete(apiURL + 'articledelete/' + props.id + '/', {
+            .delete(apiURL + 'articledelete/' + props.id, {
                 headers: {
                     Authorization: 'Bearer ' + accessToken
                 }
