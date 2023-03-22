@@ -16,6 +16,9 @@
   box-sizing: border-box;
   border-bottom: 1px solid #727373;
   a{
+   max-width: 40%;
+   text-overflow: ellipsis;
+   overflow: hidden;
    font-family: 'Inter', system-ui;
    display: inline-block;
    font-style: normal;
@@ -44,10 +47,49 @@
    border-radius: 50%;
   }
  }
- .textMobile{
+ .textBig{
+  z-index: -1;
+  visibility: hidden;
+  position: absolute;
+  height: 47vh;
+ }
+ .textMobile {
   margin-top: 0.925rem;
   margin-left: 1rem;
-
+  white-space: pre-line;
+  display: block;
+  font-family: 'Inter', system-ui;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 13.31px;
+  min-height: 46vh;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-height: 48vh;
+  span {
+   white-space: pre-line;
+   display: block;
+   font-family: 'Inter', system-ui;
+   font-style: normal;
+   font-weight: 400;
+   font-size: 11px;
+   line-height: 13.31px;
+   text-overflow: ellipsis;
+   overflow: hidden;
+  }
+ }
+ .textMobileNext{
+  margin-top: 0.925rem;
+  margin-left: 1rem;
+  white-space: pre-line;
+  display: block;
+  font-family: 'Inter', system-ui;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 11px;
+  line-height: 13.31px;
+  height: 100%;
   span {
    white-space: pre-line;
    display: block;
@@ -58,11 +100,6 @@
    line-height: 13.31px;
 
   }
-  .textNext{
-   text-decoration-line: underline;
-   font-weight: 700;
-  }
-
  }
  .footer-post-mobile {
   border-top: 1px solid #727373;

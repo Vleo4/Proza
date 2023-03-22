@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import HomeLayout from 'components/layouts/AuthLayout';
 import Button from 'components/UI/Button/Button';
 import './Signup.scss';
@@ -15,7 +15,7 @@ import useResizer from '../../../utils/utils';
 const Signup = () => {
     const navigate = useNavigate();
     const { isAuthentificated } = useAuthContext();
-    const [isLoading, setLoading] = useState(false);
+    const [setLoading] = useState(false);
     const {
         control,
         handleSubmit,
@@ -23,11 +23,11 @@ const Signup = () => {
         formState: { errors }
     } = useForm();
 
-    useEffect(() => {
-        if (isAuthentificated && !isLoading) {
+    React.useEffect(() => {
+        if (isAuthentificated) {
             navigate('/');
         }
-    }, [isAuthentificated, isLoading]);
+    }, []);
     const [alert, toggleAlert] = useState(false);
     const onSubmit = async (data) => {
         if (data.password !== data.confirmedPassword) {

@@ -30,7 +30,7 @@ const AlertAddPostMobile = (props) => {
                     },
                     title: title,
                     content: text,
-                    cat: category,
+                    cat: category + 1,
                     user: token.user_id
                 },
                 {

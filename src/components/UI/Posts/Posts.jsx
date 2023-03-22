@@ -7,7 +7,6 @@ import noSaves from '../../../assets/images/Posts/nosaves.png';
 import saves from '../../../assets/images/Posts/saves.png';
 import share from '../../../assets/images/Posts/share.png';
 import portrait from '../../../assets/images/portrait.svg';
-import ShowMoreText from 'react-show-more-text';
 import React, { useState } from 'react';
 import AlertPost from '../Alert/Alert';
 import ComplaintAlert from '../ComplaintAlert/ComplaintAlert';
@@ -157,6 +156,7 @@ const Posts = (props) => {
                     }
                 })
                 .then((response) => {
+                    setIsSave(false);
                     response.data.map((index) => {
                         if (index.id === props.id) {
                             setIsSave(true);
@@ -164,7 +164,7 @@ const Posts = (props) => {
                     });
                 });
         }
-    }, [isSave]);
+    }, [props]);
     React.useEffect(() => {
         if (isAuthentificated) {
             const token = jwtDecode(accessToken);
@@ -175,6 +175,7 @@ const Posts = (props) => {
                     }
                 })
                 .then((response) => {
+                    setIsLike(false);
                     if (response.data.likes) {
                         response.data.likes.map((index) => {
                             if (index === token.user_id) {
@@ -184,38 +185,7 @@ const Posts = (props) => {
                     }
                 });
         }
-    }, [isLike]);
-    const lines = () => {
-        if (window.innerHeight > 1250) {
-            return 15;
-        } else if (window.innerHeight > 1100) {
-            return 14;
-        } else if (window.innerHeight > 1050) {
-            return 13;
-        } else if (window.innerHeight > 975) {
-            return 21;
-        } else if (window.innerHeight > 900) {
-            return 19;
-        } else if (window.innerHeight > 850) {
-            return 17;
-        } else if (window.innerHeight > 800) {
-            return 15;
-        } else if (window.innerHeight > 750) {
-            return 15;
-        } else if (window.innerHeight > 700) {
-            return 14;
-        } else if (window.innerHeight > 650) {
-            return 12;
-        } else if (window.innerHeight > 600) {
-            return 10;
-        } else if (window.innerHeight > 550) {
-            return 9;
-        } else if (window.innerHeight > 500) {
-            return 8;
-        } else {
-            return 8;
-        }
-    };
+    }, [props]);
 
     const [reviews, setReviews] = useState({ items: [] });
     React.useEffect(() => {
@@ -293,6 +263,17 @@ const Posts = (props) => {
                 });
         }
     }, []);
+    const [big, setBig] = useState(false);
+    const visibleRef = React.useRef();
+    const hiddenRef = React.useRef();
+    React.useEffect(() => {
+        if (visibleRef.current.offsetHeight > hiddenRef.current.offsetHeight) {
+            setBig(true);
+        } else {
+            setBig(false);
+        }
+    }, []);
+
     return (
         <>
             <AlertCopy toggleCopyAlert={toggleCopyAlert} state={state} className='copyAlert' />
@@ -346,23 +327,17 @@ const Posts = (props) => {
                         alt='dots'></img>
                 </div>
                 <div className='header-two'>{props.tittle}</div>
-                <div className='text'>
-                    {
-                        <ShowMoreText
-                            truncatedEndingComponent=''
-                            className='text'
-                            width={300}
-                            lines={lines()}
-                            more='Читати далі'
-                            keepNewLines={true}
-                            anchorClass='textNext'
-                            onClick={toggleAlert}
-                            expandByClick={false}
-                            expanded={false}>
-                            {content()}
-                        </ShowMoreText>
-                    }{' '}
+                <div className={'textBigPost'} ref={hiddenRef}></div>
+                <div className={'text'} ref={visibleRef}>
+                    {content()}
                 </div>
+                {big ? (
+                    <div className={'textNext'} onClick={toggleAlert}>
+                        читати повністю
+                    </div>
+                ) : (
+                    <></>
+                )}
                 <div className='footer-post'>
                     <img
                         src={isLike ? likes : noLikes}

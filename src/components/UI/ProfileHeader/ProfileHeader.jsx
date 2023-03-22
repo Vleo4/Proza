@@ -47,6 +47,8 @@ const ProfileHeader = (props) => {
     const [follows, setFollows] = useState(0);
     const apiURL = 'https://prozaapp.art/api/v1/';
     const [jpg, setJpg] = useState(null);
+    const [cat, setCat] = useState(false);
+    const [description, setDescription] = useState(null);
     React.useEffect(() => {
         if (isAuthentificated) {
             const accessToken =
@@ -58,6 +60,7 @@ const ProfileHeader = (props) => {
                     }
                 })
                 .then((response) => {
+                    setCat(response.data.fav_category);
                     setCurrent(response.data.user);
                 })
                 .catch((error) => {
@@ -69,6 +72,7 @@ const ProfileHeader = (props) => {
             axios
                 .get(apiURL + 'prozauserprofile/' + props.author + '/?format=json')
                 .then((response) => {
+                    setDescription(response.data.description);
                     setJpg(response.data.photo);
                     if (response.data.subscribers) setSubscribers(response.data.subscribers);
                     if (isAuthentificated && location.pathname !== '/profile') {
@@ -103,7 +107,12 @@ const ProfileHeader = (props) => {
     };
     return (
         <>
-            <AlertRefactor toggleAlert={toggleAlertFunc} alert={alertRef} />
+            <AlertRefactor
+                imageData={jpg}
+                cat={cat}
+                toggleAlert={toggleAlertFunc}
+                alert={alertRef}
+            />
             <AlertAddPost toggleAlert={toggleAlert} alert={alert} className='complaintAlert' />
             <div className='profileHeader'>
                 {location.pathname !== '/profile' && props.author !== current ? (
@@ -136,10 +145,7 @@ const ProfileHeader = (props) => {
                     <div className='header'> {props.author}</div>
                     <div className='slug'>{props.author}</div>
                     <div className='textAchievement'>Письменник(ця)-початківець</div>
-                    <div className='text'>
-                        Володя тримає Настю в рабстві! Допоможіть!*тут має бути опис, але не більше
-                        трьох рядків*
-                    </div>
+                    <div className='text'>{description}</div>
                 </div>
                 <div className='allRows'>
                     <div className='textRow'>Публікації</div>
