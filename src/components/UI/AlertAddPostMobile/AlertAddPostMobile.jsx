@@ -54,13 +54,13 @@ const AlertAddPostMobile = (props) => {
                 <div className='fullPostMobile'>
                     <div className='postsMobile'>
                         <div className='header-postMobile'>
-                            <img src={Close} onClick={props.toggleAlert} />{' '}
                             <input
                                 className='header-input'
                                 onChange={handleTitleChange}
                                 type='text'
                                 placeholder='Назва вірша'
-                            />
+                            />{' '}
+                            <img src={Close} className='headerImg' onClick={props.toggleAlert} />{' '}
                         </div>
                         <div className='text'>
                             <textarea

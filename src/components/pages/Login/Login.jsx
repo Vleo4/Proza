@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Controller, useForm } from 'react-hook-form';
 
 import api from 'api';
@@ -97,9 +97,6 @@ const Login = () => {
                                 )}
                             />
                             <span>Запам&apos;ятати мене</span>
-                            <Link to='/forgot-password' className='forgot-password'>
-                                Забули пароль?
-                            </Link>
                         </div>
                         <Button
                             buttonProps={{ type: 'submit' }}
