@@ -3,7 +3,6 @@
 .container {
     width: 100%;
     min-height: 100dvh;
-    background: url('../../assets/images/auth/mobile-portrait.png') no-repeat 50% 0%;
 
     .left-cotainer {
         display: none;
@@ -32,8 +31,7 @@
         justify-content: center;
         align-items: center;
         width: 100%;
-        padding: 2.18rem;
-        padding-bottom: 5rem;
+        padding: 2.18rem 2.18rem 5rem;
 
         &__navigation {
             position: absolute;

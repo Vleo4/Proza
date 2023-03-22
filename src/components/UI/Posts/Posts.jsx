@@ -182,10 +182,12 @@ const Posts = (props) => {
         }
     }, [isLike]);
     const lines = () => {
-        if (window.innerHeight > 1100) {
-            return 24;
+        if (window.innerHeight > 1250) {
+            return 15;
+        } else if (window.innerHeight > 1100) {
+            return 14;
         } else if (window.innerHeight > 1050) {
-            return 23;
+            return 13;
         } else if (window.innerHeight > 975) {
             return 21;
         } else if (window.innerHeight > 900) {
@@ -294,6 +296,8 @@ const Posts = (props) => {
                 toggleComplaintAlert={toggleComplaintAlert}
                 className='complaintAlert'
                 id={props.id}
+                current={current}
+                author={props.author}
             />
             <AlertPost
                 state={state}

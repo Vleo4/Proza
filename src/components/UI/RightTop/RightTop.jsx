@@ -11,7 +11,6 @@ const RightTop = () => {
     React.useEffect(() => {
         axios.get(apiURL + 'toparticles/?format=json', {}).then((response) => {
             setState(response.data);
-            console.log(response);
         });
     }, [apiURL]);
     return (

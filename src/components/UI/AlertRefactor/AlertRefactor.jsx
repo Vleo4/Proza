@@ -7,6 +7,7 @@ import { ACCESS_TOKEN } from '../../../constants/localStorageKeys';
 import jwtDecode from 'jwt-decode';
 import axios from 'axios';
 import useResizer from '../../../utils/utils';
+import portrait from '../../../assets/images/portrait.svg';
 const AlertRefactor = (props) => {
     const [categories, setCategories] = React.useState({ items: [] });
     const setCategory = (value) => {
@@ -39,7 +40,6 @@ const AlertRefactor = (props) => {
     const refactor = () => {
         const formData = new FormData();
         formData.append('photo', file);
-        console.log(formData);
         const apiURL = 'https://prozaapp.art/api/v1/';
         const accessToken =
             getFromSessionStorage(ACCESS_TOKEN) ?? getFromLocalStorage(ACCESS_TOKEN);
@@ -52,7 +52,6 @@ const AlertRefactor = (props) => {
         } else if (!categories.items[0]) {
             data = { description: text, fav_category: props.cat };
         }
-        console.log(data);
         if (data.fav_category.length > 0 || data.description) {
             axios
                 .put(apiURL + 'prozauserprofile/update/' + token.user_id + '/', data, {
@@ -260,10 +259,20 @@ const AlertRefactor = (props) => {
                                 </div>
                             </div>
                         </div>
-                        <div className='clear' onClick={clearCategory}>
+                        <div className='clearMobile' onClick={clearCategory}>
                             Очистити вибір
                         </div>{' '}
-                        <div className='end' onClick={refactor}>
+                        <input
+                            type='file'
+                            accept='image/*'
+                            className='pInputMobile'
+                            onChange={handleFileChange}
+                        />
+                        <img
+                            src={file ? photo : props.imageData ? props.imageData : portrait}
+                            className='photoUserMobile'
+                        />
+                        <div className='endMobile' onClick={refactor}>
                             Завершити реєстрацію
                         </div>
                     </div>
@@ -461,7 +470,10 @@ const AlertRefactor = (props) => {
                             className='pInput'
                             onChange={handleFileChange}
                         />
-                        <img src={file ? photo : props.imageData} className='photoUser' />
+                        <img
+                            src={file ? photo : props.imageData ? props.imageData : portrait}
+                            className='photoUser'
+                        />{' '}
                         <div className='end' onClick={refactor}>
                             Завершити редагування
                         </div>

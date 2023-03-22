@@ -85,6 +85,21 @@ float: right;
  margin-top: 2.5%;
  color: #1D8AE2;
 }
+.clearMobile{
+ cursor: pointer;
+ font-family: 'Inter',system-ui;
+ font-style: normal;
+ font-weight: 400;
+ font-size: 15px;
+ line-height: 18px;
+ display: flex;
+ align-items: center;
+ text-decoration-line: underline;
+ float: right;
+ margin-right: 4%;
+ margin-top: -1.2rem;
+ color: #1D8AE2;
+}
 .categoryActive{
  height: 1.6rem;
  width: 45%;
@@ -146,6 +161,29 @@ float: right;
   margin-top: 2.5rem;
  }
 }
+
+.endMobile{
+ display: inline-block;
+ white-space: nowrap;
+ border-radius: 10px;
+ position: relative;
+ margin-top: 0.5rem;
+ width: auto;
+ font-family: 'Inter',system-ui;
+ font-style: normal;
+ font-weight: 400;
+ font-size: 16px;
+ line-height: 28px;
+ padding-left: 0.2rem;
+ padding-right: 0.2rem;
+ cursor: pointer;
+ height: 2rem;
+ background: white;
+ border: 2px solid #C0777F;
+ float: right;
+ margin-right: 0.5rem;
+ vertical-align: middle;
+}
 .show img{
  padding: 0;
 }
@@ -157,10 +195,25 @@ float: right;
  margin-left: 9.5rem;
  padding-left: 0;
 }
+.photoUserMobile{
+ margin-top: 0.2rem;
+ width: 3rem;
+ border-radius: 50%;
+ height: 3rem;
+ margin-left: 9rem;
+ padding-left: 0;
+}
 .pInput{
  width: 7.8rem;
  position: absolute;
  margin-top: 2rem;
  border: 3px solid #FFE3FF;
  margin-left: 1rem;
+}
+.pInputMobile{
+ width: 7.8rem;
+ position: absolute;
+ margin-top: 1rem;
+ border: 3px solid #FFE3FF;
+ margin-left: 0.5rem;
 }
