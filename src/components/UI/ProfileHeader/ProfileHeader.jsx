@@ -11,13 +11,15 @@ import jwtDecode from 'jwt-decode';
 import { useNavigate } from 'react-router-dom';
 import refactor from '../../../assets/images/Users/refactor.png';
 import AlertRefactor from '../AlertRefactor/AlertRefactor';
+import portrait from '../../../assets/images/portrait.svg';
 const ProfileHeader = (props) => {
     const { isAuthentificated } = useAuthContext();
     const [isSubscribe, setIsSubscribe] = useState(false);
-    const accessToken = getFromSessionStorage(ACCESS_TOKEN) ?? getFromLocalStorage(ACCESS_TOKEN);
     const navigate = useNavigate();
     const onSubscribe = () => {
         if (isAuthentificated && location.pathname !== '/profile') {
+            const accessToken =
+                getFromSessionStorage(ACCESS_TOKEN) ?? getFromLocalStorage(ACCESS_TOKEN);
             axios
                 .put(
                     apiURL + 'subscription/' + props.author + '/',
@@ -44,8 +46,11 @@ const ProfileHeader = (props) => {
     const [articles, setArticles] = useState(0);
     const [follows, setFollows] = useState(0);
     const apiURL = 'https://prozaapp.art/api/v1/';
+    const [jpg, setJpg] = useState(null);
     React.useEffect(() => {
         if (isAuthentificated) {
+            const accessToken =
+                getFromSessionStorage(ACCESS_TOKEN) ?? getFromLocalStorage(ACCESS_TOKEN);
             axios
                 .get(apiURL + 'prozauserprofile/?format=json', {
                     headers: {
@@ -64,8 +69,12 @@ const ProfileHeader = (props) => {
             axios
                 .get(apiURL + 'prozauserprofile/' + props.author + '/?format=json')
                 .then((response) => {
+                    setJpg(response.data.photo);
                     if (response.data.subscribers) setSubscribers(response.data.subscribers);
                     if (isAuthentificated && location.pathname !== '/profile') {
+                        const accessToken =
+                            getFromSessionStorage(ACCESS_TOKEN) ??
+                            getFromLocalStorage(ACCESS_TOKEN);
                         const token = jwtDecode(accessToken);
                         response.data.subscribers.map((index) => {
                             if (index === token.user_id) {
@@ -88,26 +97,6 @@ const ProfileHeader = (props) => {
     const toggleAlert = () => {
         setAlert(!alert);
     };
-    const [imageData, setImageData] = useState(null);
-    React.useEffect(() => {
-        axios
-            .get(
-                'https://cookbook.brainstormingapplication.com/media/photos/2023/03/08/WIN_20221018_20_12_28_Pro.jpg',
-                { responseType: 'arraybuffer' }
-            )
-            .then((response) => {
-                const base64 = btoa(
-                    new Uint8Array(response.data).reduce(
-                        (data, byte) => data + String.fromCharCode(byte),
-                        ''
-                    )
-                );
-                setImageData(`data:image/jpeg;base64,${base64}`);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }, []);
     const [alertRef, toggleAlertRef] = useState(false);
     const toggleAlertFunc = () => {
         toggleAlertRef(!alertRef);
@@ -129,7 +118,7 @@ const ProfileHeader = (props) => {
                                 ? 'avatarImage'
                                 : 'avatarImageProfile'
                         }
-                        src={imageData}
+                        src={jpg ? jpg : portrait}
                         alt='avatar'
                     />
                     {location.pathname !== '/profile' && props.author === current ? (

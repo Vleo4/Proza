@@ -129,6 +129,10 @@
   width: 80%;
   margin-right: auto;
   margin-left: auto;
+  img{
+    width: 3rem;
+    height: 3rem;
+  }
 }
 .partTopUser{
   display: flex;
@@ -182,4 +186,16 @@
       line-height: 28px;
     }
   }
+}
+.headerUser{
+  font-family: 'Inter', system-ui;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 20px;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: -webkit-fill-available;
 }

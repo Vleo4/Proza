@@ -16,7 +16,10 @@ import Search from '../../UI/Search/Search';
 import RightTop from '../../UI/RightTop/RightTop';
 import ProfileHeader from '../../UI/ProfileHeader/ProfileHeader';
 import AlertAddPostMobile from '../../UI/AlertAddPostMobile/AlertAddPostMobile';
-
+import { getFromLocalStorage, getFromSessionStorage } from '../../../utils/storage';
+import { ACCESS_TOKEN } from '../../../constants/localStorageKeys';
+import axios from 'axios';
+import portrait from '../../../assets/images/portrait.svg';
 const Verse = (props) => {
     let { id } = useParams();
     const navigate = useNavigate();
@@ -34,6 +37,28 @@ const Verse = (props) => {
             [p]: !prevComment[p]
         }));
     };
+    const [jpg, setJpg] = useState(null);
+    const [current, setCurrent] = useState(null);
+    const apiURL = 'https://prozaapp.art/api/v1/';
+    React.useEffect(() => {
+        if (isAuthentificated) {
+            const accessToken =
+                getFromSessionStorage(ACCESS_TOKEN) ?? getFromLocalStorage(ACCESS_TOKEN);
+            axios
+                .get(apiURL + 'prozauserprofile/?format=json', {
+                    headers: {
+                        Authorization: 'Bearer ' + accessToken
+                    }
+                })
+                .then((response) => {
+                    setJpg(response.data.photo);
+                    setCurrent(response.data.user);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+    }, [isAuthentificated]);
     if (isMobile) {
         return (
             <>
@@ -116,49 +141,52 @@ const Verse = (props) => {
                         <Navbar className='navBar' active={active} setActive={setActive} />
                         <div className='verse-small'>
                             <div className='verse'>
-                                <InfiniteScroll
-                                    scrollableTarget='scrollableDiv'
-                                    next={props.fetchMoreData}
-                                    hasMore={props.hasMore}
-                                    loader={<h4>Loading..</h4>}
-                                    height={'100vh'}
-                                    dataLength={props.infinite.items.length}
-                                    endMessage={<p>LAST</p>}>
-                                    {location.pathname === '/profile' ||
-                                    location.pathname === '/profile/' + id ? (
-                                        <>
-                                            <AlertAddPost
-                                                toggleAlert={toggleAlert}
-                                                alert={alert}
-                                                className='complaintAlert'
-                                            />
-                                            {location.pathname === '/profile' ? (
-                                                <div className='postsAdd'>
-                                                    <div className='text-parent'>
-                                                        <img
-                                                            src={addPost}
-                                                            className='addPostSmall'
-                                                            onClick={toggleAlert}
-                                                        />
+                                {props.infinite.items[0] ? (
+                                    <InfiniteScroll
+                                        scrollableTarget='scrollableDiv'
+                                        next={props.fetchMoreData}
+                                        hasMore={props.hasMore}
+                                        loader={<h4>Loading..</h4>}
+                                        height={'100vh'}
+                                        dataLength={props.infinite.items.length}
+                                        endMessage={<p>LAST</p>}>
+                                        {location.pathname === '/profile' ||
+                                        location.pathname === '/profile/' + id ? (
+                                            <>
+                                                <AlertAddPost
+                                                    toggleAlert={toggleAlert}
+                                                    alert={alert}
+                                                    className='complaintAlert'
+                                                />
+                                                {location.pathname === '/profile' ? (
+                                                    <div className='postsAdd'>
+                                                        <div className='text-parent'>
+                                                            <img
+                                                                src={addPost}
+                                                                className='addPostSmall'
+                                                                onClick={toggleAlert}
+                                                            />
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            ) : (
-                                                <></>
-                                            )}
-                                        </>
-                                    ) : (
-                                        ''
-                                    )}{' '}
-                                    {props.infinite.items.map((p, index) => (
-                                        <Posts
-                                            author={p.user}
-                                            user={p.user}
-                                            tittle={p.title}
-                                            content={p.content}
-                                            id={p.id}
-                                            key={index}></Posts>
-                                    ))}
-                                </InfiniteScroll>
+                                                ) : (
+                                                    <></>
+                                                )}
+                                            </>
+                                        ) : (
+                                            ''
+                                        )}{' '}
+                                        {props.infinite.items.map((p, index) => (
+                                            <Posts
+                                                tittle={p.title}
+                                                author={p.user}
+                                                content={p.content}
+                                                id={p.id}
+                                                key={index}></Posts>
+                                        ))}
+                                    </InfiniteScroll>
+                                ) : (
+                                    <></>
+                                )}
                             </div>
                         </div>
                         {!isAuthentificated ? (
@@ -205,49 +233,52 @@ const Verse = (props) => {
                     <div className='verse-page' id='scrollableDiv'>
                         <Navbar className='navBar' active={active} setActive={setActive} />
                         <div className='verse-block'>
-                            <InfiniteScroll
-                                scrollableTarget='scrollableDiv'
-                                next={props.fetchMoreData}
-                                hasMore={props.hasMore}
-                                loader={<h4>Loading..</h4>}
-                                height={'100vh'}
-                                dataLength={props.infinite.items.length}
-                                endMessage={<p>LAST</p>}>
-                                {location.pathname === '/profile' ||
-                                location.pathname === '/profile/' + id ? (
-                                    <>
-                                        <AlertAddPost
-                                            toggleAlert={toggleAlert}
-                                            alert={alert}
-                                            className='complaintAlert'
-                                        />
-                                        {location.pathname === '/profile' ? (
-                                            <div className='postsAdd'>
-                                                <div className='text-parent'>
-                                                    <img
-                                                        src={addPost}
-                                                        className='addPostSmall'
-                                                        onClick={toggleAlert}
-                                                    />
+                            {props.infinite.items[0] ? (
+                                <InfiniteScroll
+                                    scrollableTarget='scrollableDiv'
+                                    next={props.fetchMoreData}
+                                    hasMore={props.hasMore}
+                                    loader={<h4>Loading..</h4>}
+                                    height={'100vh'}
+                                    dataLength={props.infinite.items.length}
+                                    endMessage={<p>LAST</p>}>
+                                    {location.pathname === '/profile' ||
+                                    location.pathname === '/profile/' + id ? (
+                                        <>
+                                            <AlertAddPost
+                                                toggleAlert={toggleAlert}
+                                                alert={alert}
+                                                className='complaintAlert'
+                                            />
+                                            {location.pathname === '/profile' ? (
+                                                <div className='postsAdd'>
+                                                    <div className='text-parent'>
+                                                        <img
+                                                            src={addPost}
+                                                            className='addPostSmall'
+                                                            onClick={toggleAlert}
+                                                        />
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        ) : (
-                                            <></>
-                                        )}
-                                    </>
-                                ) : (
-                                    ''
-                                )}{' '}
-                                {props.infinite.items.map((p, index) => (
-                                    <Posts
-                                        author={p.user}
-                                        user={p.user}
-                                        tittle={p.title}
-                                        content={p.content}
-                                        id={p.id}
-                                        key={index}></Posts>
-                                ))}
-                            </InfiniteScroll>
+                                            ) : (
+                                                <></>
+                                            )}
+                                        </>
+                                    ) : (
+                                        ''
+                                    )}{' '}
+                                    {props.infinite.items.map((p, index) => (
+                                        <Posts
+                                            author={p.user}
+                                            tittle={p.title}
+                                            content={p.content}
+                                            id={p.id}
+                                            key={index}></Posts>
+                                    ))}
+                                </InfiniteScroll>
+                            ) : (
+                                <></>
+                            )}
                         </div>
                         {!isAuthentificated ? (
                             <>
@@ -268,7 +299,14 @@ const Verse = (props) => {
                                 </div>
                             </>
                         ) : (
-                            ''
+                            <div
+                                className='rightProf'
+                                onClick={() => {
+                                    navigate('/profile');
+                                }}>
+                                <img src={jpg ? jpg : portrait} />
+                                <a className='textProf'>{current}</a>
+                            </div>
                         )}
                         <div className='right'>
                             <Search />

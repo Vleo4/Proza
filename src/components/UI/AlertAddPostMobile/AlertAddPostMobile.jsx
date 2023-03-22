@@ -39,12 +39,18 @@ const AlertAddPostMobile = (props) => {
                     }
                 }
             )
-            .then(function () {
-                window.location.href = '/profile';
-                props.toggleAlert();
+            .then(function (response) {
+                if (response.data.status_code === 0) {
+                    alert('Такий твір уже опублікований');
+                    setNext(false);
+                } else {
+                    window.location.href = '/profile';
+                    props.toggleAlert();
+                }
             })
             .catch(function (error) {
                 console.log(error);
+                alert(error);
             });
     };
     const [next, setNext] = useState(false);
