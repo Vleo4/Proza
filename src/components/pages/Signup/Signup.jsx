@@ -14,7 +14,8 @@ import useResizer from '../../../utils/utils';
 
 const Signup = () => {
     const navigate = useNavigate();
-    const { isAuthentificated, isLoading } = useAuthContext();
+    const { isAuthentificated } = useAuthContext();
+    const [isLoading, setLoading] = useState(false);
     const {
         control,
         handleSubmit,
@@ -42,6 +43,7 @@ const Signup = () => {
                 saveToSessionStorage(ACCESS_TOKEN, access);
                 saveToSessionStorage(REFRESH_TOKEN, refresh);
                 toggleAlert(true);
+                setLoading(false);
             }
         } catch (e) {
             console.error(e);

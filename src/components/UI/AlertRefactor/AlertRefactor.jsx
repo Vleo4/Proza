@@ -38,35 +38,32 @@ const AlertRefactor = (props) => {
     };
 
     const refactor = () => {
-        const formData = new FormData();
-        formData.append('photo', file);
         const apiURL = 'https://prozaapp.art/api/v1/';
         const accessToken =
             getFromSessionStorage(ACCESS_TOKEN) ?? getFromLocalStorage(ACCESS_TOKEN);
         const token = jwtDecode(accessToken);
         let data;
+        let pizda = categories.items[0];
         if (text && categories.items.length > 0) {
-            data = { fav_category: categories.items, description: text, photo: file };
+            data = { fav_category: pizda, description: text, photo: file };
         } else if (!text) {
-            data = { fav_category: categories.items };
+            data = { fav_category: pizda, photo: file };
         } else if (!categories.items[0]) {
-            data = { description: text, fav_category: props.cat };
+            data = { description: text, fav_category: props.cat, photo: file };
         }
-        if (data.fav_category.length > 0 || data.description) {
-            axios
-                .put(apiURL + 'prozauserprofile/update/' + token.user_id + '/', data, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                        Authorization: 'Bearer ' + accessToken
-                    }
-                })
-                .then(function () {
-                    window.location.href = '/profile';
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
-        }
+        axios
+            .put(apiURL + 'prozauserprofile/update/' + token.user_id + '/', data, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    Authorization: 'Bearer ' + accessToken
+                }
+            })
+            .then(function () {
+                console.log(data);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
         props.toggleAlert();
     };
     return (

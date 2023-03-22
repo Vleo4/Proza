@@ -309,7 +309,15 @@ const Posts = (props) => {
             />
             <div className={divBig()}>
                 <div className='header-post'>
-                    <img src={jpg ? jpg : portrait} className='postsAvatar' />
+                    <img
+                        src={jpg ? jpg : portrait}
+                        onClick={() => {
+                            isAuthentificated
+                                ? navigate('/profile/' + props.author)
+                                : navigate('/login');
+                        }}
+                        className='postsAvatar'
+                    />
                     <div
                         className='rowHead'
                         onClick={() => {

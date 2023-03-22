@@ -37,33 +37,38 @@ const AlertSignup = (props) => {
         setPhoto(fileUrl);
     };
     const refactor = () => {
-        const formData = new FormData();
-        formData.append('photo', file);
         const apiURL = 'https://prozaapp.art/api/v1/';
         const accessToken =
             getFromSessionStorage(ACCESS_TOKEN) ?? getFromLocalStorage(ACCESS_TOKEN);
         const token = jwtDecode(accessToken);
         let data;
-        if (text && categories.items.length > 0) {
-            data = { fav_category: categories.items, description: text, photo: formData };
-        } else if (!text) {
-            data = { fav_category: categories.items };
-        } else if (!categories.items[0]) {
-            data = { description: text, fav_category: props.cat };
+        let pizda = categories.items[0];
+        if (categories.items.length > 0) {
+            if (text && file) {
+                data = { fav_category: pizda, description: text, photo: file };
+            } else if (!text && !photo) {
+                data = { fav_category: pizda };
+            } else if (!text) {
+                data = { fav_category: pizda, photo: file };
+            } else if (!photo) {
+                data = { fav_category: pizda, description: text };
+            }
+
+            axios
+                .put(apiURL + 'prozauserprofile/update/' + token.user_id + '/', data, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                        Authorization: 'Bearer ' + accessToken
+                    }
+                })
+                .then(function () {
+                    window.location.href = '/';
+                    console.log(data);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
         }
-        axios
-            .put(apiURL + 'prozauserprofile/update/' + token.user_id + '/', data, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: 'Bearer ' + accessToken
-                }
-            })
-            .then(function () {
-                window.location.href = '/';
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
     };
     return (
         <Alert show={props.alert} className={isMobile ? 'signAlertMobile' : 'signAlert'}>

@@ -6,12 +6,15 @@ import { getFromLocalStorage, getFromSessionStorage } from '../../../utils/stora
 import { ACCESS_TOKEN } from '../../../constants/localStorageKeys';
 
 const Home = () => {
+    const [rerenderC, rerenderComp] = useState(false);
     const [infinite, setInfinite] = useState({ items: [] });
     const [state, setState] = useState(null);
     const apiURL = 'https://prozaapp.art/api/v1/';
     const { isAuthentificated } = useAuthContext();
+
     React.useEffect(() => {
         if (isAuthentificated) {
+            console.log(isAuthentificated);
             const accessToken =
                 getFromSessionStorage(ACCESS_TOKEN) ?? getFromLocalStorage(ACCESS_TOKEN);
             axios
@@ -21,16 +24,18 @@ const Home = () => {
                     }
                 })
                 .then((response) => {
+                    console.log(response.data);
                     setState({ items: response.data });
                     setInfinite({ items: [response.data[0], response.data[1]] });
                 });
         } else {
             axios.get(apiURL + 'article/?format=json').then((response) => {
+                console.log(response.data);
                 setState({ items: response.data });
                 setInfinite({ items: [response.data[0], response.data[1]] });
             });
         }
-    }, []);
+    }, [isAuthentificated]);
     const [indexCount, setIndexCount] = useState(2);
     const [hasMore, setHasMore] = useState(true);
     const fetchMoreData = () => {
@@ -38,9 +43,20 @@ const Home = () => {
         setIndexCount(indexCount + 1);
         if (indexCount === state.items.length - 1) setHasMore(false);
     };
-    return (
-        <Verse state={state} infinite={infinite} fetchMoreData={fetchMoreData} hasMore={hasMore} />
-    );
+    if (infinite.items < 1) {
+        return <div>PIZDA</div>;
+    } else {
+        return (
+            <Verse
+                state={state}
+                rerenderC={rerenderC}
+                rerenderComp={rerenderComp}
+                infinite={infinite}
+                fetchMoreData={fetchMoreData}
+                hasMore={hasMore}
+            />
+        );
+    }
 };
 
 export default Home;
