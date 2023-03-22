@@ -186,21 +186,21 @@ const PostsMobile = (props) => {
             case 1.7:
                 return parseInt(window.innerHeight / 55);
             case 1.8:
-                return parseInt(window.innerHeight / 55);
-            case 1.9:
-                return parseInt(window.innerHeight / 55);
-            case 2:
                 return parseInt(window.innerHeight / 60);
+            case 1.9:
+                return parseInt(window.innerHeight / 60);
+            case 2:
+                return parseInt(window.innerHeight / 65);
             case 2.1:
                 return parseInt(window.innerHeight / 55);
             case 2.2:
-                return parseInt(window.innerHeight / 52);
+                return parseInt(window.innerHeight / 55);
             case 2.3:
-                return parseInt(window.innerHeight / 52);
+                return parseInt(window.innerHeight / 55);
             case 2.4:
-                return parseInt(window.innerHeight / 55);
+                return parseInt(window.innerHeight / 60);
             case 2.5:
-                return parseInt(window.innerHeight / 55);
+                return parseInt(window.innerHeight / 60);
         }
     };
 

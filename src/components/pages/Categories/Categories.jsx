@@ -32,7 +32,7 @@ const Categories = () => {
     React.useEffect(() => {
         if (category) {
             axios
-                .get(apiURL + 'getarticlesfromcategory/' + category + '/?format=json')
+                .get(apiURL + 'getarticlesfromcategory/' + category + 1 + '/?format=json')
                 .then((response) => {
                     if (response.data.length === 1) {
                         setState(response.data[0]);

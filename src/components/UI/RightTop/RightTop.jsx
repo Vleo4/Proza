@@ -100,7 +100,7 @@ const RightTop = () => {
                                 onClick={() => {
                                     navigate('/article/' + state[5].id);
                                 }}>
-                                {state[4].title}
+                                {state[5].title}
                             </div>
                             <div className='partTop2'>
                                 <div className='likeTop'>
@@ -109,21 +109,25 @@ const RightTop = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className='infoTopLast'>
-                            <div
-                                className='partTop'
-                                onClick={() => {
-                                    navigate('/article/' + state[6].id);
-                                }}>
-                                {state[6].title}
-                            </div>
-                            <div className='partTop2'>
-                                <div className='likeTop'>
-                                    <a>{state[6].likes.length + ' '}</a>
-                                    <img src={likes} />
+                        {window.innerHeight >= 800 ? (
+                            <div className='infoTopLast'>
+                                <div
+                                    className='partTop'
+                                    onClick={() => {
+                                        navigate('/article/' + state[6].id);
+                                    }}>
+                                    {state[6].title}
+                                </div>
+                                <div className='partTop2'>
+                                    <div className='likeTop'>
+                                        <a>{state[6].likes.length + ' '}</a>
+                                        <img src={likes} />
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        ) : (
+                            <></>
+                        )}
                     </>
                 ) : (
                     ''

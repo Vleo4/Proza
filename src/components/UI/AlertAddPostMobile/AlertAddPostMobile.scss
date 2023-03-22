@@ -29,7 +29,7 @@ margin-right: auto;
   .postsMobile{
     border: 3px solid #FFE3FF;
     border-radius: 15px;
-    height: 85vh ;
+    height: 80vh ;
     margin-top: 10%;
     width: 85%;
     .header-postMobile{
@@ -43,7 +43,7 @@ margin-right: auto;
       width: 80%;
       display: block;
       .header-input{
-        width: 92%;
+        width: 85%;
         line-height: 2rem;
         border: 0;
         outline:none;
@@ -51,6 +51,11 @@ margin-right: auto;
         font-style: normal;
         font-weight: 500;
         font-size:1.6rem;
+        margin-top: 0.5rem;
+      }
+      .headerImg{
+        margin-right: -1rem;
+        margin-top: 0.5rem;
       }
     }
 
@@ -64,7 +69,7 @@ margin-right: auto;
       font-weight: 400;
       font-size: 13.31px;
       line-height: 13.31px;
-      height: 60vh;
+      height: 55vh;
         .text-input{
           height: 60vh;
           width: 95%;

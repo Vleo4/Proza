@@ -84,7 +84,11 @@ const Posts = (props) => {
                         }
                     }
                 )
-                .then(function () {})
+                .then(function (response) {
+                    if (response.data.status_code === 0) {
+                        alert(response.data.massage);
+                    }
+                })
                 .catch(function (error) {
                     console.log(error);
                 });
@@ -214,7 +218,7 @@ const Posts = (props) => {
     };
 
     const [reviews, setReviews] = useState({ items: [] });
-    const getReview = () => {
+    React.useEffect(() => {
         axios
             .get(apiURL + 'getarticlereviews/' + props.id + '/?format=json', {
                 headers: {
@@ -224,7 +228,8 @@ const Posts = (props) => {
             .then((response) => {
                 setReviews({ items: response.data });
             });
-    };
+    }, []);
+
     const [isSubscribe, setIsSubscribe] = useState(false);
     const onSubscribe = () => {
         if (isAuthentificated && location.pathname !== '/profile') {
@@ -309,7 +314,15 @@ const Posts = (props) => {
             />
             <div className={divBig()}>
                 <div className='header-post'>
-                    <img src={jpg ? jpg : portrait} className='postsAvatar' />
+                    <img
+                        src={jpg ? jpg : portrait}
+                        onClick={() => {
+                            isAuthentificated
+                                ? navigate('/profile/' + props.author)
+                                : navigate('/login');
+                        }}
+                        className='postsAvatar'
+                    />
                     <div
                         className='rowHead'
                         onClick={() => {
@@ -362,7 +375,6 @@ const Posts = (props) => {
                         alt='comments'
                         onClick={() => {
                             if (isAuthentificated) {
-                                getReview();
                                 setComment(!comment);
                                 if (props.setComment) {
                                     props.setComment();
@@ -389,7 +401,6 @@ const Posts = (props) => {
                                     publishReview();
                                     event.target.value = '';
                                 }
-                                getReview();
                             }}
                             placeholder='Напишіть коментар'></textarea>
                         <div className='mini'>Натисніть Enter, щоб опублікувати.</div>

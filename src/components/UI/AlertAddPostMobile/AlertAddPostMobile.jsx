@@ -39,12 +39,18 @@ const AlertAddPostMobile = (props) => {
                     }
                 }
             )
-            .then(function () {
-                window.location.href = '/profile';
-                props.toggleAlert();
+            .then(function (response) {
+                if (response.data.status_code === 0) {
+                    alert('Такий твір уже опублікований');
+                    setNext(false);
+                } else {
+                    window.location.href = '/profile';
+                    props.toggleAlert();
+                }
             })
             .catch(function (error) {
                 console.log(error);
+                alert(error);
             });
     };
     const [next, setNext] = useState(false);
@@ -54,13 +60,13 @@ const AlertAddPostMobile = (props) => {
                 <div className='fullPostMobile'>
                     <div className='postsMobile'>
                         <div className='header-postMobile'>
-                            <img src={Close} onClick={props.toggleAlert} />{' '}
                             <input
                                 className='header-input'
                                 onChange={handleTitleChange}
                                 type='text'
                                 placeholder='Назва вірша'
-                            />
+                            />{' '}
+                            <img src={Close} className='headerImg' onClick={props.toggleAlert} />{' '}
                         </div>
                         <div className='text'>
                             <textarea
