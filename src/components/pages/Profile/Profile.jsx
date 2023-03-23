@@ -9,6 +9,7 @@ const Profile = () => {
     const apiURL = 'https://prozaapp.art/api/v1/';
     React.useEffect(() => {
         axios.get(apiURL + 'getuserarticles/' + id + '/?format=json').then((response) => {
+            response.data.reverse();
             if (response.data.length === 1) {
                 setState(response.data[0]);
                 setInfinite({ items: [response.data[0]] });

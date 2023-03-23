@@ -30,11 +30,16 @@ const Home = () => {
                     setInfinite({ items: [response.data[0], response.data[1]] });
                 });
         } else {
-            axios.get(apiURL + 'article/?format=json').then((response) => {
-                response.data.reverse();
-                setState({ items: response.data });
-                setInfinite({ items: [response.data[0], response.data[1]] });
-            });
+            axios
+                .get(apiURL + 'article/?format=json')
+                .then((response) => {
+                    response.data.reverse();
+                    setState({ items: response.data });
+                    setInfinite({ items: [response.data[0], response.data[1]] });
+                })
+                .catch(function () {
+                    return <img src={portrait} className={isMobile ? 'loadMobile' : 'load'} />;
+                });
         }
     }, [isAuthentificated]);
     const [indexCount, setIndexCount] = useState(2);

@@ -79,9 +79,9 @@ const AlertAddPost = (props) => {
                         <button
                             className='publish'
                             onClick={() => {
-                                if (text && title && title < 145) {
+                                if (text && title && title.length < 145) {
                                     setNext(true);
-                                } else if (!title && !text) {
+                                } else if (title.length >= 145) {
                                     alert('Максимальна довжина назви твору 145 символів');
                                 } else {
                                     alert('Заповність усі поля');

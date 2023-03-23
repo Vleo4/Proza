@@ -2,6 +2,7 @@ import { Alert } from 'react-bootstrap';
 import '../Posts/Posts.scss';
 import Close from '../../../assets/images/Posts/Close.png';
 import { Scrollbars } from 'react-custom-scrollbars';
+import React from 'react';
 
 const AlertPost = (props) => {
     const renderThumbHorizontal = ({ style, ...props }) => {
@@ -11,9 +12,24 @@ const AlertPost = (props) => {
         };
         return <div style={finalStyle} {...props} />;
     };
+    const divRef = React.useRef();
+
+    React.useEffect(() => {
+        function handleClickOutside(event) {
+            if (divRef.current && !divRef.current.contains(event.target)) {
+                props.toggleAlert();
+            }
+        }
+
+        document.addEventListener('click', handleClickOutside);
+        return () => {
+            document.removeEventListener('click', handleClickOutside);
+        };
+    }, [divRef]);
+
     return (
         <Alert show={props.state.showAlert} className={'fullAlert'}>
-            <div className='posts'>
+            <div className='posts' ref={divRef}>
                 <Scrollbars
                     autoHide
                     autoHideTimeout={1000}

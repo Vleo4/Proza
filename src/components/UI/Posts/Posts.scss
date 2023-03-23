@@ -23,7 +23,6 @@
   margin-top: 1rem;
   margin-left: 1rem;
  }
-
  .text{
   margin-top: 0.3rem;
   margin-left: 0.5rem;
@@ -37,6 +36,10 @@
   text-overflow: ellipsis;
   overflow: hidden;
   height: 70vh;
+  @media only screen and (min-width: 1800px) {
+   font-size: 26px;
+   line-height: 30px;
+  }
   span {
    text-overflow: ellipsis;
    overflow: hidden;
@@ -47,11 +50,10 @@
    font-weight: 400;
    font-size: 11px;
    line-height: 13.31px;
-
-  }
-  .textNext{
-   text-decoration-line: underline;
-   font-weight: 700;
+   @media only screen and (min-width: 1800px) {
+    font-size: 26px;
+    line-height: 30px;
+   }
   }
  }
  .footer-post {
@@ -84,11 +86,10 @@
  box-sizing: border-box;
  border: 3px solid #FFE3FF;
  border-radius: 15px;
- height: 70vh;
+ height: 80vh;
  width: 82%;
  position:relative;
  padding-bottom:50px;
-
  .header-post{
   border-bottom: 1px solid #727373;
   font-family: 'Inter', system-ui;
@@ -113,9 +114,7 @@
    font-weight: 400;
    font-size: 11px;
    line-height: 13.31px;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  max-height:  53%;
+  width: 100%;
   @media only screen and (min-width: 1800px) {
    font-size: 26px;
    line-height: 30px;
@@ -200,8 +199,8 @@
    font-family: 'Inter', system-ui;
    font-style: normal;
    font-weight: 700;
-   font-size: 22px;
-   line-height: 24px;
+   font-size: 16px;
+   line-height: 18px;
    width: 100%;
    display: block;
    padding-left: 1rem;
@@ -222,11 +221,15 @@
    font-family: 'Inter', system-ui;
    font-style: normal;
    font-weight: 400;
-   font-size: 25px;
-   line-height: 30px;
+   font-size: 15px;
+   line-height: 18px;
    width: 90%;
    word-break: break-all;
    max-height: fit-content;
+   @media only screen and (min-width: 1800px) {
+    font-size: 22px;
+    line-height: 24px;
+   }
   }
  }
 }
@@ -279,14 +282,22 @@ overflow: auto;
    font-weight: 400;
    font-size: 13.31px;
    line-height: 13.31px;
+   @media only screen and (min-width: 1800px) {
+    font-size: 26px;
+    line-height: 30px;
+   }
    span {
     white-space: pre-line;
     display: block;
     font-family: 'Inter', system-ui;
     font-style: normal;
     font-weight: 400;
-    font-size: 11px;
+    font-size: 12px;
     line-height: 13.31px;
+    @media only screen and (min-width: 1800px) {
+     font-size: 26px;
+     line-height: 30px;
+    }
    }
   }
  }
@@ -617,7 +628,7 @@ overflow: auto;
   font-style: normal;
   font-weight: 400;
   display: inline-block;
-  word-break: break-all;
+  word-break: break-word;
  }
 
 
