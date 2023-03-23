@@ -27,7 +27,6 @@ const Users = (props) => {
             axios
                 .get(apiURL + 'getuserarticles/' + props.author + '/?format=json')
                 .then((response) => {
-                    console.log(response);
                     if (response.data.id) {
                         setLength(1);
                     } else setLength(response.data.length);
@@ -74,7 +73,6 @@ const Users = (props) => {
                 })
                 .then((response) => {
                     setCat(response.data.fav_category);
-                    setDescription(response.data.description);
                     setCurrent(response.data.user);
                 })
                 .catch((error) => {
@@ -87,6 +85,7 @@ const Users = (props) => {
                 .get(apiURL + 'prozauserprofile/' + props.author + '/?format=json')
                 .then((response) => {
                     setJpg(response.data.photo);
+                    setDescription(response.data.description);
                     axios
                         .get(apiURL + 'userachievements/' + response.data.id + '/?format=json')
                         .then((response) => {

@@ -375,3 +375,33 @@
     right: 1rem;
   }
 }
+
+.endPost{
+  height: 10vh;
+  position: relative;
+  margin-top: 3rem;
+  width: 10vh;
+  font-family: 'Inter',system-ui;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 28px;
+  cursor: pointer;
+  background: white;
+  float: right;
+}
+
+.endPostMobile{
+  height: 3rem;
+  position: relative;
+  margin-top: 3rem;
+  width: 100vh;
+  font-family: 'Inter',system-ui;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 28px;
+  cursor: pointer;
+  background: white;
+  float: right;
+}

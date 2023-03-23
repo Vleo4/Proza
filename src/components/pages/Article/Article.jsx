@@ -26,6 +26,7 @@ const Article = () => {
                 }
             })
             .then((response) => {
+                response.data.reverse();
                 setState({ items: response.data });
                 setInfinite({ items: [response.data[0], response.data[1]] });
             });

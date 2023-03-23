@@ -10,6 +10,9 @@ import categories from '../../../assets/images/navbar/categories.png';
 import logo from '../../../assets/images/portrait.png';
 import proza from '../../../assets/images/proza.svg';
 import { useAuthContext } from '../../../contexts/AuthContext';
+import { getFromLocalStorage, getFromSessionStorage } from '../../../utils/storage';
+import { ACCESS_TOKEN } from '../../../constants/localStorageKeys';
+import axios from 'axios';
 
 const Navbar = (props) => {
     const { isAuthentificated } = useAuthContext();
@@ -18,7 +21,26 @@ const Navbar = (props) => {
     const [isShownSaves, setIsShownSaves] = useState(false);
     const [isShownProfile, setIsShownProfile] = useState(false);
     const [isShownSettings, setIsShownSettings] = useState(false);
-
+    const [current, setCurrent] = useState(null);
+    React.useEffect(() => {
+        if (isAuthentificated) {
+            const apiURL = 'https://prozaapp.art/api/v1/';
+            const accessToken =
+                getFromSessionStorage(ACCESS_TOKEN) ?? getFromLocalStorage(ACCESS_TOKEN);
+            axios
+                .get(apiURL + 'prozauserprofile/?format=json', {
+                    headers: {
+                        Authorization: 'Bearer ' + accessToken
+                    }
+                })
+                .then((response) => {
+                    setCurrent(response.data.user);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+    }, [isAuthentificated]);
     const activateNav = () => {
         props.setActive(!props.active);
     };
@@ -87,7 +109,12 @@ const Navbar = (props) => {
                     </li>
 
                     <li
-                        className={location.pathname === '/profile' ? 'active' : 'not-active'}
+                        className={
+                            location.pathname === '/profile' ||
+                            location.pathname === '/profile/' + current
+                                ? 'active'
+                                : 'not-active'
+                        }
                         onMouseOver={() => setIsShownProfile(true)}
                         onMouseLeave={() => setIsShownProfile(false)}>
                         <Link to={isAuthentificated ? '/profile' : '/login'}>

@@ -7,6 +7,7 @@ import jwtDecode from 'jwt-decode';
 import { getFromLocalStorage, getFromSessionStorage } from '../../../utils/storage';
 import { ACCESS_TOKEN } from '../../../constants/localStorageKeys';
 import useResizer from '../../../utils/utils';
+import AlertExpanded from '../AlertExpanded/AlertExpanded';
 
 const ExpandableBlock = (props) => {
     const textareaRef = useRef('');
@@ -39,6 +40,7 @@ const ExpandableBlock = (props) => {
                 }
             )
             .then(function () {
+                toggleAlert();
                 props.toggleComplaintAlert();
             })
             .catch(function (error) {
@@ -55,13 +57,19 @@ const ExpandableBlock = (props) => {
             })
             .then(function () {
                 props.toggleComplaintAlert();
+                window.location.href = '/profile';
             })
             .catch(function (error) {
                 console.log(error);
             });
     };
+    const [alert, setAlert] = useState(false);
+    const toggleAlert = () => {
+        setAlert(!alert);
+    };
     return (
         <>
+            <AlertExpanded alert={alert} toggleAlert={toggleAlert} />
             {props.message === 'Видалити' ? (
                 <div className={'textA'} onClick={deleteV} style={{ cursor: 'pointer' }}>
                     {props.message}

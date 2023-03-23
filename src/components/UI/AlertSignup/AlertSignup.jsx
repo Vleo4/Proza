@@ -22,7 +22,7 @@ const AlertSignup = (props) => {
         }
     };
     const clearCategory = () => {
-        categories.items = [];
+        setCategories({ items: [] });
     };
     const [text, setText] = useState(null);
     const handleTextChange = (event) => {
@@ -41,19 +41,16 @@ const AlertSignup = (props) => {
         const accessToken =
             getFromSessionStorage(ACCESS_TOKEN) ?? getFromLocalStorage(ACCESS_TOKEN);
         const token = jwtDecode(accessToken);
-        let data;
-        let pizda = categories.items[0] + 1;
-        if (categories.items.length > 0) {
-            if (text && file) {
-                data = { fav_category: pizda, description: text, photo: file };
-            } else if (!text && !photo) {
-                data = { fav_category: pizda };
-            } else if (!text) {
-                data = { fav_category: pizda, photo: file };
-            } else if (!photo) {
-                data = { fav_category: pizda, description: text };
-            }
 
+        if (categories.items.length > 0) {
+            let pizda = categories.items[0] + 1;
+            let data = { fav_category: pizda };
+            if (text) {
+                data = { ...data, description: text };
+            }
+            if (file) {
+                data = { ...data, photo: file };
+            }
             axios
                 .put(apiURL + 'prozauserprofile/update/' + token.user_id + '/', data, {
                     headers: {
@@ -63,7 +60,6 @@ const AlertSignup = (props) => {
                 })
                 .then(function () {
                     window.location.href = '/';
-                    console.log(data);
                 })
                 .catch(function (error) {
                     console.log(error);

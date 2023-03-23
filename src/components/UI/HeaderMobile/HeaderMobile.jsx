@@ -4,7 +4,7 @@ import proza from '../../../assets/images/proza.svg';
 import guest from '../../../assets/images/Header/Guest.png';
 import portrait from '../../../assets/images/portrait.svg';
 import { useAuthContext } from '../../../contexts/AuthContext';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { getFromLocalStorage, getFromSessionStorage } from '../../../utils/storage';
@@ -56,6 +56,7 @@ const HeaderMobile = () => {
                 });
         }
     });
+    const navigate = useNavigate();
     return (
         <>
             <form className='searchMobile'>
@@ -65,6 +66,7 @@ const HeaderMobile = () => {
                     placeholder='Пошук...'
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
+                    content='width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no'
                 />
                 {search && (
                     <div className='listMobile'>
@@ -84,8 +86,22 @@ const HeaderMobile = () => {
                 )}
             </form>
             <div className='headerMobile-verse'>
-                <img src={logo} className='logo' alt='logo' />
-                <img src={proza} className='proza' alt='proza' />
+                <img
+                    src={logo}
+                    onClick={() => {
+                        navigate('/');
+                    }}
+                    className='logo'
+                    alt='logo'
+                />
+                <img
+                    src={proza}
+                    onClick={() => {
+                        navigate('/');
+                    }}
+                    className='proza'
+                    alt='proza'
+                />
 
                 {!isAuthentificated ? (
                     <>

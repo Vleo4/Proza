@@ -30,7 +30,7 @@ const AlertAddPost = (props) => {
                     },
                     title: title,
                     content: text,
-                    cat: category,
+                    cat: category + 1,
                     user: token.user_id
                 },
                 {
@@ -60,16 +60,15 @@ const AlertAddPost = (props) => {
         <Alert show={props.alert} className={'AlertAddPost'}>
             {!next ? (
                 <div className='fullPost'>
-                    <img src={Close} onClick={props.toggleAlert} />
                     <div className='posts'>
                         <div className='header-post'>
-                            {' '}
                             <input
                                 className='header-input'
                                 onChange={handleTitleChange}
                                 type='text'
                                 placeholder='Назва вірша'
                             />
+                            <img src={Close} onClick={props.toggleAlert} />
                         </div>
                         <div className='text'>
                             <textarea
@@ -80,8 +79,12 @@ const AlertAddPost = (props) => {
                         <button
                             className='publish'
                             onClick={() => {
-                                if (text && title) {
+                                if (text && title && title < 145) {
                                     setNext(true);
+                                } else if (!title && !text) {
+                                    alert('Максимальна довжина назви твору 145 символів');
+                                } else {
+                                    alert('Заповність усі поля');
                                 }
                             }}>
                             Продовжити

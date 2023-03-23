@@ -35,7 +35,7 @@ margin-right: auto;
     width: 85%;
     .header-post{
       border: 0;
-      margin-left: 3rem;
+      margin-left: 2rem;
       font-family: 'Inter', system-ui;
       font-style: normal;
       font-weight: 700;
@@ -44,7 +44,7 @@ margin-right: auto;
       width: 100%;
       display: block;
       .header-input{
-        width: 92%;
+        width: 85%;
         line-height: 2rem;
         border: 0;
         outline:none;
@@ -52,6 +52,15 @@ margin-right: auto;
         font-style: normal;
         font-weight: 500;
         font-size:1.6rem;
+        @media only screen and (max-width: 1400px) {
+          width: 80%;
+        }
+      }
+      img{
+        width: 2rem;
+        height: 2rem;
+        margin-top: 0;
+        margin-right: 3rem;
       }
     }
 

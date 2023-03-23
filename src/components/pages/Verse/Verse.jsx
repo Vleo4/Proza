@@ -72,7 +72,12 @@ const Verse = (props) => {
                             loader={<h4></h4>}
                             height={'95vh'}
                             dataLength={props.infinite.items.length}
-                            endMessage={<p></p>}
+                            endMessage={
+                                <div className='endPostMobile'>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            }
                             className='infiniteMobile'>
                             {location.pathname === '/profile' ||
                             location.pathname === '/profile/' + id ? (
@@ -86,7 +91,8 @@ const Verse = (props) => {
                                         <div className='verseHeaderMobileBlock'>
                                             <ProfileHeader author={props.author} />
                                         </div>
-                                        {location.pathname === '/profile' ? (
+                                        {location.pathname === '/profile' ||
+                                        location.pathname === '/profile/' + current ? (
                                             <div className='verseAddSmallMobileBlock'>
                                                 <div className='postsAddMobile'>
                                                     <div className='text-parent'>
@@ -149,7 +155,12 @@ const Verse = (props) => {
                                         loader={<h4>Loading..</h4>}
                                         height={'100vh'}
                                         dataLength={props.infinite.items.length}
-                                        endMessage={<p>LAST</p>}>
+                                        endMessage={
+                                            <div className='endPost'>
+                                                <span></span>
+                                                <span></span>
+                                            </div>
+                                        }>
                                         {location.pathname === '/profile' ||
                                         location.pathname === '/profile/' + id ? (
                                             <>
@@ -158,7 +169,8 @@ const Verse = (props) => {
                                                     alert={alert}
                                                     className='complaintAlert'
                                                 />
-                                                {location.pathname === '/profile' ? (
+                                                {location.pathname === '/profile' ||
+                                                location.pathname === '/profile/' + current ? (
                                                     <div className='postsAdd'>
                                                         <div className='text-parent'>
                                                             <img
@@ -241,7 +253,12 @@ const Verse = (props) => {
                                     loader={<h4>Loading..</h4>}
                                     height={'100vh'}
                                     dataLength={props.infinite.items.length}
-                                    endMessage={<p>LAST</p>}>
+                                    endMessage={
+                                        <div className='endPost'>
+                                            <span></span>
+                                            <span></span>
+                                        </div>
+                                    }>
                                     {location.pathname === '/profile' ||
                                     location.pathname === '/profile/' + id ? (
                                         <>
@@ -250,7 +267,8 @@ const Verse = (props) => {
                                                 alert={alert}
                                                 className='complaintAlert'
                                             />
-                                            {location.pathname === '/profile' ? (
+                                            {location.pathname === '/profile' ||
+                                            location.pathname === '/profile/' + current ? (
                                                 <div className='postsAdd'>
                                                     <div className='text-parent'>
                                                         <img

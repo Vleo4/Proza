@@ -12,14 +12,14 @@ const MyProfile = () => {
     const [infinite, setInfinite] = useState({ items: [] });
     const [state, setState] = useState(null);
     const apiURL = 'https://prozaapp.art/api/v1/';
-    const { isAuthentificated, isLoading: isAuthLoading } = useAuthContext();
+    const { isAuthentificated, isLoading } = useAuthContext();
     const navigate = useNavigate();
     const [hasMore, setHasMore] = useState(true);
     React.useEffect(() => {
-        if (!isAuthentificated) {
+        if (!isAuthentificated && !isLoading) {
             navigate('/login');
         }
-    }, [isAuthentificated, isAuthLoading]);
+    }, []);
     React.useEffect(() => {
         axios
             .get(apiURL + 'prozauserprofile/?format=json', {
