@@ -17,6 +17,7 @@ import { getFromLocalStorage, getFromSessionStorage } from '../../../utils/stora
 import { ACCESS_TOKEN } from '../../../constants/localStorageKeys';
 import { useAuthContext } from '../../../contexts/AuthContext';
 import jwtDecode from 'jwt-decode';
+import ShowMoreText from 'react-show-more-text';
 
 const Posts = (props) => {
     const { isAuthentificated } = useAuthContext();
@@ -189,15 +190,17 @@ const Posts = (props) => {
 
     const [reviews, setReviews] = useState({ items: [] });
     React.useEffect(() => {
-        axios
-            .get(apiURL + 'getarticlereviews/' + props.id + '/?format=json', {
-                headers: {
-                    Authorization: 'Bearer ' + accessToken
-                }
-            })
-            .then((response) => {
-                setReviews({ items: response.data });
-            });
+        if (isAuthentificated) {
+            axios
+                .get(apiURL + 'getarticlereviews/' + props.id + '/?format=json', {
+                    headers: {
+                        Authorization: 'Bearer ' + accessToken
+                    }
+                })
+                .then((response) => {
+                    setReviews({ items: response.data });
+                });
+        }
     }, [props]);
 
     const [isSubscribe, setIsSubscribe] = useState(false);
@@ -263,17 +266,19 @@ const Posts = (props) => {
                 });
         }
     }, []);
-    const [big, setBig] = useState(false);
-    const visibleRef = React.useRef();
-    const hiddenRef = React.useRef();
+    const ref1 = React.useRef();
+    const [he, setHe] = useState(1);
     React.useEffect(() => {
-        if (visibleRef.current.clientHeight > hiddenRef.current.clientHeight) {
-            setBig(true);
+        console.log(window.innerHeight);
+        if (window.innerHeight > 1000) {
+            setHe(Math.floor((ref1.current.clientHeight * 0.9) / 55) - 1);
+        } else if (window.innerHeight > 750) {
+            setHe(Math.floor((ref1.current.clientHeight * 0.9) / 35));
+        } else if (window.innerHeight > 700) {
+            setHe(Math.floor((ref1.current.clientHeight * 0.9) / 38));
         } else {
-            setBig(false);
+            setHe(Math.floor((ref1.current.clientHeight * 0.9) / 45));
         }
-        console.log(visibleRef.current.clientHeight);
-        console.log(hiddenRef.current.clientHeight);
     }, []);
 
     return (
@@ -295,7 +300,7 @@ const Posts = (props) => {
                 posts={props}
                 className='fullAlert'
             />
-            <div className={divBig()}>
+            <div className={divBig()} ref={ref1}>
                 <div className='header-post'>
                     <img
                         src={jpg ? jpg : portrait}
@@ -329,17 +334,18 @@ const Posts = (props) => {
                         alt='dots'></img>
                 </div>
                 <div className='header-two'>{props.tittle}</div>
-                <div className={'textBigPost'} ref={hiddenRef}></div>
-                <div className={'text'} ref={visibleRef}>
+                <ShowMoreText
+                    lines={he}
+                    more='Читати далі'
+                    less=''
+                    className='text'
+                    expandByClick={false}
+                    onClick={toggleAlert}
+                    expanded={false}
+                    keepNewLines={true}
+                    truncatedEndingComponent={''}>
                     {content()}
-                </div>
-                {big ? (
-                    <div className={'textNext'} onClick={toggleAlert}>
-                        читати далі
-                    </div>
-                ) : (
-                    <></>
-                )}
+                </ShowMoreText>
                 <div className='footer-post'>
                     <img
                         src={isLike ? likes : noLikes}

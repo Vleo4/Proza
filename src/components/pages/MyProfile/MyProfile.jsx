@@ -39,6 +39,7 @@ const MyProfile = () => {
                 }
             })
             .then((response) => {
+                response.data.reverse();
                 if (response.data.length === 1) {
                     setHasMore(false);
                     setState(response.data[0]);
