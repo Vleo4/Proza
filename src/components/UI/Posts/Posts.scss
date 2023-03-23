@@ -84,7 +84,7 @@
  box-sizing: border-box;
  border: 3px solid #FFE3FF;
  border-radius: 15px;
- min-height: 80vh ;
+ height: 70vh;
  width: 82%;
  position:relative;
  padding-bottom:50px;
@@ -115,8 +115,7 @@
    line-height: 13.31px;
   text-overflow: ellipsis;
   overflow: hidden;
-  min-height: 48vh;
-  max-height: 51vh;
+  max-height:  53%;
   @media only screen and (min-width: 1800px) {
    font-size: 26px;
    line-height: 30px;
@@ -196,8 +195,7 @@
   height: 90vh;
   width: 40%;
   position:relative;
-  padding-bottom: 1rem;
-  overflow: hidden;
+  padding-bottom: 0.2rem;
   .header-post{
    font-family: 'Inter', system-ui;
    font-style: normal;
@@ -228,7 +226,7 @@
    line-height: 30px;
    width: 90%;
    word-break: break-all;
-   overflow: hidden;
+   max-height: fit-content;
   }
  }
 }
@@ -1040,7 +1038,7 @@ overflow: auto;
  z-index: -1;
  visibility: hidden;
  position: absolute;
- height: 50vh;
+ height: 49%;
 }
 .textNext{
  margin-left: 0.5rem;
@@ -1049,4 +1047,5 @@ overflow: auto;
  font-weight: 500;
  font-size: 18px;
  line-height: 22px;
+ cursor: pointer;
 }

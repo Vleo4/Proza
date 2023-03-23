@@ -198,7 +198,7 @@ const Posts = (props) => {
             .then((response) => {
                 setReviews({ items: response.data });
             });
-    }, []);
+    }, [props]);
 
     const [isSubscribe, setIsSubscribe] = useState(false);
     const onSubscribe = () => {
@@ -267,11 +267,13 @@ const Posts = (props) => {
     const visibleRef = React.useRef();
     const hiddenRef = React.useRef();
     React.useEffect(() => {
-        if (visibleRef.current.offsetHeight > hiddenRef.current.offsetHeight) {
+        if (visibleRef.current.clientHeight > hiddenRef.current.clientHeight) {
             setBig(true);
         } else {
             setBig(false);
         }
+        console.log(visibleRef.current.clientHeight);
+        console.log(hiddenRef.current.clientHeight);
     }, []);
 
     return (
@@ -333,7 +335,7 @@ const Posts = (props) => {
                 </div>
                 {big ? (
                     <div className={'textNext'} onClick={toggleAlert}>
-                        читати повністю
+                        читати далі
                     </div>
                 ) : (
                     <></>
