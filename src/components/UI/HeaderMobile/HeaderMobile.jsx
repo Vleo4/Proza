@@ -89,7 +89,7 @@ const HeaderMobile = () => {
                 <img
                     src={logo}
                     onClick={() => {
-                        navigate('/');
+                        window.location.href = '/';
                     }}
                     className='logo'
                     alt='logo'
