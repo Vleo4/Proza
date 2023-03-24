@@ -273,7 +273,7 @@ const Posts = (props) => {
         if (window.innerHeight > 1000) {
             setHe(Math.floor((ref1.current.clientHeight * 0.9) / 55) - 1);
         } else if (window.innerHeight > 750) {
-            setHe(Math.floor((ref1.current.clientHeight * 0.9) / 35));
+            setHe(Math.floor((ref1.current.clientHeight * 0.9) / 35) - 1);
         } else if (window.innerHeight > 700) {
             setHe(Math.floor((ref1.current.clientHeight * 0.9) / 38));
         } else {
