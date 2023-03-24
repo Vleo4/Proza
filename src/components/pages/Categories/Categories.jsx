@@ -30,25 +30,22 @@ const Categories = () => {
     const apiURL = 'https://prozaapp.art/api/v1/';
     const [category, setCategory] = useState(null);
     React.useEffect(() => {
-        if (category) {
-            axios
-                .get(apiURL + 'getarticlesfromcategory/' + category + 1 + '/?format=json')
-                .then((response) => {
-                    if (response.data.length === 1) {
-                        setState(response.data[0]);
-                        setInfinite({ items: [response.data[0]] });
-                    } else if (!response.data.length) {
-                        setInfinite({ items: [] });
-                    } else if (response.data.length === 2) {
-                        setState({ items: response.data });
-                        setInfinite({ items: [response.data[0], response.data[1]] });
-                        setHasMore({ items: [] });
-                    } else {
-                        setState({ items: response.data });
-                        setInfinite({ items: [response.data[0], response.data[1]] });
-                    }
-                });
-        }
+        const cat = category + 1;
+        axios.get(apiURL + 'getarticlesfromcategory/' + cat + '/?format=json').then((response) => {
+            if (response.data.length === 1) {
+                setState(response.data[0]);
+                setInfinite({ items: [response.data[0]] });
+            } else if (!response.data.length) {
+                setInfinite({ items: [] });
+            } else if (response.data.length === 2) {
+                setState({ items: response.data });
+                setInfinite({ items: [response.data[0], response.data[1]] });
+                setHasMore({ items: [] });
+            } else {
+                setState({ items: response.data });
+                setInfinite({ items: [response.data[0], response.data[1]] });
+            }
+        });
     }, [category]);
     const [indexCount, setIndexCount] = useState(2);
     const [hasMore, setHasMore] = useState(true);
