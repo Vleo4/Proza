@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.scss';
 import burger from '../../../assets/images/navbar/burger.png';
@@ -22,7 +22,7 @@ const Navbar = (props) => {
     const [isShownProfile, setIsShownProfile] = useState(false);
     const [isShownSettings, setIsShownSettings] = useState(false);
     const [current, setCurrent] = useState(null);
-    React.useEffect(() => {
+    useEffect(() => {
         if (isAuthentificated) {
             const apiURL = 'https://prozaapp.art/api/v1/';
             const accessToken =

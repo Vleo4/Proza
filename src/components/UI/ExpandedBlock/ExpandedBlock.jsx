@@ -2,66 +2,30 @@ import React, { useRef, useState } from 'react';
 import sent from '../../../assets/images/ExpandedBlock/sent.png';
 import arrow from '../../../assets/images/ExpandedBlock/arrow.png';
 import right from '../../../assets/images/ExpandedBlock/right.png';
-import axios from 'axios';
-import jwtDecode from 'jwt-decode';
-import { getFromLocalStorage, getFromSessionStorage } from '../../../utils/storage';
-import { ACCESS_TOKEN } from '../../../constants/localStorageKeys';
 import useResizer from '../../../utils/utils';
 import AlertExpanded from '../AlertExpanded/AlertExpanded';
+import { deleteArticle, postComplaint } from '../../../api/requests';
+import './ExpandedBlock.scss';
 
 const ExpandableBlock = (props) => {
     const textareaRef = useRef('');
-    const accessToken = getFromSessionStorage(ACCESS_TOKEN) ?? getFromLocalStorage(ACCESS_TOKEN);
     const [expanded, setExpanded] = useState(false);
     const [text, setText] = useState('');
-    const token = jwtDecode(accessToken);
-    const apiURL = 'https://prozaapp.art/api/v1/';
+    const isMobile = useResizer();
     const handleTextChange = (event) => {
         setText(event.target.value);
     };
     const publish = () => {
-        axios
-            .post(
-                apiURL + 'report/',
-                {
-                    headers: {
-                        Authorization: 'Bearer ' + accessToken,
-                        'Content-Type': 'application/json'
-                    },
-                    name: props.message,
-                    content: text,
-                    user: token.user_id,
-                    article: props.id
-                },
-                {
-                    headers: {
-                        Authorization: 'Bearer ' + accessToken
-                    }
-                }
-            )
-            .then(function () {
-                toggleAlert();
-                props.toggleComplaintAlert();
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+        if (postComplaint(props.message, text, props.id)) {
+            toggleAlert();
+            props.toggleComplaintAlert();
+        }
     };
-    const isMobile = useResizer();
     const deleteV = () => {
-        axios
-            .delete(apiURL + 'articledelete/' + props.id, {
-                headers: {
-                    Authorization: 'Bearer ' + accessToken
-                }
-            })
-            .then(function () {
-                props.toggleComplaintAlert();
-                window.location.href = '/profile';
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+        if (deleteArticle(props.id)) {
+            props.toggleComplaintAlert();
+            window.location.href = '/profile';
+        }
     };
     const [alert, setAlert] = useState(false);
     const toggleAlert = () => {
@@ -81,7 +45,7 @@ const ExpandableBlock = (props) => {
                         onClick={() => setExpanded(!expanded)}
                         src={expanded ? arrow : right}
                         alt={'arrow'}
-                        className='expandedArrow'
+                        className={isMobile ? 'expandedArrowMobile' : 'expandedArrow'}
                     />
                     {expanded && (
                         <div className='expandedBlock'>

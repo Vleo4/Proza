@@ -1,6 +1,6 @@
 import Navbar from '../../UI/Navbar/Navbar';
 import './Verse.scss';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Posts from '../../UI/Posts/Posts';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Users from '../../UI/Users/Users';
@@ -16,20 +16,16 @@ import Search from '../../UI/Search/Search';
 import RightTop from '../../UI/RightTop/RightTop';
 import ProfileHeader from '../../UI/ProfileHeader/ProfileHeader';
 import AlertAddPostMobile from '../../UI/AlertAddPostMobile/AlertAddPostMobile';
-import { getFromLocalStorage, getFromSessionStorage } from '../../../utils/storage';
-import { ACCESS_TOKEN } from '../../../constants/localStorageKeys';
-import axios from 'axios';
 import portrait from '../../../assets/images/portrait.svg';
+import CategoriesMiddle from '../../UI/CategoriesMiddle/CategoriesMiddle';
+import CategoriesMiddleMobile from '../../UI/CategoriesMiddleMobile/CategoriesMiddleMobile';
+import { getCurrentUser } from '../../../api/requests';
 const Verse = (props) => {
     let { id } = useParams();
     const navigate = useNavigate();
     const { isAuthentificated } = useAuthContext();
     const isMobile = useResizer();
     const [active, setActive] = useState(null);
-    const [alert, setAlert] = useState(false);
-    const toggleAlert = () => {
-        setAlert(!alert);
-    };
     const [comment, setComment] = React.useState([false, false]);
     const toggleComment = (p) => {
         setComment((prevComment) => ({
@@ -39,25 +35,15 @@ const Verse = (props) => {
     };
     const [jpg, setJpg] = useState(null);
     const [current, setCurrent] = useState(null);
-    const apiURL = 'https://prozaapp.art/api/v1/';
-    React.useEffect(() => {
-        if (isAuthentificated) {
-            const accessToken =
-                getFromSessionStorage(ACCESS_TOKEN) ?? getFromLocalStorage(ACCESS_TOKEN);
-            axios
-                .get(apiURL + 'prozauserprofile/?format=json', {
-                    headers: {
-                        Authorization: 'Bearer ' + accessToken
-                    }
-                })
-                .then((response) => {
-                    setJpg(response.data.photo);
-                    setCurrent(response.data.user);
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
+    useEffect(() => {
+        async function fetchData() {
+            if (isAuthentificated) {
+                let data = await getCurrentUser();
+                setJpg(data.photo);
+                setCurrent(data.user);
+            }
         }
+        fetchData();
     }, [isAuthentificated]);
     if (isMobile) {
         return (
@@ -82,33 +68,43 @@ const Verse = (props) => {
                             {location.pathname === '/profile' ||
                             location.pathname === '/profile/' + id ? (
                                 <>
-                                    <AlertAddPostMobile
-                                        toggleAlert={toggleAlert}
-                                        alert={alert}
-                                        className='complaintAlert'
-                                    />
                                     <div className='infiniteMobile'>
                                         <div className='verseHeaderMobileBlock'>
                                             <ProfileHeader author={props.author} />
                                         </div>
                                         {location.pathname === '/profile' ||
                                         location.pathname === '/profile/' + current ? (
-                                            <div className='verseAddSmallMobileBlock'>
-                                                <div className='postsAddMobile'>
-                                                    <div className='text-parent'>
-                                                        <img
-                                                            src={addPost}
-                                                            className='addPostSmallMobile'
-                                                            onClick={toggleAlert}
-                                                        />
+                                            <>
+                                                <AlertAddPostMobile
+                                                    toggleAlert={props.toggleAlert}
+                                                    alert={props.alert}
+                                                    className='complaintAlert'
+                                                />
+                                                <div className='verseAddSmallMobileBlock'>
+                                                    <div className='postsAddMobile'>
+                                                        <div className='text-parent'>
+                                                            <img
+                                                                src={addPost}
+                                                                className='addPostSmallMobile'
+                                                                onClick={props.toggleAlert}
+                                                            />
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </>
                                         ) : (
                                             <></>
                                         )}
                                     </div>
                                 </>
+                            ) : (
+                                <></>
+                            )}
+                            {location.pathname === '/categories' ? (
+                                <CategoriesMiddleMobile
+                                    category={props.category}
+                                    setCategory={props.setCategory}
+                                />
                             ) : (
                                 <></>
                             )}
@@ -145,7 +141,7 @@ const Verse = (props) => {
                 <>
                     <div className='verse-page-small'>
                         <Navbar className='navBar' active={active} setActive={setActive} />
-                        <div className='verse-small'>
+                        <div className={'verse-small'}>
                             <div className='verse'>
                                 {props.infinite.items[0] ? (
                                     <InfiniteScroll
@@ -161,25 +157,34 @@ const Verse = (props) => {
                                                 <span></span>
                                             </div>
                                         }>
+                                        {location.pathname === '/categories' ? (
+                                            <CategoriesMiddle
+                                                category={props.category}
+                                                setCategory={props.setCategory}
+                                            />
+                                        ) : (
+                                            <></>
+                                        )}
                                         {location.pathname === '/profile' ||
                                         location.pathname === '/profile/' + id ? (
                                             <>
-                                                <AlertAddPost
-                                                    toggleAlert={toggleAlert}
-                                                    alert={alert}
-                                                    className='complaintAlert'
-                                                />
                                                 {location.pathname === '/profile' ||
                                                 location.pathname === '/profile/' + current ? (
-                                                    <div className='postsAdd'>
-                                                        <div className='text-parent'>
-                                                            <img
-                                                                src={addPost}
-                                                                className='addPostSmall'
-                                                                onClick={toggleAlert}
-                                                            />
+                                                    <>
+                                                        <AlertAddPost
+                                                            toggleAlert={props.toggleAlert}
+                                                            alert={props.alert}
+                                                        />
+                                                        <div className='postsAdd'>
+                                                            <div className='text-parent'>
+                                                                <img
+                                                                    src={addPost}
+                                                                    className='addPostSmall'
+                                                                    onClick={props.toggleAlert}
+                                                                />
+                                                            </div>
                                                         </div>
-                                                    </div>
+                                                    </>
                                                 ) : (
                                                     <></>
                                                 )}
@@ -244,7 +249,7 @@ const Verse = (props) => {
                 <>
                     <div className='verse-page' id='scrollableDiv'>
                         <Navbar className='navBar' active={active} setActive={setActive} />
-                        <div className='verse-block'>
+                        <div className={'verse-block'}>
                             {props.infinite.items[0] ? (
                                 <InfiniteScroll
                                     scrollableTarget='scrollableDiv'
@@ -259,25 +264,34 @@ const Verse = (props) => {
                                             <span></span>
                                         </div>
                                     }>
+                                    {location.pathname === '/categories' ? (
+                                        <CategoriesMiddle
+                                            category={props.category}
+                                            setCategory={props.setCategory}
+                                        />
+                                    ) : (
+                                        <></>
+                                    )}
                                     {location.pathname === '/profile' ||
                                     location.pathname === '/profile/' + id ? (
                                         <>
-                                            <AlertAddPost
-                                                toggleAlert={toggleAlert}
-                                                alert={alert}
-                                                className='complaintAlert'
-                                            />
                                             {location.pathname === '/profile' ||
                                             location.pathname === '/profile/' + current ? (
-                                                <div className='postsAdd'>
-                                                    <div className='text-parent'>
-                                                        <img
-                                                            src={addPost}
-                                                            className='addPostSmall'
-                                                            onClick={toggleAlert}
-                                                        />
+                                                <>
+                                                    <AlertAddPost
+                                                        toggleAlert={props.toggleAlert}
+                                                        alert={props.alert}
+                                                    />
+                                                    <div className='postsAdd'>
+                                                        <div className='text-parent'>
+                                                            <img
+                                                                src={addPost}
+                                                                className='addPostSmall'
+                                                                onClick={props.toggleAlert}
+                                                            />
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                </>
                                             ) : (
                                                 <></>
                                             )}

@@ -1,8 +1,8 @@
 import { Alert } from 'react-bootstrap';
-import '../Posts/Posts.scss';
+import './Alert.scss';
 import Close from '../../../assets/images/Posts/Close.png';
 import { Scrollbars } from 'react-custom-scrollbars';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 const AlertPost = (props) => {
     const renderThumbHorizontal = ({ style, ...props }) => {
@@ -14,7 +14,7 @@ const AlertPost = (props) => {
     };
     const divRef = React.useRef();
 
-    React.useEffect(() => {
+    useEffect(() => {
         function handleClickOutside(event) {
             if (divRef.current && !divRef.current.contains(event.target)) {
                 props.toggleAlert();

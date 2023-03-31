@@ -5,7 +5,6 @@
   border-radius: 15px;
   height: 82%;
   position: relative;
-  padding-top: 1rem;
   @media only screen and (max-width: 1400px) {
     zoom: 0.98;
   }
@@ -30,9 +29,15 @@
     }
       border-bottom: 0;
     .infoTop {
+      overflow: hidden;
       height: 4rem;
       padding-top: 1rem;
-      display: flex;
+      display: block;
+      font-family: 'Inter', system-ui;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 17px;
+      line-height: 17px;
       div {
         overflow: hidden;
         width: 70%;
@@ -71,13 +76,12 @@
   }
 }
 .partTop2{
-    cursor: default;
-    vertical-align: text-top;
+  cursor: default;
   display: flex;
-  width: 6rem;
   position: absolute;
   float: right;
   right: -40%;
+  margin-top: -1rem;
   a{
     cursor: default;
     vertical-align: top;

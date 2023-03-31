@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
 import HomeLayout from 'components/layouts/AuthLayout';
 import Button from 'components/UI/Button/Button';
 import './Signup.scss';
@@ -15,7 +15,6 @@ import useResizer from '../../../utils/utils';
 const Signup = () => {
     const navigate = useNavigate();
     const { isAuthentificated } = useAuthContext();
-    const [setLoading] = useState(false);
     const {
         control,
         handleSubmit,
@@ -23,7 +22,7 @@ const Signup = () => {
         formState: { errors }
     } = useForm();
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (isAuthentificated) {
             navigate('/');
         }
@@ -39,11 +38,9 @@ const Signup = () => {
             const response = await api.auth.register(data.username, data.email, data.password);
 
             if (response.user) {
-                const { access, refresh } = await api.auth.login(data.username, data.password);
-                saveToSessionStorage(ACCESS_TOKEN, access);
-                saveToSessionStorage(REFRESH_TOKEN, refresh);
+                saveToSessionStorage(ACCESS_TOKEN, response.access);
+                saveToSessionStorage(REFRESH_TOKEN, response.refresh);
                 toggleAlert(true);
-                setLoading(false);
             }
         } catch (e) {
             console.error(e);

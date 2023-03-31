@@ -14,6 +14,27 @@
   background-color: #FFE3FF;
   position: fixed;
   right: 0;
+
+  .verse-smallArticle {
+    position: absolute;
+    background-color: white;
+    width:48.65%;
+    height: 86vh;
+    top: 10%;
+    bottom: 8%;
+    right: 41%;
+    border: 1px solid rgba(0, 0, 0, 0.7);
+  }
+  .verse-smallArticleComment {
+    position: absolute;
+    background-color: white;
+    width:48.65%;
+    min-height: 100vh;
+    top: 10%;
+    right: 41%;
+    border: 1px solid rgba(0, 0, 0, 0.7);
+    border-bottom: 0;
+  }
   .verse-small {
     position: absolute;
     background-color: white;
@@ -117,6 +138,28 @@
     position: absolute;
     background-color: white;
     width:48%;
+    top: 10%;
+    right: 36.6%;
+    border: 1px solid rgba(0, 0, 0, 0.7);
+    border-bottom: 0;
+    box-sizing: border-box;
+  }
+  .verse-blockArticle {
+    height: 86vh;
+    position: absolute;
+    background-color: white;
+    width:44%;
+    top: 10%;
+    bottom: 8%;
+    right: 36.6%;
+    border: 1px solid rgba(0, 0, 0, 0.7);
+    box-sizing: border-box;
+  }
+  .verse-blockArticleComment {
+    min-height: 100vh;
+    position: absolute;
+    background-color: white;
+    width:44%;
     top: 10%;
     right: 36.6%;
     border: 1px solid rgba(0, 0, 0, 0.7);
@@ -290,15 +333,14 @@
   box-sizing: border-box;
   border: 3px solid #FFE3FF;
   border-radius: 15px;
-  min-height: 3rem ;
+  height: 8vh ;
   margin-left: 4%;
   width: 92%;
   position:relative;
-  margin-top: 1rem;
-  margin-bottom:1rem;
+  margin-top: 1vh;
   .addPostSmallMobile{
-    top:0.15rem;
-    width:2.5rem;
+    top:0.85vh;
+    width:6vh;
     position: absolute;
     left: 45%;
     cursor: pointer;
@@ -405,3 +447,4 @@
   background: white;
   float: right;
 }
+

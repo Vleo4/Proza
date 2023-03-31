@@ -1,8 +1,7 @@
 import './Users.scss';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import subscribe from '../../../assets/images/Users/subscribe.png';
 import noSubscribe from '../../../assets/images/Users/noSubscribe.png';
-import axios from 'axios';
 import { getFromLocalStorage, getFromSessionStorage } from '../../../utils/storage';
 import { ACCESS_TOKEN } from '../../../constants/localStorageKeys';
 import { useAuthContext } from '../../../contexts/AuthContext';
@@ -11,10 +10,16 @@ import { useNavigate } from 'react-router-dom';
 import refactor from '../../../assets/images/Users/refactor.png';
 import AlertRefactor from '../AlertRefactor/AlertRefactor';
 import portrait from '../../../assets/images/portrait.svg';
+import {
+    getAchievements,
+    getCurrentUser,
+    getUserArticles,
+    getUserProfile,
+    setSubscribeUser
+} from '../../../api/requests';
 const Users = (props) => {
     const { isAuthentificated } = useAuthContext();
     const [isSubscribe, setIsSubscribe] = useState(false);
-    const accessToken = getFromSessionStorage(ACCESS_TOKEN) ?? getFromLocalStorage(ACCESS_TOKEN);
     const navigate = useNavigate();
     const [length, setLength] = useState(0);
     const [alert, toggleAlert] = useState(false);
@@ -22,36 +27,20 @@ const Users = (props) => {
     const toggleAlertFunc = () => {
         toggleAlert(!alert);
     };
-    React.useEffect(() => {
-        if (props.author) {
-            axios
-                .get(apiURL + 'getuserarticles/' + props.author + '/?format=json')
-                .then((response) => {
-                    if (response.data.id) {
-                        setLength(1);
-                    } else setLength(response.data.length);
-                });
+    useEffect(() => {
+        async function fetchData() {
+            if (isAuthentificated) {
+                let data = await getUserArticles(props.author);
+                if (data.id) {
+                    setLength(1);
+                } else setLength(data.length);
+            }
         }
+        fetchData();
     }, [props.author]);
     const onSubscribe = () => {
         if (isAuthentificated && location.pathname !== '/profile') {
-            axios
-                .put(
-                    apiURL + 'subscription/' + props.author + '/',
-                    {},
-                    {
-                        headers: {
-                            'Content-Type': 'application/json',
-                            Authorization: 'Bearer ' + accessToken
-                        }
-                    }
-                )
-                .then(function () {
-                    setIsSubscribe(!isSubscribe);
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
+            setSubscribeUser(props.author);
         } else {
             navigate('/login');
         }
@@ -59,51 +48,39 @@ const Users = (props) => {
     const [current, setCurrent] = useState(null);
     const [subscribers, setSubscribers] = useState(0);
     const [follows, setFollows] = useState(0);
-    const apiURL = 'https://prozaapp.art/api/v1/';
     const [description, setDescription] = useState('');
     const [jpg, setJpg] = useState(null);
     const [ico, setIco] = useState(null);
-    React.useEffect(() => {
-        if (isAuthentificated) {
-            axios
-                .get(apiURL + 'prozauserprofile/?format=json', {
-                    headers: {
-                        Authorization: 'Bearer ' + accessToken
-                    }
-                })
-                .then((response) => {
-                    setCat(response.data.fav_category);
-                    setCurrent(response.data.user);
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
+    useEffect(() => {
+        async function fetchData() {
+            if (isAuthentificated) {
+                let data = await getCurrentUser();
+                setCat(data.fav_category);
+                setCurrent(data.user);
+            }
+            if (props.author) {
+                let data = await getUserProfile(props.author);
+                setJpg(data.photo);
+                const accessToken =
+                    getFromSessionStorage(ACCESS_TOKEN) ?? getFromLocalStorage(ACCESS_TOKEN);
+                const token = jwtDecode(accessToken);
+                setJpg(data.photo);
+                setDescription(data.description);
+                if (data.subscribers) setSubscribers(data.subscribers);
+                setIsSubscribe(data.subscribers.includes(token.user_id));
+                if (data.follows) setFollows(data.follows);
+                if (isAuthentificated && location.pathname !== '/profile') {
+                    const token = jwtDecode(accessToken);
+                    setIsSubscribe(data.subscribers.includes(token.user_id));
+                }
+                data = await getAchievements(data.id);
+                if (data) {
+                    setIco(data.achieved[0].ico);
+                }
+            }
         }
-        if (props.author) {
-            setIsSubscribe(false);
-            axios
-                .get(apiURL + 'prozauserprofile/' + props.author + '/?format=json')
-                .then((response) => {
-                    setJpg(response.data.photo);
-                    setDescription(response.data.description);
-                    axios
-                        .get(apiURL + 'userachievements/' + response.data.id + '/?format=json')
-                        .then((response) => {
-                            setIco(response.data.achieved[0].ico);
-                        });
-                    if (response.data.subscribers) setSubscribers(response.data.subscribers);
-                    if (isAuthentificated && location.pathname !== '/profile') {
-                        const token = jwtDecode(accessToken);
-                        response.data.subscribers.map((index) => {
-                            if (index === token.user_id) {
-                                setIsSubscribe(true);
-                            }
-                        });
-                    }
-                    if (response.data.follows) setFollows(response.data.follows);
-                });
-        }
-    }, [props.author]);
+        fetchData();
+    }, [props.author, alert, cat]);
     return (
         <>
             <AlertRefactor

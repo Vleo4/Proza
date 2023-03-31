@@ -1,72 +1,82 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { ACCESS_TOKEN } from '../../../constants/localStorageKeys';
 import { getFromLocalStorage, getFromSessionStorage } from '../../../utils/storage';
 import VerseAdd from '../VerseAdd/VerseAdd';
 import Verse from '../Verse/Verse';
 import { useAuthContext } from '../../../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { getCurrentUser, getCurrentUserArticles } from '../../../api/requests';
 const MyProfile = () => {
     const [author, setAuthor] = useState('');
     const accessToken = getFromSessionStorage(ACCESS_TOKEN) ?? getFromLocalStorage(ACCESS_TOKEN);
     const [infinite, setInfinite] = useState({ items: [] });
-    const [state, setState] = useState(null);
-    const apiURL = 'https://prozaapp.art/api/v1/';
-    const { isAuthentificated, isLoading } = useAuthContext();
+    const [state, setState] = useState({ items: [] });
+    const { isAuthentificated } = useAuthContext();
     const navigate = useNavigate();
     const [hasMore, setHasMore] = useState(true);
-    React.useEffect(() => {
-        if (!isAuthentificated && !isLoading) {
+    const [alert, setAlert] = useState(false);
+    const [alertMobile, setAlertMobile] = useState(false);
+    const toggleAlert = () => {
+        setAlert(!alert);
+    };
+    const toggleAlertMobile = () => {
+        setAlertMobile(!alertMobile);
+    };
+    useEffect(() => {
+        if (!isAuthentificated) {
             navigate('/login');
         }
     }, []);
-    React.useEffect(() => {
-        axios
-            .get(apiURL + 'prozauserprofile/?format=json', {
-                headers: {
-                    Authorization: 'Bearer ' + accessToken
-                }
-            })
-            .then((response) => {
-                setAuthor(response.data.user);
-            });
+    useEffect(() => {
+        async function fetchData() {
+            let data = await getCurrentUser();
+            if (data) {
+                setAuthor(data.user);
+            }
+        }
+        fetchData();
     }, []);
-    React.useEffect(() => {
-        axios
-            .get(apiURL + 'getcurrentuserarticles/?format=json', {
-                headers: {
-                    Authorization: 'Bearer ' + accessToken
-                }
-            })
-            .then((response) => {
-                response.data.reverse();
-                if (response.data.length === 1) {
-                    setHasMore(false);
-                    setState(response.data[0]);
-                    setInfinite({ items: [response.data[0]] });
-                } else if (response.data.length === 2) {
-                    setState({ items: response.data });
-                    setInfinite({ items: [response.data[0], response.data[1]] });
-                    setHasMore(false);
-                } else if (!response.data.length) {
-                    setInfinite({ items: { length: 0 } });
+    useEffect(() => {
+        async function fetchData() {
+            let data = await getCurrentUserArticles();
+            data = data.sort((a, b) => b.id - a.id);
+            if (data.length > 0) {
+                setState({ items: data });
+                if (data.length > 1) {
+                    setInfinite({ items: [data[0], data[1]] });
                 } else {
-                    setState({ items: response.data });
-                    setInfinite({ items: [response.data[0], response.data[1]] });
+                    setInfinite({ items: [data[0]] });
+                    setHasMore(false);
                 }
-            });
-    }, [author]);
+                if (data.length < 3) setHasMore(false);
+            }
+        }
+        fetchData();
+    }, [alert, alertMobile]);
     const [indexCount, setIndexCount] = useState(2);
     const fetchMoreData = () => {
-        setInfinite({ items: [...infinite.items, state.items[indexCount]] });
-        setIndexCount(indexCount + 1);
         if (indexCount === state.items.length - 1) setHasMore(false);
+        else {
+            setInfinite({ items: [...infinite.items, state.items[indexCount]] });
+            setIndexCount(indexCount + 1);
+        }
     };
     if (infinite.items.length === 0) {
-        return <VerseAdd accessToken={accessToken} author={author} />;
+        return (
+            <VerseAdd
+                accessToken={accessToken}
+                alert={alert}
+                toggleAlert={toggleAlert}
+                alertMobile={alertMobile}
+                toggleAlertMobile={toggleAlertMobile}
+                author={author}
+            />
+        );
     } else {
         return (
             <Verse
+                alert={alert}
+                toggleAlert={toggleAlert}
                 author={author}
                 state={state}
                 infinite={infinite}

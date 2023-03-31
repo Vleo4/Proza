@@ -1,45 +1,35 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import Verse from '../Verse/Verse';
 import { useParams } from 'react-router-dom';
+import { getUserArticles } from '../../../api/requests';
 const Profile = () => {
     const [infinite, setInfinite] = useState({ items: [] });
     let { id } = useParams();
     const [state, setState] = useState(null);
-    const apiURL = 'https://prozaapp.art/api/v1/';
-    React.useEffect(() => {
-        axios.get(apiURL + 'getuserarticles/' + id + '/?format=json').then((response) => {
-            response.data.reverse();
-            if (response.data.length === 1) {
-                setState(response.data[0]);
-                setInfinite({ items: [response.data[0]] });
-            } else if (!response.data.length) {
-                setState({
-                    id: '',
-                    user: id,
-                    cat: '',
-                    title: '',
-                    content: '',
-                    author: '',
-                    count_of_likes: 0,
-                    count_of_reviews: 0
-                });
-            } else if (response.data.length === 2) {
-                setState({ items: response.data });
-                setInfinite({ items: [response.data[0], response.data[1]] });
-                setHasMore(false);
-            } else {
-                setState({ items: response.data });
-                setInfinite({ items: [response.data[0], response.data[1]] });
+    useEffect(() => {
+        async function fetchData() {
+            const data = await getUserArticles(id);
+            if (data.length > 0) {
+                setState({ items: data });
+                if (data.length > 1) {
+                    setInfinite({ items: [data[0], data[1]] });
+                } else {
+                    setInfinite({ items: [data[0]] });
+                    setHasMore(false);
+                }
+                if (data.length < 3) setHasMore(false);
             }
-        });
-    }, []);
+        }
+        fetchData();
+    }, [id]);
     const [indexCount, setIndexCount] = useState(2);
     const [hasMore, setHasMore] = useState(true);
     const fetchMoreData = () => {
-        setInfinite({ items: [...infinite.items, state.items[indexCount]] });
-        setIndexCount(indexCount + 1);
         if (indexCount === state.items.length - 1) setHasMore(false);
+        else {
+            setInfinite({ items: [...infinite.items, state.items[indexCount]] });
+            setIndexCount(indexCount + 1);
+        }
     };
     if (!state) {
         return <h1>Loading...</h1>;

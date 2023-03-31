@@ -1,9 +1,8 @@
-import '../Posts/Posts.scss';
-import React, { useState } from 'react';
+import './ProfileHeader.scss';
+import React, { useEffect, useState } from 'react';
 import AlertAddPost from '../AlertAddPost/AlertAddPost';
 import subscribe from '../../../assets/images/Users/subscribe.png';
 import noSubscribe from '../../../assets/images/Users/noSubscribe.png';
-import axios from 'axios';
 import { getFromLocalStorage, getFromSessionStorage } from '../../../utils/storage';
 import { ACCESS_TOKEN } from '../../../constants/localStorageKeys';
 import { useAuthContext } from '../../../contexts/AuthContext';
@@ -12,31 +11,19 @@ import { useNavigate } from 'react-router-dom';
 import refactor from '../../../assets/images/Users/refactor.png';
 import AlertRefactor from '../AlertRefactor/AlertRefactor';
 import portrait from '../../../assets/images/portrait.svg';
+import {
+    getCurrentUser,
+    getUserArticles,
+    getUserProfile,
+    setSubscribeUser
+} from '../../../api/requests';
 const ProfileHeader = (props) => {
     const { isAuthentificated } = useAuthContext();
     const [isSubscribe, setIsSubscribe] = useState(false);
     const navigate = useNavigate();
     const onSubscribe = () => {
         if (isAuthentificated && location.pathname !== '/profile') {
-            const accessToken =
-                getFromSessionStorage(ACCESS_TOKEN) ?? getFromLocalStorage(ACCESS_TOKEN);
-            axios
-                .put(
-                    apiURL + 'subscription/' + props.author + '/',
-                    {},
-                    {
-                        headers: {
-                            'Content-Type': 'application/json',
-                            Authorization: 'Bearer ' + accessToken
-                        }
-                    }
-                )
-                .then(function () {
-                    setIsSubscribe(!isSubscribe);
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
+            setSubscribeUser(props.author);
         } else {
             navigate('/login');
         }
@@ -45,57 +32,40 @@ const ProfileHeader = (props) => {
     const [subscribers, setSubscribers] = useState(0);
     const [articles, setArticles] = useState(0);
     const [follows, setFollows] = useState(0);
-    const apiURL = 'https://prozaapp.art/api/v1/';
     const [jpg, setJpg] = useState(null);
     const [cat, setCat] = useState(false);
     const [description, setDescription] = useState(null);
-    React.useEffect(() => {
-        if (isAuthentificated) {
-            const accessToken =
-                getFromSessionStorage(ACCESS_TOKEN) ?? getFromLocalStorage(ACCESS_TOKEN);
-            axios
-                .get(apiURL + 'prozauserprofile/?format=json', {
-                    headers: {
-                        Authorization: 'Bearer ' + accessToken
-                    }
-                })
-                .then((response) => {
-                    setCat(response.data.fav_category);
-                    setCurrent(response.data.user);
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
+    useEffect(() => {
+        async function fetchData() {
+            if (isAuthentificated) {
+                let data = await getCurrentUser();
+                if (data) {
+                    setCat(data.fav_category);
+                    setCurrent(data.user);
+                }
+            }
         }
-        if (props.author) {
-            setIsSubscribe(false);
-            axios
-                .get(apiURL + 'prozauserprofile/' + props.author + '/?format=json')
-                .then((response) => {
-                    setDescription(response.data.description);
-                    setJpg(response.data.photo);
-                    if (response.data.subscribers) setSubscribers(response.data.subscribers);
-                    if (isAuthentificated && location.pathname !== '/profile') {
-                        const accessToken =
-                            getFromSessionStorage(ACCESS_TOKEN) ??
-                            getFromLocalStorage(ACCESS_TOKEN);
-                        const token = jwtDecode(accessToken);
-                        response.data.subscribers.map((index) => {
-                            if (index === token.user_id) {
-                                setIsSubscribe(true);
-                            }
-                        });
-                    }
-                    if (response.data.follows) setFollows(response.data.follows);
-                });
-            axios
-                .get(apiURL + 'getuserarticles/' + props.author + '/?format=json')
-                .then((response) => {
-                    if (response.data.length) {
-                        setArticles(response.data.length);
-                    }
-                });
+        fetchData();
+    }, []);
+    useEffect(() => {
+        async function fetchData() {
+            if (props.author) {
+                let data = await getUserProfile(props.author);
+                setDescription(data.description);
+                setJpg(data.photo);
+                if (data.subscribers) setSubscribers(data.subscribers);
+                if (isAuthentificated && location.pathname !== '/profile') {
+                    const accessToken =
+                        getFromSessionStorage(ACCESS_TOKEN) ?? getFromLocalStorage(ACCESS_TOKEN);
+                    const token = jwtDecode(accessToken);
+                    setIsSubscribe(data.subscribers.includes(token.user_id));
+                }
+                if (data.follows) setFollows(data.follows);
+            }
+            let data = await getUserArticles(props.author);
+            setArticles(data.length);
         }
+        fetchData();
     }, [props.author]);
     const [alert, setAlert] = useState(false);
     const toggleAlert = () => {
@@ -145,7 +115,7 @@ const ProfileHeader = (props) => {
                     <div className='header'> {props.author}</div>
                     <div className='slug'>{props.author}</div>
                     <div className='textAchievement'>Письменник(ця)-початківець</div>
-                    <div className='text'>{description}</div>
+                    <div className='textDesc'>{description}</div>
                 </div>
                 <div className='allRows'>
                     <div className='textRow'>Публікації</div>

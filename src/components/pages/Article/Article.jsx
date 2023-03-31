@@ -1,42 +1,36 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import Verse from '../Verse/Verse';
 import { useAuthContext } from '../../../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { getFromLocalStorage, getFromSessionStorage } from '../../../utils/storage';
-import { ACCESS_TOKEN } from '../../../constants/localStorageKeys';
+import { getArticles } from '../../../api/requests';
 const Article = () => {
     const { isAuthentificated, isLoading: isAuthLoading } = useAuthContext();
     const navigate = useNavigate();
-    React.useEffect(() => {
+    useEffect(() => {
         if (!isAuthentificated) {
             navigate('/login');
         }
     }, [isAuthentificated, isAuthLoading]);
     const [infinite, setInfinite] = useState({ items: [] });
     const [state, setState] = useState(null);
-    const apiURL = 'https://prozaapp.art/api/v1/';
-    React.useEffect(() => {
-        const accessToken =
-            getFromSessionStorage(ACCESS_TOKEN) ?? getFromLocalStorage(ACCESS_TOKEN);
-        axios
-            .get(apiURL + 'article/?format=json', {
-                headers: {
-                    Authorization: 'Bearer ' + accessToken
-                }
-            })
-            .then((response) => {
-                response.data.reverse();
-                setState({ items: response.data });
-                setInfinite({ items: [response.data[0], response.data[1]] });
-            });
-    }, []);
+    useEffect(() => {
+        async function fetchData() {
+            let data = await getArticles();
+            if (data) {
+                setState({ items: data });
+                setInfinite({ items: [data[0], data[1]] });
+            }
+        }
+        fetchData();
+    }, [isAuthentificated]);
     const [indexCount, setIndexCount] = useState(2);
     const [hasMore, setHasMore] = useState(true);
     const fetchMoreData = () => {
-        setInfinite({ items: [...infinite.items, state.items[indexCount]] });
-        setIndexCount(indexCount + 1);
         if (indexCount === state.items.length - 1) setHasMore(false);
+        else {
+            setInfinite({ items: [...infinite.items, state.items[indexCount]] });
+            setIndexCount(indexCount + 1);
+        }
     };
     return (
         <Verse state={state} infinite={infinite} fetchMoreData={fetchMoreData} hasMore={hasMore} />

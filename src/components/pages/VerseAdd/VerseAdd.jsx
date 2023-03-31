@@ -22,7 +22,12 @@ const VerseAdd = (props) => {
                             <ProfileHeader author={props.author} />
                         </div>
                         <div className='verseAddMobileBlock'>
-                            <PostsAdd />
+                            <PostsAdd
+                                accessToken={props.accessToken}
+                                alert={props.alert}
+                                toggleAlert={props.toggleAlert}
+                                alertMobile={props.alertMobile}
+                            />
                         </div>
                     </div>
                 </div>
@@ -38,7 +43,12 @@ const VerseAdd = (props) => {
                     <div className='verse-page-small'>
                         <Navbar className='navBar' active={active} setActive={setActive} />
                         <div className='verse-blockAddSmall'>
-                            <PostsAdd />
+                            <PostsAdd
+                                accessToken={props.accessToken}
+                                alert={props.alert}
+                                toggleAlert={props.toggleAlert}
+                                alertMobile={props.alertMobile}
+                            />
                         </div>
                         <div className='right-small'>
                             <Search />
@@ -54,7 +64,12 @@ const VerseAdd = (props) => {
                     <div className='verse-page' id='scrollableDiv'>
                         <Navbar className='navBar' active={active} setActive={setActive} />
                         <div className='verse-blockAdd'>
-                            <PostsAdd />
+                            <PostsAdd
+                                accessToken={props.accessToken}
+                                alert={props.alert}
+                                toggleAlert={props.toggleAlert}
+                                alertMobile={props.alertMobile}
+                            />
                         </div>
                         <div className='right'>
                             <Search />

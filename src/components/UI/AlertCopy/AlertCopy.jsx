@@ -1,5 +1,5 @@
 import { Alert } from 'react-bootstrap';
-import '../Posts/Posts.scss';
+import './AlertCopy.scss';
 
 const AlertCopy = (props) => {
     setTimeout(() => {

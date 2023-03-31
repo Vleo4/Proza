@@ -1,22 +1,24 @@
 import './RightTop.scss';
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import likes from '../../../assets/images/Right/likes.png';
 import { useNavigate } from 'react-router-dom';
+import { getTopArticles } from '../../../api/requests';
 
 const RightTop = () => {
     const navigate = useNavigate();
     const [state, setState] = useState(null);
     const apiURL = 'https://prozaapp.art/api/v1/';
-    React.useEffect(() => {
-        axios.get(apiURL + 'toparticles/?format=json', {}).then((response) => {
-            setState(response.data);
-        });
+    useEffect(() => {
+        async function fetchData() {
+            let data = await getTopArticles();
+            setState(data);
+        }
+        fetchData();
     }, [apiURL]);
     return (
         <div className='userTop'>
             <div className='headerTop'>
-                Популярні твори
+                <div className='infoTop'>Популярні твори</div>
                 {state ? (
                     state.map((p, index) => (
                         <div className='infoTop' key={index}>

@@ -1,13 +1,11 @@
-import { Alert } from 'react-bootstrap';
-import '../Posts/Posts.scss';
+import { Modal } from 'react-bootstrap';
+import './RefactorAlert.scss';
 import '../CategoriesMiddle/CategoriesMiddle.scss';
 import React, { useState } from 'react';
-import { getFromLocalStorage, getFromSessionStorage } from '../../../utils/storage';
-import { ACCESS_TOKEN } from '../../../constants/localStorageKeys';
-import jwtDecode from 'jwt-decode';
-import axios from 'axios';
 import useResizer from '../../../utils/utils';
 import portrait from '../../../assets/images/portrait.svg';
+import { updateProfile } from '../../../api/requests';
+
 const AlertRefactor = (props) => {
     const [categories, setCategories] = React.useState({ items: [] });
     const setCategory = (value) => {
@@ -38,12 +36,8 @@ const AlertRefactor = (props) => {
     };
 
     const refactor = () => {
-        const apiURL = 'https://prozaapp.art/api/v1/';
-        const accessToken =
-            getFromSessionStorage(ACCESS_TOKEN) ?? getFromLocalStorage(ACCESS_TOKEN);
-        const token = jwtDecode(accessToken);
-        let data = {};
-        let pizda = categories.items[0] + 1;
+        let cat = categories.items[0] + 1;
+        let data = { fav_category: cat };
         if (text) {
             data = { ...data, description: text };
         }
@@ -51,25 +45,16 @@ const AlertRefactor = (props) => {
             data = { ...data, photo: file };
         }
         if (categories.items[0]) {
-            data = { ...data, description: pizda };
+            data = { ...data, description: text };
         } else {
             data = { ...data, fav_category: props.cat[0] };
         }
-        axios
-            .put(apiURL + 'prozauserprofile/update/' + token.user_id + '/', data, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                    Authorization: 'Bearer ' + accessToken
-                }
-            })
-            .then(function () {})
-            .catch(function (error) {
-                console.log(error);
-            });
-        props.toggleAlert();
+        if (updateProfile(data)) {
+            props.toggleAlert();
+        }
     };
     return (
-        <Alert show={props.alert} className={isMobile ? 'signAlertMobile' : 'signAlert'}>
+        <Modal show={props.alert} className={isMobile ? 'signAlertMobile' : 'signAlert'}>
             {isMobile ? (
                 <div className='postsMobile'>
                     <div className='signPostMobile'>
@@ -479,7 +464,7 @@ const AlertRefactor = (props) => {
                     </div>
                 </div>
             )}
-        </Alert>
+        </Modal>
     );
 };
 export default AlertRefactor;
