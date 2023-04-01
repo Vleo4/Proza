@@ -3,19 +3,28 @@ import addPost from '../../../assets/images/Posts/addPost.png';
 import AlertAddPost from '../AlertAddPost/AlertAddPost';
 import useResizer from '../../../utils/utils';
 import AlertAddPostMobile from '../AlertAddPostMobile/AlertAddPostMobile';
-const PostsAdd = (props) => {
+import { useState } from 'react';
+const PostsAdd = () => {
+    const [alert, setAlert] = useState(false);
+    const [alertMobile, setAlertMobile] = useState(false);
+    const toggleAlert = () => {
+        setAlert(!alert);
+    };
+    const toggleAlertMobile = () => {
+        setAlertMobile(!alertMobile);
+    };
     const isMobile = useResizer();
     return (
         <>
-            <AlertAddPostMobile toggleAlert={props.toggleAlertMobile} alert={props.alertMobile} />
-            <AlertAddPost toggleAlert={props.toggleAlert} alert={props.alert} />
+            <AlertAddPostMobile toggleAlert={toggleAlertMobile} alert={alertMobile} />
+            <AlertAddPost toggleAlert={toggleAlert} alert={alert} />
             <div className={isMobile ? 'postsAddJsxMobile' : 'postsAddJsx'}>
                 <div className='text-parent'>
                     <img
                         src={addPost}
                         className='addPost'
                         onClick={() => {
-                            isMobile ? props.toggleAlertMobile() : props.toggleAlert();
+                            isMobile ? toggleAlertMobile() : toggleAlert();
                         }}
                     />
                 </div>

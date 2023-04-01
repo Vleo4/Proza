@@ -21,6 +21,7 @@ const AlertAddPostMobile = (props) => {
                 alert('Такий твір уже опублікований');
             } else {
                 props.toggleAlert();
+                window.location.reload(false);
             }
             setNext(false);
             setCategory(100);

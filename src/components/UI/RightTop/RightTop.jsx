@@ -7,14 +7,13 @@ import { getTopArticles } from '../../../api/requests';
 const RightTop = () => {
     const navigate = useNavigate();
     const [state, setState] = useState(null);
-    const apiURL = 'https://prozaapp.art/api/v1/';
     useEffect(() => {
         async function fetchData() {
             let data = await getTopArticles();
             setState(data);
         }
         fetchData();
-    }, [apiURL]);
+    }, []);
     return (
         <div className='userTop'>
             <div className='headerTop'>

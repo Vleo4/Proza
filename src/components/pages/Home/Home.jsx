@@ -3,7 +3,6 @@ import './Home.scss';
 import Verse from '../Verse/Verse';
 import { useAuthContext } from '../../../contexts/AuthContext';
 import portrait from '../../../assets/images/portrait.svg';
-import useResizer from '../../../utils/utils';
 import { getArticles, getRecommendations } from '../../../api/requests';
 const Home = () => {
     const [rerenderC, rerenderComp] = useState(false);
@@ -34,9 +33,12 @@ const Home = () => {
             setIndexCount(indexCount + 1);
         }
     };
-    const isMobile = useResizer();
     if (infinite.items < 1 || infinite.items[0] === undefined) {
-        return <img src={portrait} className={isMobile ? 'loadMobile' : 'load'} />;
+        return (
+            <div className='parent'>
+                <img src={portrait} className={'load'} />
+            </div>
+        );
     } else {
         return (
             <Verse

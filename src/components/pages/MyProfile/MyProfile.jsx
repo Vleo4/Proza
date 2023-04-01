@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { ACCESS_TOKEN } from '../../../constants/localStorageKeys';
-import { getFromLocalStorage, getFromSessionStorage } from '../../../utils/storage';
 import VerseAdd from '../VerseAdd/VerseAdd';
 import Verse from '../Verse/Verse';
 import { useAuthContext } from '../../../contexts/AuthContext';
@@ -8,20 +6,27 @@ import { useNavigate } from 'react-router-dom';
 import { getCurrentUser, getCurrentUserArticles } from '../../../api/requests';
 const MyProfile = () => {
     const [author, setAuthor] = useState('');
-    const accessToken = getFromSessionStorage(ACCESS_TOKEN) ?? getFromLocalStorage(ACCESS_TOKEN);
     const [infinite, setInfinite] = useState({ items: [] });
     const [state, setState] = useState({ items: [] });
     const { isAuthentificated } = useAuthContext();
     const navigate = useNavigate();
     const [hasMore, setHasMore] = useState(true);
-    const [alert, setAlert] = useState(false);
-    const [alertMobile, setAlertMobile] = useState(false);
-    const toggleAlert = () => {
-        setAlert(!alert);
-    };
-    const toggleAlertMobile = () => {
-        setAlertMobile(!alertMobile);
-    };
+    const [cat, setCat] = useState(null);
+    const [current, setCurrent] = useState(null);
+    const [length, setLength] = useState(0);
+    useEffect(() => {
+        async function fetchData() {
+            if (isAuthentificated) {
+                let data = await getCurrentUser();
+                if (data) {
+                    setAuthor(data.user);
+                    setCurrent(data.user);
+                    setCat(data.fav_category);
+                }
+            }
+        }
+        fetchData();
+    }, [isAuthentificated]);
     useEffect(() => {
         if (!isAuthentificated) {
             navigate('/login');
@@ -29,17 +34,11 @@ const MyProfile = () => {
     }, []);
     useEffect(() => {
         async function fetchData() {
-            let data = await getCurrentUser();
-            if (data) {
-                setAuthor(data.user);
-            }
-        }
-        fetchData();
-    }, []);
-    useEffect(() => {
-        async function fetchData() {
             let data = await getCurrentUserArticles();
             data = data.sort((a, b) => b.id - a.id);
+            if (data.id) {
+                setLength(1);
+            } else setLength(data.length);
             if (data.length > 0) {
                 setState({ items: data });
                 if (data.length > 1) {
@@ -52,7 +51,7 @@ const MyProfile = () => {
             }
         }
         fetchData();
-    }, [alert, alertMobile]);
+    }, []);
     const [indexCount, setIndexCount] = useState(2);
     const fetchMoreData = () => {
         if (indexCount === state.items.length - 1) setHasMore(false);
@@ -62,26 +61,16 @@ const MyProfile = () => {
         }
     };
     if (infinite.items.length === 0) {
-        return (
-            <VerseAdd
-                accessToken={accessToken}
-                alert={alert}
-                toggleAlert={toggleAlert}
-                alertMobile={alertMobile}
-                toggleAlertMobile={toggleAlertMobile}
-                author={author}
-            />
-        );
+        return <VerseAdd author={author} cat={cat} current={current} />;
     } else {
         return (
             <Verse
-                alert={alert}
-                toggleAlert={toggleAlert}
                 author={author}
                 state={state}
                 infinite={infinite}
                 fetchMoreData={fetchMoreData}
                 hasMore={hasMore}
+                length={length}
             />
         );
     }

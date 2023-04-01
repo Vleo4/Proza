@@ -38,8 +38,9 @@ const Signup = () => {
             const response = await api.auth.register(data.username, data.email, data.password);
 
             if (response.user) {
-                saveToSessionStorage(ACCESS_TOKEN, response.access);
-                saveToSessionStorage(REFRESH_TOKEN, response.refresh);
+                const { access, refresh } = await api.auth.login(data.username, data.password);
+                saveToSessionStorage(ACCESS_TOKEN, access);
+                saveToSessionStorage(REFRESH_TOKEN, refresh);
                 toggleAlert(true);
             }
         } catch (e) {

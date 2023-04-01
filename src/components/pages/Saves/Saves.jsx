@@ -27,14 +27,16 @@ const Saves = () => {
                 setState({
                     items: [
                         {
-                            user: 'У вас немає збережених'
+                            user: 'У вас немає збережених',
+                            content: ''
                         }
                     ]
                 });
                 setInfinite({
                     items: [
                         {
-                            user: 'У вас немає збережених'
+                            user: 'У вас немає збережених',
+                            content: ''
                         }
                     ]
                 });

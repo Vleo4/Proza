@@ -21,6 +21,10 @@ import CategoriesMiddle from '../../UI/CategoriesMiddle/CategoriesMiddle';
 import CategoriesMiddleMobile from '../../UI/CategoriesMiddleMobile/CategoriesMiddleMobile';
 import { getCurrentUser } from '../../../api/requests';
 const Verse = (props) => {
+    const [alert, setAlert] = useState(false);
+    const toggleAlert = () => {
+        setAlert(!alert);
+    };
     let { id } = useParams();
     const navigate = useNavigate();
     const { isAuthentificated } = useAuthContext();
@@ -35,12 +39,14 @@ const Verse = (props) => {
     };
     const [jpg, setJpg] = useState(null);
     const [current, setCurrent] = useState(null);
+    const [cat, setCat] = useState(null);
     useEffect(() => {
         async function fetchData() {
             if (isAuthentificated) {
                 let data = await getCurrentUser();
                 setJpg(data.photo);
                 setCurrent(data.user);
+                setCat(data.fav_category);
             }
         }
         fetchData();
@@ -65,19 +71,24 @@ const Verse = (props) => {
                                 </div>
                             }
                             className='infiniteMobile'>
-                            {location.pathname === '/profile' ||
-                            location.pathname === '/profile/' + id ? (
+                            {(location.pathname === '/profile' ||
+                                location.pathname === '/profile/' + id) && (
                                 <>
                                     <div className='infiniteMobile'>
                                         <div className='verseHeaderMobileBlock'>
-                                            <ProfileHeader author={props.author} />
+                                            <ProfileHeader
+                                                author={props.author}
+                                                current={current}
+                                                cat={cat}
+                                                length={props.length}
+                                            />
                                         </div>
-                                        {location.pathname === '/profile' ||
-                                        location.pathname === '/profile/' + current ? (
+                                        {(location.pathname === '/profile' ||
+                                            location.pathname === '/profile/' + current) && (
                                             <>
                                                 <AlertAddPostMobile
-                                                    toggleAlert={props.toggleAlert}
-                                                    alert={props.alert}
+                                                    toggleAlert={toggleAlert}
+                                                    alert={alert}
                                                     className='complaintAlert'
                                                 />
                                                 <div className='verseAddSmallMobileBlock'>
@@ -86,27 +97,21 @@ const Verse = (props) => {
                                                             <img
                                                                 src={addPost}
                                                                 className='addPostSmallMobile'
-                                                                onClick={props.toggleAlert}
+                                                                onClick={toggleAlert}
                                                             />
                                                         </div>
                                                     </div>
                                                 </div>
                                             </>
-                                        ) : (
-                                            <></>
                                         )}
                                     </div>
                                 </>
-                            ) : (
-                                <></>
                             )}
-                            {location.pathname === '/categories' ? (
+                            {location.pathname === '/categories' && (
                                 <CategoriesMiddleMobile
                                     category={props.category}
                                     setCategory={props.setCategory}
                                 />
-                            ) : (
-                                <></>
                             )}
                             {props.infinite.items.map((p, index) => (
                                 <div
@@ -136,227 +141,112 @@ const Verse = (props) => {
             </>
         );
     } else {
-        if (active) {
-            return (
-                <>
-                    <div className='verse-page-small'>
-                        <Navbar className='navBar' active={active} setActive={setActive} />
-                        <div className={'verse-small'}>
-                            <div className='verse'>
-                                {props.infinite.items[0] ? (
-                                    <InfiniteScroll
-                                        scrollableTarget='scrollableDiv'
-                                        next={props.fetchMoreData}
-                                        hasMore={props.hasMore}
-                                        loader={<h4>Loading..</h4>}
-                                        height={'100vh'}
-                                        dataLength={props.infinite.items.length}
-                                        endMessage={
-                                            <div className='endPost'>
-                                                <span></span>
-                                                <span></span>
-                                            </div>
-                                        }>
-                                        {location.pathname === '/categories' ? (
-                                            <CategoriesMiddle
-                                                category={props.category}
-                                                setCategory={props.setCategory}
-                                            />
-                                        ) : (
-                                            <></>
-                                        )}
-                                        {location.pathname === '/profile' ||
-                                        location.pathname === '/profile/' + id ? (
-                                            <>
-                                                {location.pathname === '/profile' ||
-                                                location.pathname === '/profile/' + current ? (
-                                                    <>
-                                                        <AlertAddPost
-                                                            toggleAlert={props.toggleAlert}
-                                                            alert={props.alert}
-                                                        />
-                                                        <div className='postsAdd'>
-                                                            <div className='text-parent'>
-                                                                <img
-                                                                    src={addPost}
-                                                                    className='addPostSmall'
-                                                                    onClick={props.toggleAlert}
-                                                                />
-                                                            </div>
-                                                        </div>
-                                                    </>
-                                                ) : (
-                                                    <></>
-                                                )}
-                                            </>
-                                        ) : (
-                                            ''
-                                        )}{' '}
-                                        {props.infinite.items.map((p, index) => (
-                                            <Posts
-                                                tittle={p.title}
-                                                author={p.user}
-                                                content={p.content}
-                                                id={p.id}
-                                                key={index}></Posts>
-                                        ))}
-                                    </InfiniteScroll>
-                                ) : (
-                                    <></>
+        return (
+            <>
+                <div className={active ? 'verse-page-small' : 'verse-page'}>
+                    <Navbar
+                        className='navBar'
+                        active={active}
+                        setActive={setActive}
+                        current={current}
+                    />
+                    <div className={active ? 'verse-small' : 'verse-block'}>
+                        {props.infinite.items[0] && (
+                            <InfiniteScroll
+                                scrollableTarget='scrollableDiv'
+                                next={props.fetchMoreData}
+                                hasMore={props.hasMore}
+                                loader={<h4>Loading..</h4>}
+                                height={'100vh'}
+                                dataLength={props.infinite.items.length}
+                                endMessage={
+                                    <div className='endPost'>
+                                        <span></span>
+                                        <span></span>
+                                    </div>
+                                }>
+                                {location.pathname === '/categories' && (
+                                    <CategoriesMiddle
+                                        category={props.category}
+                                        setCategory={props.setCategory}
+                                    />
                                 )}
-                            </div>
-                        </div>
-                        {!isAuthentificated ? (
-                            <>
-                                {' '}
-                                <div
-                                    className='right-btn'
-                                    onClick={() => {
-                                        navigate('/login');
-                                    }}>
-                                    <a className='textL'>Вхід</a>
-                                </div>
-                                <div
-                                    className='right-btn2'
-                                    onClick={() => {
-                                        navigate('/register');
-                                    }}>
-                                    <a className='textR'>Реєстрація</a>
-                                </div>
-                            </>
-                        ) : (
-                            ''
-                        )}
-                        <div className='right-small'>
-                            <Search />
-                            {location.pathname === '/profile' ||
-                            location.pathname === '/profile/' + id ? (
-                                <>
-                                    <Users className='users' author={props.author} />
-                                </>
-                            ) : (
-                                <>
-                                    <RightTop className='users' />
-                                </>
-                            )}
-                        </div>
-                    </div>
-                </>
-            );
-        }
-        if (!active) {
-            return (
-                <>
-                    <div className='verse-page' id='scrollableDiv'>
-                        <Navbar className='navBar' active={active} setActive={setActive} />
-                        <div className={'verse-block'}>
-                            {props.infinite.items[0] ? (
-                                <InfiniteScroll
-                                    scrollableTarget='scrollableDiv'
-                                    next={props.fetchMoreData}
-                                    hasMore={props.hasMore}
-                                    loader={<h4>Loading..</h4>}
-                                    height={'100vh'}
-                                    dataLength={props.infinite.items.length}
-                                    endMessage={
-                                        <div className='endPost'>
-                                            <span></span>
-                                            <span></span>
+                                {(location.pathname === '/profile' ||
+                                    location.pathname === '/profile/' + current) && (
+                                    <>
+                                        <AlertAddPost toggleAlert={toggleAlert} alert={alert} />
+                                        <div className='postsAdd'>
+                                            <div className='text-parent'>
+                                                <img
+                                                    src={addPost}
+                                                    className='addPostSmall'
+                                                    onClick={toggleAlert}
+                                                />
+                                            </div>
                                         </div>
-                                    }>
-                                    {location.pathname === '/categories' ? (
-                                        <CategoriesMiddle
-                                            category={props.category}
-                                            setCategory={props.setCategory}
-                                        />
-                                    ) : (
-                                        <></>
-                                    )}
-                                    {location.pathname === '/profile' ||
-                                    location.pathname === '/profile/' + id ? (
-                                        <>
-                                            {location.pathname === '/profile' ||
-                                            location.pathname === '/profile/' + current ? (
-                                                <>
-                                                    <AlertAddPost
-                                                        toggleAlert={props.toggleAlert}
-                                                        alert={props.alert}
-                                                    />
-                                                    <div className='postsAdd'>
-                                                        <div className='text-parent'>
-                                                            <img
-                                                                src={addPost}
-                                                                className='addPostSmall'
-                                                                onClick={props.toggleAlert}
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                </>
-                                            ) : (
-                                                <></>
-                                            )}
-                                        </>
-                                    ) : (
-                                        ''
-                                    )}{' '}
-                                    {props.infinite.items.map((p, index) => (
-                                        <Posts
-                                            author={p.user}
-                                            tittle={p.title}
-                                            content={p.content}
-                                            id={p.id}
-                                            key={index}></Posts>
-                                    ))}
-                                </InfiniteScroll>
-                            ) : (
-                                <></>
-                            )}
+                                    </>
+                                )}
+                                {props.infinite.items.map((p, index) => (
+                                    <Posts
+                                        author={p.user}
+                                        tittle={p.title}
+                                        content={p.content}
+                                        id={p.id}
+                                        key={index}></Posts>
+                                ))}
+                            </InfiniteScroll>
+                        )}
+                    </div>
+                    {!isAuthentificated ? (
+                        <>
+                            {' '}
+                            <div
+                                className='right-btn'
+                                onClick={() => {
+                                    navigate('/login');
+                                }}>
+                                <a className='textL'>Вхід</a>
+                            </div>
+                            <div
+                                className='right-btn2'
+                                onClick={() => {
+                                    navigate('/signup');
+                                }}>
+                                <a className='textR'>Реєстрація</a>
+                            </div>
+                        </>
+                    ) : (
+                        <div
+                            className={active ? 'rightProfSmall' : 'rightProf'}
+                            onClick={() => {
+                                navigate('/profile');
+                            }}>
+                            <img src={jpg ? jpg : portrait} />
+                            <a className='textProf'>{current}</a>
                         </div>
-                        {!isAuthentificated ? (
+                    )}
+                    <div className={active ? 'right-small' : 'right'}>
+                        <Search />
+                        {location.pathname === '/profile' ||
+                        location.pathname === '/profile/' + id ? (
                             <>
-                                {' '}
-                                <div
-                                    className='right-btn'
-                                    onClick={() => {
-                                        navigate('/login');
-                                    }}>
-                                    <a className='textL'>Вхід</a>
-                                </div>
-                                <div
-                                    className='right-btn2'
-                                    onClick={() => {
-                                        navigate('/signup');
-                                    }}>
-                                    <a className='textR'>Реєстрація</a>
-                                </div>
+                                <Users
+                                    className='users'
+                                    author={props.author}
+                                    current={current}
+                                    cat={cat}
+                                    length={props.length}
+                                />
                             </>
                         ) : (
-                            <div
-                                className='rightProf'
-                                onClick={() => {
-                                    navigate('/profile');
-                                }}>
-                                <img src={jpg ? jpg : portrait} />
-                                <a className='textProf'>{current}</a>
-                            </div>
+                            <>
+                                <RightTop className='users' />
+                            </>
                         )}
-                        <div className='right'>
-                            <Search />
-                            {location.pathname === '/profile' ||
-                            location.pathname === '/profile/' + id ? (
-                                <>
-                                    <Users className='users' author={props.author} />
-                                </>
-                            ) : (
-                                <>
-                                    <RightTop className='users' />
-                                </>
-                            )}
-                        </div>
                     </div>
-                </>
-            );
-        }
+                </div>
+            </>
+        );
     }
 };
 

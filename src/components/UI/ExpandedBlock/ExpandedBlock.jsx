@@ -24,7 +24,7 @@ const ExpandableBlock = (props) => {
     const deleteV = () => {
         if (deleteArticle(props.id)) {
             props.toggleComplaintAlert();
-            window.location.href = '/profile';
+            window.location.reload(false);
         }
     };
     const [alert, setAlert] = useState(false);

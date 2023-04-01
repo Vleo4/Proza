@@ -10,12 +10,13 @@ import portrait from '../../../assets/images/portrait.svg';
 import React, { useEffect, useState } from 'react';
 import AlertPost from '../Alert/Alert';
 import ComplaintAlert from '../ComplaintAlert/ComplaintAlert';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import AlertCopy from '../AlertCopy/AlertCopy';
 import { getFromLocalStorage, getFromSessionStorage } from '../../../utils/storage';
 import { ACCESS_TOKEN } from '../../../constants/localStorageKeys';
 import { useAuthContext } from '../../../contexts/AuthContext';
 import jwtDecode from 'jwt-decode';
+import ShowMoreText from 'react-show-more-text';
 import {
     getArticleId,
     getArticleReviews,
@@ -133,7 +134,7 @@ const Posts = (props) => {
         async function fetchData() {
             if (!props.author) return;
             const data = await getUserProfile(props.author);
-            setJpg(data.photo);
+            data?.photo && setJpg(data.photo);
             if (!isAuthentificated || location.pathname === '/profile') return;
             const accessToken =
                 getFromSessionStorage(ACCESS_TOKEN) ?? getFromLocalStorage(ACCESS_TOKEN);
@@ -141,7 +142,6 @@ const Posts = (props) => {
             setIsSubscribe(data.subscribers.includes(token.user_id));
         }
         fetchData();
-        console.log(isSubscribe);
     }, [props, isSubscribe]);
     const [current, setCurrent] = useState(null);
     useEffect(() => {
@@ -155,6 +155,7 @@ const Posts = (props) => {
         }
         fetchData();
     }, []);
+    let { id } = useParams();
     return (
         <>
             <AlertCopy toggleCopyAlert={toggleCopyAlert} state={state} className='copyAlert' />
@@ -194,7 +195,9 @@ const Posts = (props) => {
                         }}>
                         {props.author}
                     </div>
-                    {location.pathname === '/profile' || props.author === current ? (
+                    {location.pathname === '/profile' ||
+                    props.author === current ||
+                    location.pathname === '/profile/' + id ? (
                         <></>
                     ) : (
                         <button className='subscribe' onClick={onSubscribe}>
@@ -208,9 +211,19 @@ const Posts = (props) => {
                         alt='dots'></img>
                 </div>
                 <div className='header-two'>{props.tittle}</div>
-                <div className='text' onClick={toggleAlert}>
+                <ShowMoreText
+                    lines={window.innerWidth < 1400 ? 17 : window.innerWidth < 1900 ? 19 : 21}
+                    more='Читати далі'
+                    className='text'
+                    anchorClass='textShow'
+                    onClick={toggleAlert}
+                    keepNewLines={true}
+                    expanded={false}
+                    expandByClick={false}
+                    width={0}
+                    truncatedEndingComponent={'\n'}>
                     {content()}
-                </div>
+                </ShowMoreText>
                 <div className='footer-post'>
                     <img
                         src={isLike ? likes : noLikes}

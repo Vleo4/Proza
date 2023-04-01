@@ -85,7 +85,7 @@
   .allRows{
     white-space: nowrap;
     text-align: center;
-    margin-top: 3vh;
+    margin-top: 2vh;
     display: flex;
     justify-content: space-between;
     width: 35%;
@@ -116,5 +116,13 @@
     font-size: 14px;
     line-height: 17px;
     margin-right: 1%;
+  }
+  .achievement{
+    float: right;
+    margin-right: 8%;
+    img{
+      width: 4rem;
+      height: auto;
+    }
   }
 }

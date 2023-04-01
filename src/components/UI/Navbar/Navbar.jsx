@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.scss';
 import burger from '../../../assets/images/navbar/burger.png';
@@ -10,9 +10,6 @@ import categories from '../../../assets/images/navbar/categories.png';
 import logo from '../../../assets/images/portrait.png';
 import proza from '../../../assets/images/proza.svg';
 import { useAuthContext } from '../../../contexts/AuthContext';
-import { getFromLocalStorage, getFromSessionStorage } from '../../../utils/storage';
-import { ACCESS_TOKEN } from '../../../constants/localStorageKeys';
-import axios from 'axios';
 
 const Navbar = (props) => {
     const { isAuthentificated } = useAuthContext();
@@ -21,31 +18,11 @@ const Navbar = (props) => {
     const [isShownSaves, setIsShownSaves] = useState(false);
     const [isShownProfile, setIsShownProfile] = useState(false);
     const [isShownSettings, setIsShownSettings] = useState(false);
-    const [current, setCurrent] = useState(null);
-    useEffect(() => {
-        if (isAuthentificated) {
-            const apiURL = 'https://prozaapp.art/api/v1/';
-            const accessToken =
-                getFromSessionStorage(ACCESS_TOKEN) ?? getFromLocalStorage(ACCESS_TOKEN);
-            axios
-                .get(apiURL + 'prozauserprofile/?format=json', {
-                    headers: {
-                        Authorization: 'Bearer ' + accessToken
-                    }
-                })
-                .then((response) => {
-                    setCurrent(response.data.user);
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-        }
-    }, [isAuthentificated]);
     const activateNav = () => {
         props.setActive(!props.active);
     };
     return (
-        <div className={props.active ? 'header' : 'header-mobile'}>
+        <div className={'header'}>
             <nav>
                 <ul className={props.active ? 'ul-item full' : 'ul-item icon'}>
                     <li className={'logo'}>
@@ -111,7 +88,7 @@ const Navbar = (props) => {
                     <li
                         className={
                             location.pathname === '/profile' ||
-                            location.pathname === '/profile/' + current
+                            location.pathname === '/profile/' + props.current
                                 ? 'active'
                                 : 'not-active'
                         }

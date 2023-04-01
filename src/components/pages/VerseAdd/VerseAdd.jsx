@@ -22,12 +22,7 @@ const VerseAdd = (props) => {
                             <ProfileHeader author={props.author} />
                         </div>
                         <div className='verseAddMobileBlock'>
-                            <PostsAdd
-                                accessToken={props.accessToken}
-                                alert={props.alert}
-                                toggleAlert={props.toggleAlert}
-                                alertMobile={props.alertMobile}
-                            />
+                            {props.author === props.current && <PostsAdd />}
                         </div>
                     </div>
                 </div>
@@ -41,18 +36,23 @@ const VerseAdd = (props) => {
             return (
                 <>
                     <div className='verse-page-small'>
-                        <Navbar className='navBar' active={active} setActive={setActive} />
+                        <Navbar
+                            className='navBar'
+                            active={active}
+                            setActive={setActive}
+                            current={props.current}
+                        />
                         <div className='verse-blockAddSmall'>
-                            <PostsAdd
-                                accessToken={props.accessToken}
-                                alert={props.alert}
-                                toggleAlert={props.toggleAlert}
-                                alertMobile={props.alertMobile}
-                            />
+                            {props.author === props.current && <PostsAdd />}
                         </div>
                         <div className='right-small'>
                             <Search />
-                            <Users className='users' author={props.author} />
+                            <Users
+                                className='users'
+                                author={props.author}
+                                cat={props.cat}
+                                current={props.current}
+                            />
                         </div>
                     </div>
                 </>
@@ -61,19 +61,24 @@ const VerseAdd = (props) => {
         if (!active) {
             return (
                 <>
-                    <div className='verse-page' id='scrollableDiv'>
-                        <Navbar className='navBar' active={active} setActive={setActive} />
+                    <div className='verse-page'>
+                        <Navbar
+                            className='navBar'
+                            active={active}
+                            setActive={setActive}
+                            current={props.current}
+                        />
                         <div className='verse-blockAdd'>
-                            <PostsAdd
-                                accessToken={props.accessToken}
-                                alert={props.alert}
-                                toggleAlert={props.toggleAlert}
-                                alertMobile={props.alertMobile}
-                            />
+                            {props.author === props.current && <PostsAdd />}
                         </div>
                         <div className='right'>
                             <Search />
-                            <Users className='users' author={props.author} />
+                            <Users
+                                className='users'
+                                author={props.author}
+                                cat={props.cat}
+                                current={props.current}
+                            />
                         </div>
                     </div>
                 </>

@@ -29,64 +29,57 @@
     }
       border-bottom: 0;
     .infoTop {
-      overflow: hidden;
-      height: 4rem;
+      height:4rem;
       padding-top: 1rem;
       display: block;
       font-family: 'Inter', system-ui;
       font-style: normal;
       font-weight: 600;
       font-size: 17px;
-      line-height: 17px;
+      line-height: 20px;
       div {
         overflow: hidden;
-        width: 70%;
-        margin-left: 1rem;
         cursor: pointer;
         font-family: 'Inter', system-ui;
         font-style: normal;
         font-weight: 600;
         font-size: 17px;
-        line-height: 17px;
+        line-height: 20px;
         text-align: left;
         @media only screen and (min-width: 1800px) {
           font-size: 24px;
           line-height: 28px;
         }
       }
+      .partTop{
+        display: inline-block;
+        width: 65%;
+        a{
+          cursor: default;
+          vertical-align: text-top;
+        }
+      }
+      .partTop2{
+        display: inline-block;
+        cursor: default;
+        float: right;
+        margin-right: 1rem;
+        a{
+          cursor: default;
+          vertical-align: 0.5vh;
+          @media only screen and (min-width: 1800px) {
+            font-size: 17px;
+            line-height: 20px;
+          }
+        }
+      }
       border-bottom: 3px solid #FFE3FF;
     }
 
     img {
-      @media only screen and (max-width: 1400px) {
-        zoom: 0.9;
-      }
-      @media only screen and (min-width: 1800px) {
-        zoom: 1.5;
-      }
       width: 1.2rem;
       cursor: default;
     }
   }
 }
-.partTop{
-  a{
-    cursor: default;
-    vertical-align: text-top;
-  }
-}
-.partTop2{
-  cursor: default;
-  display: flex;
-  position: absolute;
-  float: right;
-  right: -40%;
-  margin-top: -1rem;
-  a{
-    cursor: default;
-    vertical-align: top;
-  }
-  .likeTop{
-    flex:1;
-  }
-}
+

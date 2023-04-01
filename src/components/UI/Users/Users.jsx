@@ -10,143 +10,127 @@ import { useNavigate } from 'react-router-dom';
 import refactor from '../../../assets/images/Users/refactor.png';
 import AlertRefactor from '../AlertRefactor/AlertRefactor';
 import portrait from '../../../assets/images/portrait.svg';
-import {
-    getAchievements,
-    getCurrentUser,
-    getUserArticles,
-    getUserProfile,
-    setSubscribeUser
-} from '../../../api/requests';
+import { getAchievements, getUserProfile, setSubscribeUser } from '../../../api/requests';
 const Users = (props) => {
     const { isAuthentificated } = useAuthContext();
     const [isSubscribe, setIsSubscribe] = useState(false);
     const navigate = useNavigate();
-    const [length, setLength] = useState(0);
     const [alert, toggleAlert] = useState(false);
-    const [cat, setCat] = useState(false);
     const toggleAlertFunc = () => {
         toggleAlert(!alert);
     };
-    useEffect(() => {
-        async function fetchData() {
-            if (isAuthentificated) {
-                let data = await getUserArticles(props.author);
-                if (data.id) {
-                    setLength(1);
-                } else setLength(data.length);
-            }
-        }
-        fetchData();
-    }, [props.author]);
     const onSubscribe = () => {
         if (isAuthentificated && location.pathname !== '/profile') {
             setSubscribeUser(props.author);
+            setIsSubscribe(!isSubscribe);
         } else {
             navigate('/login');
         }
     };
-    const [current, setCurrent] = useState(null);
     const [subscribers, setSubscribers] = useState(0);
     const [follows, setFollows] = useState(0);
     const [description, setDescription] = useState('');
     const [jpg, setJpg] = useState(null);
     const [ico, setIco] = useState(null);
+    const [user, setUser] = useState(false);
     useEffect(() => {
         async function fetchData() {
-            if (isAuthentificated) {
-                let data = await getCurrentUser();
-                setCat(data.fav_category);
-                setCurrent(data.user);
-            }
             if (props.author) {
-                let data = await getUserProfile(props.author);
-                setJpg(data.photo);
-                const accessToken =
-                    getFromSessionStorage(ACCESS_TOKEN) ?? getFromLocalStorage(ACCESS_TOKEN);
-                const token = jwtDecode(accessToken);
-                setJpg(data.photo);
-                setDescription(data.description);
-                if (data.subscribers) setSubscribers(data.subscribers);
-                setIsSubscribe(data.subscribers.includes(token.user_id));
-                if (data.follows) setFollows(data.follows);
-                if (isAuthentificated && location.pathname !== '/profile') {
+                const data = await getUserProfile(props.author);
+                data?.id && setUser(true);
+                data?.photo && setJpg(data.photo);
+                data?.description && setDescription(data.description);
+                data?.subscribers && setSubscribers(data.subscribers.length);
+                data?.follows && setFollows(data.follows.length);
+                if (isAuthentificated && location.pathname !== '/profile' && data?.subscribers) {
+                    const accessToken =
+                        getFromSessionStorage(ACCESS_TOKEN) ?? getFromLocalStorage(ACCESS_TOKEN);
                     const token = jwtDecode(accessToken);
                     setIsSubscribe(data.subscribers.includes(token.user_id));
                 }
-                data = await getAchievements(data.id);
-                if (data) {
-                    setIco(data.achieved[0].ico);
+                if (data?.id) {
+                    const achieve = await getAchievements(data.id);
+                    achieve?.achieved[0] && setIco(achieve.achieved[0].ico);
                 }
             }
         }
         fetchData();
-    }, [props.author, alert, cat]);
-    return (
-        <>
-            <AlertRefactor
-                toggleAlert={toggleAlertFunc}
-                cat={cat}
-                imageData={jpg ? jpg : portrait}
-                alert={alert}
-            />
-            <div className='user'>
-                <div className='header-user'>
-                    <div className='avatar'>
-                        {location.pathname !== '/profile' && props.author !== current ? (
-                            <></>
-                        ) : (
-                            <img onClick={toggleAlertFunc} src={refactor} className='refactor' />
-                        )}
-                        <img
-                            className={
-                                location.pathname !== '/profile' && props.author !== current
-                                    ? 'avatarImage'
-                                    : 'avatarImageProfile'
-                            }
-                            src={jpg ? jpg : portrait}
-                            alt='avatar'
-                        />
-                        {location.pathname !== '/profile' && props.author !== current ? (
+    }, [props, isSubscribe]);
+    if (user) {
+        return (
+            <>
+                <AlertRefactor
+                    toggleAlert={toggleAlertFunc}
+                    cat={props.cat}
+                    imageData={jpg ? jpg : portrait}
+                    alert={alert}
+                />
+                <div className='user'>
+                    <div className='header-user'>
+                        <div className='avatar'>
+                            {location.pathname !== '/profile' && props.author !== props.current ? (
+                                <></>
+                            ) : (
+                                <img
+                                    onClick={toggleAlertFunc}
+                                    src={refactor}
+                                    className='refactor'
+                                />
+                            )}
                             <img
-                                className='avatarStatus'
-                                src={isSubscribe ? subscribe : noSubscribe}
-                                onClick={onSubscribe}
-                                alt={'subscribe'}
+                                className={
+                                    location.pathname !== '/profile' &&
+                                    props.author !== props.current
+                                        ? 'avatarImage'
+                                        : 'avatarImageProfile'
+                                }
+                                src={jpg ? jpg : portrait}
+                                alt='avatar'
                             />
-                        ) : (
-                            ''
-                        )}
-                    </div>
-                    <div className='headerUser'>{props.author}</div>
-                    <div className='info'>
-                        <div className='part'>
-                            <div className='leftSide'>Публікації</div>
-                            <div className='rightSide'>
-                                {length}
-                                <div />
-                            </div>
+                            {location.pathname !== '/profile' && props.author !== props.current ? (
+                                <img
+                                    className='avatarStatus'
+                                    src={isSubscribe ? subscribe : noSubscribe}
+                                    onClick={onSubscribe}
+                                    alt={'subscribe'}
+                                />
+                            ) : (
+                                ''
+                            )}
+                        </div>
+                        <div className='headerUser'>{props.author}</div>
+                        <div className='info'>
                             <div className='part'>
-                                <div className='leftSide'>Підписники</div>
+                                <div className='leftSide'>Публікації</div>
                                 <div className='rightSide'>
-                                    {subscribers.length} <div />
-                                </div>
-                            </div>
-
-                            <div className='part'>
-                                <div className='leftSide'>Підписки</div>
-                                <div className='rightSide'>
-                                    {follows.length}
+                                    {props.length ? props.length : 0}
                                     <div />
+                                </div>
+                                <div className='part'>
+                                    <div className='leftSide'>Підписники</div>
+                                    <div className='rightSide'>
+                                        {subscribers} <div />
+                                    </div>
+                                </div>
+
+                                <div className='part'>
+                                    <div className='leftSide'>Підписки</div>
+                                    <div className='rightSide'>
+                                        {follows}
+                                        <div />
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    {description && <div className='partDesc'>{description}</div>}
+                    <div className='partTopUser'>{ico ? <img src={ico} /> : <></>}</div>
                 </div>
-                <div className='partDesc'>{description}</div>
-                <div className='partDesc'>{ico ? <img src={ico} /> : <></>}</div>
-            </div>
-        </>
-    );
+            </>
+        );
+    } else {
+        return <div className='header-user'>КОРИСТУВАЧА НЕ ІСНУЄ</div>;
+    }
 };
 
 export default Users;

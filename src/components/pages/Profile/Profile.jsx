@@ -1,14 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import Verse from '../Verse/Verse';
 import { useParams } from 'react-router-dom';
-import { getUserArticles } from '../../../api/requests';
+import { getCurrentUser, getUserArticles } from '../../../api/requests';
+import VerseAdd from '../VerseAdd/VerseAdd';
+import { useAuthContext } from '../../../contexts/AuthContext';
 const Profile = () => {
     const [infinite, setInfinite] = useState({ items: [] });
     let { id } = useParams();
     const [state, setState] = useState(null);
+    const [cat, setCat] = useState(null);
+    const [current, setCurrent] = useState(null);
+    const { isAuthentificated } = useAuthContext();
+    useEffect(() => {
+        async function fetchData() {
+            if (isAuthentificated) {
+                let data = await getCurrentUser();
+                if (data) {
+                    setCurrent(data.user);
+                    setCat(data.fav_category);
+                }
+            }
+        }
+        fetchData();
+    }, [isAuthentificated]);
+    const [length, setLength] = useState(0);
     useEffect(() => {
         async function fetchData() {
             const data = await getUserArticles(id);
+            if (data.id) {
+                setLength(1);
+            } else setLength(data.length);
             if (data.length > 0) {
                 setState({ items: data });
                 if (data.length > 1) {
@@ -31,8 +52,8 @@ const Profile = () => {
             setIndexCount(indexCount + 1);
         }
     };
-    if (!state) {
-        return <h1>Loading...</h1>;
+    if (infinite.items.length === 0) {
+        return <VerseAdd author={id} cat={cat} current={current} />;
     }
     return (
         <Verse
@@ -41,6 +62,7 @@ const Profile = () => {
             infinite={infinite}
             fetchMoreData={fetchMoreData}
             hasMore={hasMore}
+            length={length}
         />
     );
 };

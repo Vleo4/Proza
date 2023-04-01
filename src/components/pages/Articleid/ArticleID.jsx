@@ -21,7 +21,7 @@ const ArticleID = () => {
     const fetchMoreData = () => {
         setHasMore(false);
     };
-    if (!state) {
+    if (!state.items) {
         return <h1>Loading...</h1>;
     } else {
         return (

@@ -34,23 +34,20 @@ const AlertSignup = (props) => {
         setPhoto(fileUrl);
     };
     const refactor = () => {
-        async function fetchData() {
-            if (categories.items.length > 0) {
-                let cat = categories.items[0] + 1;
-                let data = { fav_category: cat };
-                if (text) {
-                    data = { ...data, description: text };
-                }
-                if (file) {
-                    data = { ...data, photo: file };
-                }
-                if (await updateProfile(data)) {
-                    props.toggleAlert();
-                    window.location.href = '/';
-                }
+        if (categories.items.length > 0) {
+            let cat = categories.items[0] + 1;
+            let data = { fav_category: cat };
+            if (text) {
+                data = { ...data, description: text };
+            }
+            if (file) {
+                data = { ...data, photo: file };
+            }
+            if (updateProfile(data)) {
+                props.toggleAlert();
+                window.location.href = '/';
             }
         }
-        fetchData();
     };
     return (
         <Modal show={props.alert} className={isMobile ? 'signAlertMobile' : 'signAlert'}>

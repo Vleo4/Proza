@@ -26,6 +26,7 @@ export const getRecommendations = async () => {
 export const getArticles = async () => {
     try {
         const response = await axios.get(apiURL + 'article/?format=json');
+        response.data = response.data.sort((a, b) => b.id - a.id);
         return response.data;
     } catch (error) {
         console.log(error);

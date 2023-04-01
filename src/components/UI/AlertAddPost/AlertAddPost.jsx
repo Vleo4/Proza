@@ -24,6 +24,7 @@ const AlertAddPost = (props) => {
                 setNext(false);
                 setCategory(100);
                 props.toggleAlert();
+                window.location.reload(false);
             }
         }
         fetchData();
