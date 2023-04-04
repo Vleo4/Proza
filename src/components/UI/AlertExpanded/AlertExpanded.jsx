@@ -1,5 +1,5 @@
 import { Alert } from 'react-bootstrap';
-import '../Posts/Posts.scss';
+import './AlertExpanded.scss';
 
 const AlertExpanded = (props) => {
     setTimeout(() => {
@@ -9,7 +9,6 @@ const AlertExpanded = (props) => {
     }, 1500);
     return (
         <Alert show={props.alert} className='alertExp'>
-            {' '}
             Скаргу відправлено
         </Alert>
     );

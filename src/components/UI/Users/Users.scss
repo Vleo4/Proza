@@ -37,8 +37,11 @@
       line-height: 28px;
     }
     .info{
+      border-bottom: 1px solid #000000;
       min-height: 10vh;
       margin-left: 10%;
+      width: 80%;
+      padding-bottom: 0.2rem;
       div{
         font-family: 'Inter', system-ui;
         font-style: normal;
@@ -46,8 +49,8 @@
         font-size: 14px;
         line-height: 17px;
         @media only screen and (min-width: 1800px) {
-          font-size: 22px;
-          line-height: 28px;
+          font-size: 17px;
+          line-height: 24px;
         }
       }
       .part{
@@ -55,7 +58,7 @@
       }
       .leftSide {
         float: left;
-        width: 50%;
+        width: 90%;
         text-align: left;
       }
 
@@ -120,6 +123,8 @@
   }
 }
 .partDesc{
+  margin: 5% auto 0;
+  padding-bottom: 5%;
   display: block;
   font-family: 'Inter', system-ui;
   font-style: normal;
@@ -127,37 +132,15 @@
   font-size: 16px;
   line-height: 18px;
   width: 80%;
-  margin-right: auto;
-  margin-left: auto;
+  border-bottom: 1px solid #727373;
+
+}
+.partTopUser{
+  margin-left: 10%;
+  margin-top: 3%;
   img{
     width: 3rem;
     height: 3rem;
-  }
-}
-.partTopUser{
-  display: flex;
-  flex-direction: row;
-  font-family: 'Inter', system-ui;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 20px;
-  line-height: 20px;
-  a{
-    font-family: 'Inter', system-ui;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 17px;
-    line-height: 10px;
-    vertical-align: text-top;  }
-  .likeTopUser{
-    position: fixed;
-    flex:1;
-    padding-left: 3%;
-  }
-  .commentTopUser{
-    position: fixed;
-    flex: 3;
-    padding-left: 8%;
   }
 }
 
@@ -197,5 +180,4 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: -webkit-fill-available;
 }

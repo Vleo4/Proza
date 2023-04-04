@@ -19,21 +19,17 @@ const AuthContextProvider = ({ children }) => {
         isLoading: true,
         user: null
     });
+
     const sessionRefresh = getFromSessionStorage(REFRESH_TOKEN);
     const localRefresh = getFromLocalStorage(REFRESH_TOKEN);
-
     useEffect(() => {
         const checkAuth = async () => {
             if (!sessionRefresh && !localRefresh) return;
 
-            setAuthState((state) => ({
-                ...state,
-                isLoading: true
-            }));
+            setAuthState((state) => ({ ...state, isLoading: true }));
 
             try {
                 const isExpired = await checkIsTokenExpiry();
-
                 if (isExpired.refreshToken) {
                     clearStorages();
                     window.location.href = '/login';
@@ -42,19 +38,18 @@ const AuthContextProvider = ({ children }) => {
 
                 if (isExpired.accessToken) {
                     const saveHandler = sessionRefresh ? saveToSessionStorage : saveToLocalStorage;
-                    const data = await api.auth.valide(sessionRefresh ?? localRefresh);
-
+                    const data = await api.auth.validate(sessionRefresh || localRefresh);
                     saveHandler(ACCESS_TOKEN, data.access);
                     saveHandler(REFRESH_TOKEN, data.refresh);
                 }
-
                 setAuthState((state) => ({
                     ...state,
                     isLoading: false,
                     isSessionLogin: !!sessionRefresh,
                     isAuthentificated: true
                 }));
-            } catch {
+            } catch (error) {
+                console.error(error);
                 setAuthState((state) => ({
                     ...state,
                     isAuthentificated: false,

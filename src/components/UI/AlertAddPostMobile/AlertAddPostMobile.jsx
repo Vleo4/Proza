@@ -1,14 +1,9 @@
-import { Alert } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 import './AlertAddPostMobile.scss';
 import Close from '../../../assets/images/Posts/Close.png';
 import React, { useState } from 'react';
-import axios from 'axios';
-import { getFromLocalStorage, getFromSessionStorage } from '../../../utils/storage';
-import { ACCESS_TOKEN } from '../../../constants/localStorageKeys';
-import jwtDecode from 'jwt-decode';
+import { publishPost } from '../../../api/requests';
 const AlertAddPostMobile = (props) => {
-    const accessToken = getFromSessionStorage(ACCESS_TOKEN) ?? getFromLocalStorage(ACCESS_TOKEN);
-    const token = jwtDecode(accessToken);
     const [text, setText] = useState(null);
     const [title, setTitle] = useState(null);
     const handleTextChange = (event) => {
@@ -17,45 +12,25 @@ const AlertAddPostMobile = (props) => {
     const handleTitleChange = (event) => {
         setTitle(event.target.value);
     };
-    const apiURL = 'https://prozaapp.art/api/v1/';
     const [category, setCategory] = useState(100);
-    const publish = () => {
-        axios
-            .post(
-                apiURL + 'articlecreate/',
-                {
-                    headers: {
-                        Authorization: 'Bearer ' + accessToken,
-                        'Content-Type': 'application/json'
-                    },
-                    title: title,
-                    content: text,
-                    cat: category + 1,
-                    user: token.user_id
-                },
-                {
-                    headers: {
-                        Authorization: 'Bearer ' + accessToken
-                    }
-                }
-            )
-            .then(function (response) {
-                if (response.data.status_code === 0) {
-                    alert('Такий твір уже опублікований');
-                    setNext(false);
-                } else {
-                    window.location.href = '/profile';
-                    props.toggleAlert();
-                }
-            })
-            .catch(function (error) {
-                console.log(error);
-                alert(error);
-            });
-    };
     const [next, setNext] = useState(false);
+    const publish = () => {
+        async function fetchData() {
+            let data = await publishPost(title, text, category + 1);
+            if (data.status_code === 0) {
+                alert('Такий твір уже опублікований');
+            } else {
+                props.toggleAlert();
+                window.location.reload(false);
+            }
+            setNext(false);
+            setCategory(100);
+        }
+        fetchData();
+    };
+
     return (
-        <Alert show={props.alert} className={'AlertAddPostMobile'}>
+        <Modal show={props.alert} className={'AlertAddPostMobile'}>
             {!next ? (
                 <div className='fullPostMobile'>
                     <div className='postsMobile'>
@@ -276,7 +251,7 @@ const AlertAddPostMobile = (props) => {
                     </div>
                 </>
             )}
-        </Alert>
+        </Modal>
     );
 };
 export default AlertAddPostMobile;

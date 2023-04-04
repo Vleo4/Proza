@@ -1,0 +1,59 @@
+.expandedBlock{
+  margin-top: 3%;
+  margin-left: 15%;
+}
+.inputExpandable{
+  border: 1px solid #000000;
+  border-radius: 10px;
+  height: 15vh;
+  width:82%;
+  margin-left: 0;
+  resize:none;
+}
+.sentImg{
+  width: 1.7rem;
+  float: right;
+  margin-right: 1rem;
+  cursor: pointer;
+  margin-top:10%;
+}
+.sentImgMobile{
+  width: 1.7rem;
+  float: right;
+  margin-right: 0;
+  cursor: pointer;
+  margin-top: 20%;
+}
+.expandedArrow{
+  width: 1rem;
+  float: right;
+  margin-right: 2rem;
+  margin-top:1%;
+  cursor: pointer
+}
+.expandedArrowMobile{
+  width: 1rem;
+  float: right;
+  margin-right: 0;
+  margin-top:2%;
+  cursor: pointer
+}
+.textA{
+  margin-left: 1rem;
+  white-space: pre-line;
+  display: block;
+  font-family: 'Inter', system-ui;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 2rem;
+  border-bottom: 1px solid #000000;
+  @media only screen and (max-width: 1400px) {
+    font-size: 16px;
+    line-height: 1.5rem;
+  }
+  @media only screen and (max-width: 380px) {
+    font-size: 15px;
+    line-height: 1.5rem;
+  }
+}

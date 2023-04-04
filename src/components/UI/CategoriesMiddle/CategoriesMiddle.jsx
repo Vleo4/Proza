@@ -126,13 +126,6 @@ const CategoriesMiddle = (props) => {
                         </div>
                     </div>
                 </div>
-                <div
-                    className='clear'
-                    onClick={() => {
-                        setCategory(100);
-                    }}>
-                    Очистити вибір
-                </div>
             </div>
         </>
     );

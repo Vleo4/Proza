@@ -6,9 +6,8 @@ import comments from '../../../assets/images/Posts/comments.png';
 import noSaves from '../../../assets/images/Posts/nosaves.png';
 import saves from '../../../assets/images/Posts/saves.png';
 import share from '../../../assets/images/Posts/share.png';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AlertMobile from '../AlertMobile/AlertMobile';
-import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 import { useAuthContext } from '../../../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
@@ -17,149 +16,100 @@ import { ACCESS_TOKEN } from '../../../constants/localStorageKeys';
 import AlertCopy from '../AlertCopy/AlertCopy';
 import portrait from '../../../assets/images/portrait.svg';
 import ComplaintAlertMobile from '../ComplaintAlertMobile/ComplaintAlertMobile';
+import {
+    getArticleId,
+    getArticleReviews,
+    getCurrentUser,
+    getSavedArticles,
+    getUserProfile,
+    postReview,
+    setLike,
+    setSave,
+    setSubscribeUser
+} from '../../../api/requests';
 
 const PostsMobile = (props) => {
     const { isAuthentificated } = useAuthContext();
     const navigate = useNavigate();
     const accessToken = getFromSessionStorage(ACCESS_TOKEN) ?? getFromLocalStorage(ACCESS_TOKEN);
     const [reviews, setReviews] = useState({ items: [] });
-    const getReview = () => {
-        axios
-            .get(apiURL + 'getarticlereviews/' + props.id + '/?format=json', {
-                headers: {
-                    Authorization: 'Bearer ' + accessToken
-                }
-            })
-            .then((response) => {
-                setReviews({ items: response.data });
-            });
-    };
     const [text, setText] = useState(null);
-    const handleTextChange = (event) => {
-        setText(event.target.value);
-    };
-    const publishReview = () => {
-        if (isAuthentificated) {
-            const token = jwtDecode(accessToken);
-            axios
-                .post(
-                    apiURL + 'reviewcreate/',
-                    {
-                        headers: {
-                            Authorization: 'Bearer ' + accessToken,
-                            'Content-Type': 'application/json'
-                        },
-                        user: token.user_id,
-                        content: text,
-                        article: props.id
-                    },
-                    {
-                        headers: {
-                            Authorization: 'Bearer ' + accessToken
-                        }
-                    }
-                )
-                .then(function () {})
-                .catch(function (error) {
-                    console.log(error);
-                });
-        }
-    };
     const [isLike, setIsLike] = useState(false);
-    const apiURL = 'https://prozaapp.art/api/v1/';
-    const onLikes = () => {
-        if (isAuthentificated) {
-            axios
-                .put(
-                    apiURL + 'like/' + props.id + '/',
-                    {},
-                    {
-                        headers: {
-                            'Content-Type': 'application/json',
-                            Authorization: 'Bearer ' + accessToken
-                        }
-                    }
-                )
-                .then(function () {
-                    setIsLike(!isLike);
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
-        } else {
-            navigate('/login');
-        }
-    };
     const [isSave, setIsSave] = useState(false);
-    const onSaves = () => {
-        if (isAuthentificated) {
-            axios
-                .put(
-                    apiURL + 'save/' + props.id + '/',
-                    {},
-                    {
-                        headers: {
-                            'Content-Type': 'application/json',
-                            Authorization: 'Bearer ' + accessToken
-                        }
-                    }
-                )
-                .then(function () {
-                    setIsSave(!isSave);
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
-        } else {
-            navigate('/login');
-        }
-    };
-    React.useEffect(() => {
-        if (isAuthentificated) {
-            axios
-                .get(apiURL + 'savedarticles/?format=json', {
-                    headers: {
-                        Authorization: 'Bearer ' + accessToken
-                    }
-                })
-                .then((response) => {
-                    response.data.map((index) => {
-                        if (index.id === props.id) {
-                            setIsSave(true);
-                        }
-                    });
-                });
-        }
-    }, [isSave]);
-    React.useEffect(() => {
-        if (isAuthentificated) {
-            const token = jwtDecode(accessToken);
-            axios
-                .get(apiURL + 'article/' + props.id + '/?format=json', {
-                    headers: {
-                        Authorization: 'Bearer ' + accessToken
-                    }
-                })
-                .then((response) => {
-                    if (response.data.likes) {
-                        response.data.likes.map((index) => {
-                            if (index === token.user_id) {
-                                setIsLike(true);
-                            }
-                        });
-                    }
-                });
-        }
-    }, [isLike]);
     const regex = /\\n|\\r\\n|\\n\\r|\\r/g;
-    const content = () => {
-        return props.content.replace(regex, '\n');
-    };
     const [state, setState] = useState({
         showAlert: false,
         complaintAlert: false,
         alertCopy: false
     });
+    const [isSubscribe, setIsSubscribe] = useState(false);
+    const [jpg, setJpg] = useState(null);
+    const [current, setCurrent] = useState(null);
+    const [big, setBig] = useState(false);
+
+    const getReview = () => {
+        async function fetchData() {
+            let data = await getArticleReviews(props.id);
+            setReviews({ items: data });
+        }
+        fetchData().then();
+    };
+    const handleTextChange = (event) => {
+        setText(event.target.value);
+    };
+    const publishReview = () => {
+        if (isAuthentificated) {
+            postReview(props.id, text).then();
+        }
+    };
+    const onLikes = () => {
+        if (isAuthentificated) {
+            setLike(props.id).then();
+            setIsLike(!isLike);
+        } else {
+            navigate('/login');
+        }
+    };
+    const onSaves = () => {
+        if (isAuthentificated) {
+            setSave(props.id).then();
+            setIsSave(!isSave);
+        } else {
+            navigate('/login');
+        }
+    };
+    useEffect(() => {
+        async function fetchData() {
+            if (isAuthentificated) {
+                let data = await getSavedArticles();
+                data.map((index) => {
+                    if (index.id === props.id) {
+                        setIsSave(true);
+                    }
+                });
+            }
+        }
+        fetchData().then();
+    }, [isSave]);
+    useEffect(() => {
+        async function fetchData() {
+            if (isAuthentificated) {
+                let data = await getArticleId(props.id);
+                const token = jwtDecode(accessToken);
+                if (data.likes) {
+                    data.likes.map((index) => {
+                        if (index === token.user_id) {
+                            setIsLike(true);
+                        }
+                    });
+                }
+            }
+        }
+        fetchData().then();
+    }, [isLike]);
+    const content = () => {
+        return props.content.replace(regex, '\n');
+    };
     const toggleAlert = () => {
         setState({ showAlert: !state.showAlert, complaintAlert: false, alertCopy: false });
     };
@@ -177,73 +127,43 @@ const PostsMobile = (props) => {
     const toggleCopyAlert = () => {
         setState({ showAlert: false, complaintAlert: false, alertCopy: !state.alertCopy });
     };
-    const [isSubscribe, setIsSubscribe] = useState(false);
     const onSubscribe = () => {
         if (isAuthentificated && location.pathname !== '/profile') {
-            axios
-                .put(
-                    apiURL + 'subscription/' + props.author + '/',
-                    {},
-                    {
-                        headers: {
-                            'Content-Type': 'application/json',
-                            Authorization: 'Bearer ' + accessToken
-                        }
-                    }
-                )
-                .then(function () {
-                    setIsSubscribe(!isSubscribe);
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
+            setSubscribeUser(props.author);
+            setIsSubscribe(!isSubscribe);
         } else {
             navigate('/login');
         }
     };
-    const [jpg, setJpg] = useState(null);
-    React.useEffect(() => {
-        if (props.author) {
-            setIsSubscribe(false);
-            axios
-                .get(apiURL + 'prozauserprofile/' + props.author + '/?format=json')
-                .then((response) => {
-                    setJpg(response.data.photo);
-                    if (isAuthentificated && location.pathname !== '/profile') {
-                        const accessToken =
-                            getFromSessionStorage(ACCESS_TOKEN) ??
-                            getFromLocalStorage(ACCESS_TOKEN);
-                        const token = jwtDecode(accessToken);
-                        response.data.subscribers.map((index) => {
-                            if (index === token.user_id) {
-                                setIsSubscribe(true);
-                            }
-                        });
-                    }
-                });
+    useEffect(() => {
+        async function fetchData() {
+            if (props.author) {
+                let data = await getUserProfile(props.author);
+                setJpg(data.photo);
+                if (isAuthentificated && location.pathname !== '/profile') {
+                    const accessToken =
+                        getFromSessionStorage(ACCESS_TOKEN) ?? getFromLocalStorage(ACCESS_TOKEN);
+                    const token = jwtDecode(accessToken);
+                    setIsSubscribe(data.subscribers.includes(token.user_id));
+                }
+            }
         }
+        fetchData().then();
     }, []);
-    const [current, setCurrent] = useState(null);
-    React.useEffect(() => {
-        if (isAuthentificated) {
-            axios
-                .get(apiURL + 'prozauserprofile/?format=json', {
-                    headers: {
-                        Authorization: 'Bearer ' + accessToken
-                    }
-                })
-                .then((response) => {
-                    setCurrent(response.data.user);
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
+    useEffect(() => {
+        async function fetchData() {
+            if (isAuthentificated) {
+                let data = await getCurrentUser();
+                if (data) {
+                    setCurrent(data.user);
+                }
+            }
         }
+        fetchData().then();
     }, []);
-    const [big, setBig] = useState(false);
     const visibleRef = React.useRef();
     const hiddenRef = React.useRef();
-    React.useEffect(() => {
+    useEffect(() => {
         if (visibleRef.current.offsetHeight > hiddenRef.current.offsetHeight) {
             setBig(true);
         } else {

@@ -1,5 +1,5 @@
 import { Alert } from 'react-bootstrap';
-import '../Posts/Posts.scss';
+import './ComplaintAlert.scss';
 import Close from '../../../assets/images/Posts/Close.png';
 import ExpandedBlock from '../ExpandedBlock/ExpandedBlock';
 
@@ -11,7 +11,7 @@ const ComplaintAlert = (props) => {
                     Скарга
                     <img src={Close} onClick={props.toggleComplaintAlert} />
                 </div>
-                <div className='text'>
+                <div className='textExpanded'>
                     <ExpandedBlock
                         message={'Це спам'}
                         id={props.id}

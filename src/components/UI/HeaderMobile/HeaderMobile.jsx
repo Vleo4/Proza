@@ -6,16 +6,12 @@ import portrait from '../../../assets/images/portrait.svg';
 import { useAuthContext } from '../../../contexts/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { getFromLocalStorage, getFromSessionStorage } from '../../../utils/storage';
-import { ACCESS_TOKEN } from '../../../constants/localStorageKeys';
 import useDebounce from '../../../utils/useDebounce';
 import api from '../../../api';
+import { getCurrentUser } from '../../../api/requests';
 const HeaderMobile = () => {
     const { isAuthentificated } = useAuthContext();
-    const accessToken = getFromSessionStorage(ACCESS_TOKEN) ?? getFromLocalStorage(ACCESS_TOKEN);
     const [author, setAuthor] = useState(null);
-    const apiURL = 'https://prozaapp.art/api/v1/';
     const [search, setSearch] = useState('');
     const [posts, setPosts] = useState([]);
     const [isLoading, setLoading] = useState(false);
@@ -42,20 +38,18 @@ const HeaderMobile = () => {
         loadSearch();
     }, [debouncedSearch]);
     const [jpg, setJpg] = useState(null);
-    React.useEffect(() => {
-        if (isAuthentificated) {
-            axios
-                .get(apiURL + 'prozauserprofile/?format=json', {
-                    headers: {
-                        Authorization: 'Bearer ' + accessToken
-                    }
-                })
-                .then((response) => {
-                    setAuthor(response.data.user);
-                    setJpg(response.data.photo);
-                });
+    useEffect(() => {
+        async function fetchData() {
+            if (isAuthentificated) {
+                let data = await getCurrentUser();
+                if (data) {
+                    setAuthor(data.user);
+                    setJpg(data.photo);
+                }
+            }
         }
-    });
+        fetchData();
+    }, []);
     const navigate = useNavigate();
     return (
         <>

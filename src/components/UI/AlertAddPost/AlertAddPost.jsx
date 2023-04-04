@@ -2,60 +2,33 @@ import { Alert } from 'react-bootstrap';
 import './AlertAddPost.scss';
 import Close from '../../../assets/images/Posts/Close.png';
 import React, { useState } from 'react';
-import axios from 'axios';
-import { getFromLocalStorage, getFromSessionStorage } from '../../../utils/storage';
-import { ACCESS_TOKEN } from '../../../constants/localStorageKeys';
-import jwtDecode from 'jwt-decode';
+import { publishPost } from '../../../api/requests';
 const AlertAddPost = (props) => {
-    const accessToken = getFromSessionStorage(ACCESS_TOKEN) ?? getFromLocalStorage(ACCESS_TOKEN);
-    const token = jwtDecode(accessToken);
     const [text, setText] = useState(null);
     const [title, setTitle] = useState(null);
+    const [next, setNext] = useState(false);
     const handleTextChange = (event) => {
         setText(event.target.value);
     };
     const handleTitleChange = (event) => {
         setTitle(event.target.value);
     };
-    const apiURL = 'https://prozaapp.art/api/v1/';
     const [category, setCategory] = useState(100);
     const publish = () => {
-        axios
-            .post(
-                apiURL + 'articlecreate/',
-                {
-                    headers: {
-                        Authorization: 'Bearer ' + accessToken,
-                        'Content-Type': 'application/json'
-                    },
-                    title: title,
-                    content: text,
-                    cat: category + 1,
-                    user: token.user_id
-                },
-                {
-                    headers: {
-                        Authorization: 'Bearer ' + accessToken,
-                        'Content-Type': 'application/json'
-                    }
-                }
-            )
-            .then(function (response) {
-                if (response.data.status_code === 0) {
-                    alert('Такий твір уже опублікований');
-                    setNext(false);
-                } else {
-                    window.location.href = '/profile';
-                    props.toggleAlert();
-                }
-            })
-            .catch(function (error) {
-                console.log(error);
-                alert(error);
-            });
+        async function fetchData() {
+            let data = await publishPost(title, text, category + 1);
+            if (data.status_code === 0) {
+                alert('Такий твір уже опублікований');
+                setNext(false);
+            } else {
+                setNext(false);
+                setCategory(100);
+                props.toggleAlert();
+                window.location.reload(false);
+            }
+        }
+        fetchData();
     };
-    const [next, setNext] = useState(false);
-
     return (
         <Alert show={props.alert} className={'AlertAddPost'}>
             {!next ? (

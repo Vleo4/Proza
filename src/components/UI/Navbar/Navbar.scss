@@ -14,23 +14,6 @@
     zoom: 1.5;
   }
 }
-.header-mobile {
-  display: flex;
-  position: fixed;
-  flex-direction: column;
-  align-items: start;
-  inset: 0 99% 0 0;
-  background-color: white;
-  margin: auto;
-  padding: 0;
-  @media only screen and (max-width: 1400px) {
-    zoom: 0.9;
-  }
-  @media only screen and (min-width: 1800px) {
-    zoom: 1.5;
-  }
-}
-
 nav .ul-item {
   display: block;
   margin: 0 auto;

@@ -1,0 +1,217 @@
+.signAlert{
+  top:0;
+  position: fixed;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 99;
+  backdrop-filter: blur(2px);
+  .posts{
+    background: #FFFFFF;
+    border: 1px solid #000000;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    margin-left: auto;
+    margin-right: auto;
+    height: 102vh;
+    width: 56%;
+    position:relative;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+    overflow: auto;
+    margin-top: -1%;
+    border-radius: 0;
+    @media only screen and (max-width: 1400px) {
+      overflow: hidden;
+    }
+    .signPost{
+      @media only screen and (max-width: 1400px) {
+        zoom: 0.88;
+        height: 95%;
+      }
+      margin-top: 5%;
+      width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+      border: 3px solid #FFE3FF;
+      border-radius: 15px;
+      height: 90%;
+    }
+    .headerSign{
+      margin-top: 2.5%;
+      font-family: 'Inter',system-ui;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 30px;
+      line-height: 36px;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      padding-left: 30%;
+    }
+  }
+}
+
+.textSignup{
+  margin-top: 5%;
+  font-family: 'Inter',system-ui;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 18px;
+  align-items: center;
+  color: #000000;
+  padding-left: 2rem;
+  display: flex;
+  text-align: center;
+  white-space: pre-wrap;
+}
+.miniSignup{
+  font-family: 'Inter',system-ui;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  float: right;
+  display: flex;
+  align-items: center;
+  margin-right: 5%;
+}
+.inputSignup{
+  margin-top: 1rem;
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  font-family: 'Inter', system-ui;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  display: flex;
+  align-items: center;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  height: 2.5rem;
+  @media only screen and (max-width: 1400px) {
+    height: 2rem;
+  }
+}
+
+.signAlertMobile {
+  top: 0;
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 919;
+  margin:0;
+  .postsMobile {
+    background-color: #ffffff;
+    box-sizing: border-box;
+    height:100%;
+    width: 100%;
+    position:absolute;
+    border: 0;
+    border-radius: 0;
+    margin: 0;
+    z-index: 920;
+    .signPostMobile {
+      width: 90vw;
+      border: 3px solid #FFE3FF;
+      border-radius: 15px;
+      height: 84vh;
+      margin:5vh 5vw;
+      overflow: scroll;
+    }
+    .headerSignMobile {
+      margin-top: 2.5%;
+      font-family: 'Inter', system-ui;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 25px;
+      line-height: 36px;
+      display: block;
+      align-items: center;
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+}
+.textSignupMobile{
+  width: 100%;
+  margin-top: 5%;
+  font-family: 'Inter',system-ui;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 18px;
+  align-items: center;
+  color: #000000;
+  padding-left: 5%;
+  padding-right: 1rem;
+  display: flex;
+  white-space: pre-line;
+}
+.miniSignupMobile{
+  font-family: 'Inter',system-ui;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  float: right;
+  display: flex;
+  align-items: center;
+  margin-right: 5%;
+}
+.pInput{
+  width: 7.8rem;
+  position: absolute;
+  margin-top: 2rem;
+  border: 3px solid #FFE3FF;
+  margin-left: 1rem;
+}
+.photoUser{
+  margin-top: 1rem;
+  width: 3rem;
+  border-radius: 50%;
+  height: 3rem;
+  margin-left: 9.5rem;
+  padding-left: 0;
+}
+.photoUserMobile{
+  border-radius: 50%;
+  height: 7vh;
+  width: 7vh;
+  margin-left: 0.5rem;
+  margin-top: 1rem;
+}
+.pInputMobile{
+  width: 7.9rem;
+  border: 3px solid #FFE3FF;
+  margin-left: 25vw;
+}
+
+.endMobile{
+  display: inline-block;
+  white-space: nowrap;
+  border-radius: 10px;
+  position: relative;
+  margin-top: 0.5rem;
+  font-family: 'Inter',system-ui;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 28px;
+  padding-left: 0.2rem;
+  padding-right: 0.2rem;
+  cursor: pointer;
+  height: 2rem;
+  background: white;
+  border: 2px solid #C0777F;
+  float: right;
+  margin-right: 25vw;
+  vertical-align: middle;
+}

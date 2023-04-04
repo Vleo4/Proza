@@ -1,57 +1,44 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import './Home.scss';
 import Verse from '../Verse/Verse';
 import { useAuthContext } from '../../../contexts/AuthContext';
-import { getFromLocalStorage, getFromSessionStorage } from '../../../utils/storage';
-import { ACCESS_TOKEN } from '../../../constants/localStorageKeys';
 import portrait from '../../../assets/images/portrait.svg';
-import useResizer from '../../../utils/utils';
+import { getArticles, getRecommendations } from '../../../api/requests';
 const Home = () => {
     const [rerenderC, rerenderComp] = useState(false);
     const [infinite, setInfinite] = useState({ items: [] });
     const [state, setState] = useState(null);
-    const apiURL = 'https://prozaapp.art/api/v1/';
     const { isAuthentificated } = useAuthContext();
-
-    React.useEffect(() => {
-        if (isAuthentificated) {
-            const accessToken =
-                getFromSessionStorage(ACCESS_TOKEN) ?? getFromLocalStorage(ACCESS_TOKEN);
-            axios
-                .get(apiURL + 'recommendations/?format=json', {
-                    headers: {
-                        Authorization: 'Bearer ' + accessToken
-                    }
-                })
-                .then((response) => {
-                    response.data.reverse();
-                    setState({ items: response.data });
-                    setInfinite({ items: [response.data[0], response.data[1]] });
-                });
-        } else {
-            axios
-                .get(apiURL + 'article/?format=json')
-                .then((response) => {
-                    response.data.reverse();
-                    setState({ items: response.data });
-                    setInfinite({ items: [response.data[0], response.data[1]] });
-                })
-                .catch(function () {
-                    return <img src={portrait} className={isMobile ? 'loadMobile' : 'load'} />;
-                });
+    useEffect(() => {
+        async function fetchData() {
+            let data;
+            if (isAuthentificated) {
+                data = await getRecommendations();
+            } else {
+                data = await getArticles();
+            }
+            if (data) {
+                setState({ items: data });
+                setInfinite({ items: [data[0], data[1]] });
+            }
         }
+        fetchData();
     }, [isAuthentificated]);
     const [indexCount, setIndexCount] = useState(2);
     const [hasMore, setHasMore] = useState(true);
     const fetchMoreData = () => {
-        setInfinite({ items: [...infinite.items, state.items[indexCount]] });
-        setIndexCount(indexCount + 1);
         if (indexCount === state.items.length - 1) setHasMore(false);
+        else {
+            setInfinite({ items: [...infinite.items, state.items[indexCount]] });
+            setIndexCount(indexCount + 1);
+        }
     };
-    const isMobile = useResizer();
-    if (infinite.items < 1) {
-        return <img src={portrait} className={isMobile ? 'loadMobile' : 'load'} />;
+    if (infinite.items < 1 || infinite.items[0] === undefined) {
+        return (
+            <div className='parent'>
+                <img src={portrait} className={'load'} />
+            </div>
+        );
     } else {
         return (
             <Verse

@@ -1,14 +1,12 @@
-.load{
-  position: absolute;
-  top: 40%;
-  left: 46%;
-  height: 20%;
-  width: auto;
+.parent {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  height: 100vh;
 }
-.loadMobile{
-  position: absolute;
-  top: 40%;
-  left: 30%;
-  height: 20%;
+
+.load{
+  margin-top:36vh;
+  height: 20vh;
   width: auto;
 }

@@ -27,7 +27,6 @@ class Auth {
         const response = await axios.post(`${this.apiPrefix}/v1/token/refresh/`, {
             refresh: token
         });
-
         return response.data;
     }
 }

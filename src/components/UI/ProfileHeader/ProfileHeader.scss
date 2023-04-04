@@ -1,0 +1,128 @@
+.profileHeader{
+  background-color: #ffffff;
+  box-sizing: border-box;
+  border: 3px solid #FFE3FF;
+  border-radius: 15px;
+  height: 29vh;
+  width: 95%;
+  position:relative;
+  padding-bottom:1rem;
+  margin: 1rem auto;
+  .refactor{
+    width: 1rem;
+    height: 1rem;
+    float: right;
+    margin-right: 2%;
+    border-radius: 0;
+  }
+  .avatar{
+    display: block;
+    .avatarImage {
+      width: 70px;
+      height: 70px;
+      display: inline-block;
+      margin-left: 5%;
+      position: relative;
+      border-radius: 50%;
+    }
+    .avatarImageProfile {
+      margin-left: 0.5rem;
+      height: 70px;
+      width: 70px;
+      display: inline-block;
+      position: relative;
+      border-radius: 50%;
+    }
+  }
+  .block{
+    margin-left: 5rem;
+    overflow: hidden;
+  }
+  .slug{
+    font-family: 'Inter',system-ui;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 16px;
+    margin-top: 0.25rem;
+  }
+  .textAchievement{
+    font-family: 'Inter',system-ui;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 16px;
+    color: rgba(0, 0, 0, 0.6);
+    margin-top: 0.25rem;
+  }
+  .textDesc{
+    font-family: 'Inter',system-ui;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 16px;
+    margin-top: 0.25rem;
+  }
+  img {
+    margin-left: 1.25rem;
+    margin-top: 1rem;
+    height: 7.5rem;
+    width: 7.5rem;
+    float: left;
+    display: inline-block;
+    border-radius: 50%;
+  }
+  .header{
+    position: static;
+    margin-top: 7%;
+    font-family: 'Inter',system-ui;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 18px;
+    color: #000000;
+  }
+  .allRows{
+    white-space: nowrap;
+    text-align: center;
+    margin-top: 2vh;
+    display: flex;
+    justify-content: space-between;
+    width: 35%;
+    font-family: 'Inter', system-ui;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    margin-left: 1rem;
+  }
+  .number{
+    text-align: center;
+    width: 1vh;
+    font-family: 'Inter', system-ui;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    margin-left: 1%;
+    flex:0
+  }
+  .textRow{
+    text-align: center;
+    width: 0;
+    font-family: 'Inter', system-ui;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    margin-right: 1%;
+  }
+  .achievement{
+    float: right;
+    margin-right: 8%;
+    img{
+      width: 4rem;
+      height: auto;
+    }
+  }
+}
